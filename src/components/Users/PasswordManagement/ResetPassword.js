@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Redirect, Link, useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { LockClosedIcon } from "@heroicons/react/solid";
+import { passwordResetTokenAction } from "../../../redux/slices/users/userSlice";
 // import { passwordResetAction } from "../../../redux/slices/users/usersSlices";
 
 //Form schema
@@ -14,8 +15,6 @@ const formSchema = Yup.object({
 const ResetPassword = (props) => {
 	const navigate = useNavigate();
 	const { token } = useParams();
-
-	const dispatch = useDispatch();
 	//formik
 	const formik = useFormik({
 		initialValues: {
@@ -27,7 +26,7 @@ const ResetPassword = (props) => {
 				password: values?.password,
 				token,
 			};
-			// dispatch(passwordResetAction(data));
+			dispatch(passwordResetTokenAction(data));
 		},
 		validationSchema: formSchema,
 	});
@@ -35,14 +34,12 @@ const ResetPassword = (props) => {
 	//select data from store
 	const users = useSelector((state) => state?.users);
 	const { passwordReset, loading, appErr, serverErr } = users;
-
 	//Redirect
-
 	useEffect(() => {
 		setTimeout(() => {
 			if (passwordReset) navigate("/login");
 		}, 5000);
-	}, [passwordReset]);
+	}, [passwordReset, navigate]);
 
 	return (
 		<div className="min-h-screen flex items-center justify-center bg-gray-200 py-12 px-4 sm:px-6 lg:px-8">
@@ -51,11 +48,11 @@ const ResetPassword = (props) => {
 					<h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
 						Password Reset
 					</h2>
-					<p className="mt-2 text-center text-sm text-gray-600">
+					<div className="mt-2 text-center text-sm text-gray-600">
 						<a className="font-medium text-indigo-600 hover:text-indigo-500">
 							Reset your password if you have forgotten
 						</a>
-					</p>
+					</div>
 				</div>
 				{/* Err msg */}
 				<div className="text-red-500 text-center">
@@ -134,6 +131,6 @@ const ResetPassword = (props) => {
 			</div>
 		</div>
 	);
-};
+};;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 export default ResetPassword;

@@ -3,10 +3,7 @@ import { useFormik } from "formik";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
-import {
-	sendMailAction,
-	resetEmailAction,
-} from "../../../redux/slices/email/emailSlices";
+import { sendMailAction } from "../../../redux/slices/email/emailSlices";
 
 // Form schema
 const formSchema = Yup.object({
@@ -20,11 +17,7 @@ const SendEmail = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-	console.log(
-		"🚀 ~ file: SendEmail.js ~ line 16 ~ SendEmail ~ location",
-		location
-	);
-	const { email, id } = location?.state;
+	const { email } = location?.state;
 	//formik
 	const formik = useFormik({
 		initialValues: {
@@ -42,7 +35,11 @@ const SendEmail = () => {
 	// select data from store
 	const sendMail = useSelector((state) => state?.sendMail);
 	const { isMailSent, loading, appErr, serverErr } = sendMail;
-	console.log("🚀 ~ file: SendEmail.js ~ line 45 ~ SendEmail ~ isMailSent",sendMail, isMailSent)
+	console.log(
+		"🚀 ~ file: SendEmail.js ~ line 45 ~ SendEmail ~ isMailSent",
+		sendMail,
+		isMailSent
+	);
 	if (isMailSent) {
 		navigate(`/profile/${location?.state?.id}`);
 	}

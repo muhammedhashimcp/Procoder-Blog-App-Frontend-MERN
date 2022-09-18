@@ -24,7 +24,7 @@ const UpdateProfileForm = () => {
 
 	//get user from store
 	const users = useSelector(store => store?.users);
-	const {userDetails,isUpdated, loading, appErr, serverErr, registered } = users;
+	const { userDetails, isUpdated, appErr, serverErr } = users;
 	console.log(userDetails);
 useEffect(() => {
 dispatch(fetchUserDetailsAction(id))

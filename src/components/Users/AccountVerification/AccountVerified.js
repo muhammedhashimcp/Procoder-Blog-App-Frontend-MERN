@@ -1,19 +1,14 @@
 import React, { useEffect } from "react";
 import { CheckIcon } from "@heroicons/react/outline";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { verifyAccountAction } from "../../../redux/slices/accountVerification/accVerificationSlices";
+import { logoutAction } from "../../../redux/slices/users/userSlice";
 
-// import { logoutAction } from "../../../redux/slices/users/usersSlices";
 export default function AccountVerified() {
-	const navigate = useNavigate();
 	//useparams
 	const { token } = useParams();
-	console.log(
-		"🚀 ~ file: AccountVerified.js ~ line 11 ~ AccountVerified ~ useParams()",
-		useParams(),
-		token
-	);
+
 	//dispatch
 	const dispatch = useDispatch();
 	//verify account
@@ -25,14 +20,8 @@ export default function AccountVerified() {
 	const accountVerification = useSelector(
 		(state) => state.accountVerification
 	);
-	const { loading, appErr, serverErr, isVerified, verified } =
-		accountVerification;
-	//redirect
-	// if (isVerified) {
-	// 	setTimeout(() => {
-	// 		navigate("/");
-	// 	}, 3000);
-	// }
+	const { verified } = accountVerification;
+
 	return (
 		<>
 			{verified ? (
@@ -62,7 +51,7 @@ export default function AccountVerified() {
 						</div>
 						<div className="mt-5 sm:mt-6">
 							<button
-								// onClick={() => dispatch(logoutAction())}
+								onClick={() => dispatch(logoutAction())}
 								type="button"
 								className="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
 							>

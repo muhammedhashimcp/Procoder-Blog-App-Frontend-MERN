@@ -1,7 +1,6 @@
 import axios from "axios";
 
 import { createAsyncThunk, createSlice, createAction } from "@reduxjs/toolkit";
-import baseUrl from "../../../utils/baseURL";
 
 // action to redirect
 const resetEditAction = createAction("category/reset")

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Link, useParams, useLocation, useNavigate } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
 	followUserAction,
@@ -18,12 +18,8 @@ import LoadingComponent from "../../utils/LoadingComponent";
 
 export default function Profile() {
 	console.log("logging fdrom profile");
-	// navigate
-	const navigate = useNavigate();
 	// dispatch
 	const dispatch = useDispatch();
-	// location
-	let location = useLocation();
 	// use params
 	const { id } = useParams();
 
@@ -341,6 +337,7 @@ export default function Profile() {
 																				src={
 																					user.profilePhoto
 																				}
+																				alt=""
 																			/>
 																			<div className="font-medium text-lg leading-6 space-y-1">
 																				<h3>

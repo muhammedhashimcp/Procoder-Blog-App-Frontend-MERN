@@ -34,9 +34,9 @@ const Login = () => {
 	const { userAuth, loading, serverErr, appErr } = store;
 	useEffect(() => {
 		if (userAuth) {
-			navigate(`/profile/${userAuth?._id}`)
+			navigate(`/profile/${userAuth?._id}`);
 		}
-	}, [userAuth])
+	}, [userAuth, navigate]);
 	return (
 		<>
 			<section className="min-h-screen relative py-20 2xl:py-40 bg-gray-900 overflow-hidden">

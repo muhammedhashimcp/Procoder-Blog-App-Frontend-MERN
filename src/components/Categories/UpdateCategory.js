@@ -14,12 +14,14 @@ const UpdateCategory = () => {
 	const navigate=useNavigate()
 	const dispatch = useDispatch()
 	let { id } = useParams();
-	useEffect(() => { dispatch(fetchCategoryAction(id))},[])
+	useEffect(() => {
+		dispatch(fetchCategoryAction(id));
+	}, [id, dispatch]);
 	console.log("update category");
 
 	// get data from store
-	const state = useSelector(state => state?.category);
-	const { loading, appErr, serverErr, category, updatedCategory, isEdited, isDeleted } = state;
+	const state = useSelector((state) => state?.category);
+	const { loading, appErr, serverErr, category, isEdited, isDeleted } = state;
 	const formik = useFormik({
 		enableReinitialize:true,
 		initialValues: {

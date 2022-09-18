@@ -7,7 +7,6 @@ import Navbar from "./components/Navigation/Navbar";
 import Login from "./components/Users/Login/Login";
 import Register from "./components/Users/Register/Register";
 import Profile from "./components/Profile/Profile";
-import Sample from "./components/Users/Sample";
 import PageNotFound from "./components/PageNotFound";
 import AddNewCategory from "./components/Categories/AddNewCategory";
 import CategoryList from "./components/Categories/CategoryList";
@@ -23,28 +22,15 @@ import UploadProfilePhoto from "./components/Profile/UploadProfilePhoto";
 import UpdateProfileForm from "./components/Profile/UpdateProfileForm";
 import UsersList from "./components/Users/UsersList/UsersList";
 import SendEmail from "./components/Users/SendEmail/SendEmail";
-import ProtectRouter from "./components/Navigation/ProtectedRoutes/ProtectRouter";
 import AccountVerified from "./components/Users/AccountVerification/AccountVerified";
 import UpdatePassword from "./components/Users/PasswordManagement/UpdatePassword";
-import ResetPassword from "./components/Users/PasswordManagement/ResetPassword";
 import ResetPasswordForm from "./components/Users/PasswordManagement/ResetPasswordForm";
-
-// import { ToastContainer } from "react-toastify";
-// import { GoogleOAuthProvider } from "@react-oauth/google";
-// import Unauthorized from "./components/UnAuth/UnAuthorized";
-
-// const ROLES = {
-// 	Admin: "Admin",
-// 	Private: "Private",
-// 	Public: "Public",
-// };
 
 function App() {
 	return (
 		<>
 			<Router>
 				<Navbar />
-				{/* <ToastContainer /> */}
 				<Routes>
 					{/*
   ┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -66,14 +52,7 @@ function App() {
   │ Private Route                                                                                                  │
   └────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  */}
-					<Route
-						path="/"
-						element={
-							<UserProtectedRoute
-							// allowedRoles={[ROLES.Private, ROLES.Admin]}
-							/>
-						}
-					>
+					<Route path="/" element={<UserProtectedRoute />}>
 						<Route path="/create-post" element={<CreatePost />} />
 						<Route
 							path="/update-post/:id"
@@ -109,17 +88,8 @@ function App() {
   └─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  */}
 
-					<Route
-						path="/"
-						element={
-							<AdminProtectedRoute />
-							// allowedRoles={[ROLES.Admin]}
-						}
-					>
+					<Route path="/" element={<AdminProtectedRoute />}>
 						<Route path="/users" element={<UsersList />} />
-						{/* <Route path='/add-category' element={<AdminProtectedRoute>
-						<AddNewCategory />
-					</AdminProtectedRoute>} /> */}
 						<Route
 							path="/add-category"
 							element={<AddNewCategory />}
