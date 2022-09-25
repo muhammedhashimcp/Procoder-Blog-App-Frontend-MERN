@@ -3,7 +3,6 @@ import DropZone from 'react-dropzone'
 import styled from 'styled-components'
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
-// import { createPostAction } from "../../../redux/slices/posts/postSlices";
 import { createPostAction } from "../../redux/slices/posts/postSlices";
 import CategoriesOptions from "../Categories/CategoriesOptions";
 import { useNavigate } from "react-router-dom";

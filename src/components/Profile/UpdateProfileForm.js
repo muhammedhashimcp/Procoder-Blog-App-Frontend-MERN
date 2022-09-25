@@ -1,46 +1,45 @@
-
-import React, { useEffect } from "react";
-import { useFormik } from "formik";
-import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import * as Yup from "yup";
-import { fetchUserDetailsAction, updateUserAction } from "../../redux/slices/users/userSlice";
+import React, { useEffect } from 'react';
+import { useFormik } from 'formik';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import * as Yup from 'yup';
+import {
+	fetchUserDetailsAction,
+	updateUserAction,
+} from '../../redux/slices/users/userSlice';
 
 //Form schema
 const formSchema = Yup.object({
-	firstName: Yup.string().required("First Name is required"),
-	lastName: Yup.string().required("Last Name is required"),
-	email: Yup.string().required("Email is required"),
-	bio: Yup.string().required("Bio is required"),
+	firstName: Yup.string().required('First Name is required'),
+	lastName: Yup.string().required('Last Name is required'),
+	email: Yup.string().required('Email is required'),
+	bio: Yup.string().required('Bio is required'),
 });
 
-
-
 const UpdateProfileForm = () => {
-	const {id}=useParams()
-	const navigate = useNavigate()
+	const { id } = useParams();
+	const navigate = useNavigate();
 	//dispath
 	const dispatch = useDispatch();
 
 	//get user from store
-	const users = useSelector(store => store?.users);
+	const users = useSelector((store) => store?.users);
 	const { userDetails, isUpdated, appErr, serverErr } = users;
 	console.log(userDetails);
-useEffect(() => {
-dispatch(fetchUserDetailsAction(id))
-}, [id,dispatch])
-
+	useEffect(() => {
+		dispatch(fetchUserDetailsAction(id));
+	}, [id, dispatch]);
 
 	//formik
 	const formik = useFormik({
-		enableReinitialize:true,
+		enableReinitialize: true,
 		initialValues: {
 			firstName: userDetails?.firstName,
 			lastName: userDetails?.lastName,
 			email: userDetails?.email,
 			bio: userDetails?.bio,
 		},
-		onSubmit: values => {
+		onSubmit: (values) => {
 			//dispatch the action
 			dispatch(updateUserAction(values));
 			console.log(values);
@@ -50,16 +49,25 @@ dispatch(fetchUserDetailsAction(id))
 
 	//navigate
 	if (isUpdated) {
-		navigate(`/profile/${id}`)
+		navigate(`/profile/${id}`);
 	}
 	return (
 		<div className="min-h-screen bg-gray-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
 			<div className="sm:mx-auto sm:w-full sm:max-w-md">
 				<h3 className="mt-6 text-center text-3xl font-extrabold text-gray-300">
-					Hello <span className="text-green-300"> {userDetails?.firstName} {userDetails?.firstName}</span>, Do you want to update your profile?
+					Hello{' '}
+					<span className="text-green-300">
+						{' '}
+						{userDetails?.firstName} {userDetails?.firstName}
+					</span>
+					, Do you want to update your profile?
 				</h3>
 				{/* ERR */}
-				{serverErr || appErr ? (<h2 className="text-red-300 text-center">{serverErr} { appErr}</h2> ):null}
+				{serverErr || appErr ? (
+					<h2 className="text-red-300 text-center">
+						{serverErr} {appErr}
+					</h2>
+				) : null}
 			</div>
 
 			<div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
@@ -76,8 +84,8 @@ dispatch(fetchUserDetailsAction(id))
 								{/* First name */}
 								<input
 									value={formik.values.firstName}
-									onChange={formik.handleChange("firstName")}
-									onBlur={formik.handleBlur("firstName")}
+									onChange={formik.handleChange('firstName')}
+									onBlur={formik.handleBlur('firstName')}
 									id="firstName"
 									name="firstName"
 									type="text"
@@ -86,7 +94,8 @@ dispatch(fetchUserDetailsAction(id))
 								/>
 							</div>
 							<div className="text-red-500">
-								{formik.touched.firstName && formik.errors.firstName}
+								{formik.touched.firstName &&
+									formik.errors.firstName}
 							</div>
 						</div>
 						<div>
@@ -100,8 +109,8 @@ dispatch(fetchUserDetailsAction(id))
 								{/* Last Name */}
 								<input
 									value={formik.values.lastName}
-									onChange={formik.handleChange("lastName")}
-									onBlur={formik.handleBlur("lastName")}
+									onChange={formik.handleChange('lastName')}
+									onBlur={formik.handleBlur('lastName')}
 									id="lastName"
 									name="lastName"
 									type="text"
@@ -111,7 +120,8 @@ dispatch(fetchUserDetailsAction(id))
 							</div>
 							{/* Err msg */}
 							<div className="text-red-500">
-								{formik.touched.lastName && formik.errors.lastName}
+								{formik.touched.lastName &&
+									formik.errors.lastName}
 							</div>
 						</div>
 						<div>
@@ -125,8 +135,8 @@ dispatch(fetchUserDetailsAction(id))
 								{/* Email */}
 								<input
 									value={formik.values.email}
-									onChange={formik.handleChange("email")}
-									onBlur={formik.handleBlur("email")}
+									onChange={formik.handleChange('email')}
+									onBlur={formik.handleBlur('email')}
 									id="email"
 									name="email"
 									type="email"
@@ -148,8 +158,8 @@ dispatch(fetchUserDetailsAction(id))
 							</label>
 							<textarea
 								value={formik.values.bio}
-								onChange={formik.handleChange("bio")}
-								onBlur={formik.handleBlur("bio")}
+								onChange={formik.handleChange('bio')}
+								onBlur={formik.handleBlur('bio')}
 								rows="5"
 								cols="10"
 								className="rounded-lg appearance-none block w-full py-3 px-3 text-base text-center leading-tight text-gray-600 bg-transparent focus:bg-transparent  border border-gray-200 focus:border-gray-500  focus:outline-none"

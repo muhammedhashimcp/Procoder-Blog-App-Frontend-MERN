@@ -5,7 +5,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { LockClosedIcon } from "@heroicons/react/solid";
 import { passwordResetTokenAction } from "../../../redux/slices/users/userSlice";
-// import { passwordResetAction } from "../../../redux/slices/users/usersSlices";
 
 //Form schema
 const formSchema = Yup.object({
@@ -14,13 +13,14 @@ const formSchema = Yup.object({
 
 const ResetPassword = (props) => {
 	const navigate = useNavigate();
+	  const dispatch = useDispatch();
 	const { token } = useParams();
 	//formik
 	const formik = useFormik({
 		initialValues: {
 			pasword: "",
 		},
-		onSubmit: (values) => {
+		onSubmit: values => {
 			//dispath the action
 			const data = {
 				password: values?.password,
@@ -131,6 +131,6 @@ const ResetPassword = (props) => {
 			</div>
 		</div>
 	);
-};;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+}
 
 export default ResetPassword;

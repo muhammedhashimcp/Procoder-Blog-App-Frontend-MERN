@@ -7,7 +7,7 @@ function ProtectRouter({allowedRoles}) {
     const {userAuth} = useSelector(user => user?.users)
     const location = useLocation()
   return (
-    //
+
     userAuth?.roles?.find(role => allowedRoles?.includes(role))
     ? <Outlet />
     : userAuth

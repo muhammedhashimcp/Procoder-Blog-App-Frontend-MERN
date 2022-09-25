@@ -28,7 +28,6 @@ const Navbar = () => {
 			{userAuth && !userAuth.isVerified && (
 				<AccountVerificationAlertWarning />
 			)}
-
 			{/* display success msg */}
 			{loading && <h2 className="text-center">Loading please wait...</h2>}
 			{token && <AccountVerificationSuccessAlert />}
@@ -39,6 +38,6 @@ const Navbar = () => {
 			) : null}
 		</>
 	);
-};;;;;;;;;;;;;;;;;
+}
 
 export default Navbar;

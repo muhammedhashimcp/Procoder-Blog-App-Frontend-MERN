@@ -42,8 +42,8 @@ export default function UpdateComment() {
 
 	// redirect
 	if (isUpdated) {
-		// navigate(`/posts/${id}`)
-		navigate(-1)
+		navigate(`/posts/${id}`)
+		// navigate(-1)
 	}
 
 	return (
