@@ -1,6 +1,6 @@
 import React from "react";
 import { useFormik } from "formik";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import { registerUserAction } from "../../../redux/slices/users/userSlice";
@@ -117,10 +117,10 @@ const Register = () => {
 										<input
 											value={formik.values.firstName}
 											onChange={formik.handleChange(
-												"firstName"
+												'firstName'
 											)}
 											onBlur={formik.handleBlur(
-												"firstName"
+												'firstName'
 											)}
 											className="w-full pl-4 pr-6 py-4 font-bold placeholder-gray-300 rounded-r-full focus:outline-none"
 											type="firstName"
@@ -175,10 +175,10 @@ const Register = () => {
 										<input
 											value={formik.values.lastName}
 											onChange={formik.handleChange(
-												"lastName"
+												'lastName'
 											)}
 											onBlur={formik.handleBlur(
-												"lastName"
+												'lastName'
 											)}
 											className="w-full pl-4 pr-6 py-4 font-bold placeholder-gray-300 rounded-r-full focus:outline-none"
 											type="lastName"
@@ -232,11 +232,10 @@ const Register = () => {
 										</span>
 										<input
 											value={formik.values.email}
-
 											onChange={formik.handleChange(
-												"email"
+												'email'
 											)}
-											onBlur={formik.handleBlur("email")}
+											onBlur={formik.handleBlur('email')}
 											className="w-full pl-4 pr-6 py-4 font-bold placeholder-gray-300 rounded-r-full focus:outline-none"
 											type="email"
 											placeholder="example@gmail.com"
@@ -270,10 +269,10 @@ const Register = () => {
 										<input
 											value={formik.values.password}
 											onChange={formik.handleChange(
-												"password"
+												'password'
 											)}
 											onBlur={formik.handleBlur(
-												"password"
+												'password'
 											)}
 											className="w-full pl-4 pr-6 py-4 font-bold placeholder-gray-300 rounded-r-full focus:outline-none"
 											type="password"
@@ -305,6 +304,14 @@ const Register = () => {
 										</button>
 									)}
 								</form>
+								<div className="p-2 flex justify-end">
+									<Link
+										to="/register"
+										className="font-medium text-indigo-600 hover:text-indigo-500"
+									>
+										Not registered yet? Sign-up
+									</Link>
+								</div>
 							</div>
 						</div>
 					</div>

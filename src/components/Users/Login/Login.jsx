@@ -87,10 +87,10 @@ const Login = () => {
 											<input
 												value={formik.values.email}
 												onChange={formik.handleChange(
-													"email"
+													'email'
 												)}
 												onBlur={formik.handleBlur(
-													"email"
+													'email'
 												)}
 												className="w-full pr-6 pl-4 py-4 font-bold placeholder-gray-300 rounded-r-full focus:outline-none"
 												type="email"
@@ -126,10 +126,10 @@ const Login = () => {
 											<input
 												value={formik.values.password}
 												onChange={formik.handleChange(
-													"password"
+													'password'
 												)}
 												onBlur={formik.handleBlur(
-													"password"
+													'password'
 												)}
 												className="w-full pr-6 pl-4 py-4 font-bold placeholder-gray-300 rounded-r-full focus:outline-none"
 												type="password"
@@ -158,13 +158,23 @@ const Login = () => {
 											</button>
 										)}
 									</form>
-									<div className="p-2">
-										<Link
-											to="/password-reset-token"
-											className="font-medium text-indigo-600 hover:text-indigo-500"
-										>
-											Forgot Password ?
-										</Link>
+									<div className="flex justify-between">
+										<div className="p-2">
+											<Link
+												to="/password-reset-token"
+												className="font-medium text-indigo-600 hover:text-indigo-500"
+											>
+												Forgot Password ?
+											</Link>
+										</div>
+										<div className="p-2">
+											<Link
+												to="/register"
+												className="font-medium text-indigo-600 hover:text-indigo-500"
+											>
+												Not registered yet? Sign-up
+											</Link>
+										</div>
 									</div>
 								</div>
 							</div>
