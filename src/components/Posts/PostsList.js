@@ -36,7 +36,7 @@ export default function PostsList() {
 	return (
 		<>
 			<section className="">
-				<div class="py-20 bg-[#F1F5F9] min-h-screen radius-for-skewed">
+				<div class="py-20 bg-white min-h-screen radius-for-skewed">
 					<div class="container mx-auto px-4">
 						<div class="mb-16 flex flex-wrap items-center">
 							<div class="w-full lg:w-1/2 lg:fixed ">
@@ -104,14 +104,14 @@ export default function PostsList() {
 									<h1>No Post Found</h1>
 								) : (
 									postLists?.map((post, index) => (
-										<div class="flex flex-wrap bg-[#F1F5F9]  lg:mb-6 border border-gray-400 rounded-xl mr-10 p-10">
+										<div class="flex flex-wrap bg-[#F1F5F9] md:mb-6 lg:mb-6 border border-gray-400 rounded-xl mr-10 p-10">
 											<div class="mb-10  w-full lg:w-1/4">
 												<Link
 													to={`/posts/${post?._id}`}
 												>
 													{/* Post image */}
 													<img
-														class="w-full h-full object-cover rounded"
+														class="w-full h-full  rounded 	object-fit"
 														src={post?.image}
 														alt=""
 													/>
@@ -247,7 +247,6 @@ export default function PostsList() {
 																	}
 																/>
 															</time>
-														
 														</div>
 													</div>
 												</div>

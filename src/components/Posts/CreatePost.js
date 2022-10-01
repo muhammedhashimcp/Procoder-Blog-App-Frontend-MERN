@@ -15,9 +15,16 @@ import { useEffect } from 'react';
 // Form schema
 const formSchema = Yup.object({
 	title: Yup.string().required('Title is required'),
-	description: Yup.string().required('Description is required'),
+	description: Yup.string()
+		.required('Description is required')
+		.test(
+			'len',
+			'Must be more than 1000 characters',
+			(val) => val.length > 1000
+		),
 	category: Yup.object().required('Category is required'),
 	image: Yup.string().required('Image is required'),
+
 });
 
 //css for dropzone
@@ -38,6 +45,8 @@ transition: border 0.24s ease-in-out;
 
 export default function CreatePost() {
 	const [preview, setPreview] = useState('');
+	const [tags, setTags] = useState([]);
+
 	console.log(
 		'🚀 ~ file: CreatePost.js ~ line 40 ~ CreatePost ~ preview',
 		preview
@@ -64,7 +73,13 @@ export default function CreatePost() {
 				title: values?.title,
 				description: values?.description,
 				image: values?.image,
+				tags: tags,
 			};
+			console.log(
+				'🚀 ~ file: CreatePost.js ~ line 69 ~ CreatePost ~ data',
+				data
+			);
+
 			dispatch(createPostAction(data));
 		},
 		validationSchema: formSchema,
@@ -84,7 +99,6 @@ export default function CreatePost() {
 		}
 	}, [image]);
 	// Tags
-	const [tags, setTags] = useState([]);
 	const addTag = (e) => {
 		console.log(e.target.value, e.key);
 		if (e.key === 'Enter') {
@@ -101,7 +115,9 @@ export default function CreatePost() {
 		const newTags = tags.filter((tag) => tag !== removedTag);
 		setTags(newTags);
 	};
-	// console.log(tags);
+	const clearTags = () => {
+		setTags([]);
+	};
 	return (
 		<>
 			<div className="min-h-screen bg-white flex flex-col justify-center  px-4 sm:px-6 lg:px-8 overflow-hidden relative">
@@ -182,14 +198,16 @@ export default function CreatePost() {
 								</label>
 								{/* image preview */}
 								{preview ? (
-									<img
-										className="mx-auto w-50 h-50"
-										src={preview}
-										alt=""
-										onClick={() => {
-											setPreview(null);
-										}}
-									/>
+									<div className="border border-gray-300 p-2 bg-gray-100 rounded-md shadow-sm">
+										<img
+											className="mx-auto  w-2/4"
+											src={preview}
+											alt=""
+											onClick={() => {
+												setPreview(null);
+											}}
+										/>
+									</div>
 								) : (
 									<Container className="container bg-gray-700">
 										<DropZone
@@ -274,7 +292,7 @@ export default function CreatePost() {
 											>
 												{tag}
 												<span
-													className='text-xl text-red-700 ml-5'
+													className="text-xl text-red-700 ml-5"
 													onClick={() =>
 														removeTag(tag)
 													}
@@ -283,27 +301,30 @@ export default function CreatePost() {
 												</span>
 											</div>
 										))}
-
-										<input className='text-lg border-0 ml-3 pl-3' type="text" onKeyDown={addTag} placeholder='Tag your Blog with five keywords'/>
+										{tags.length < 5 && (
+											<input
+												className="text-lg border-0 ml-3 pl-3"
+												type="text"
+												onKeyDown={addTag}
+												placeholder="Tag your Blog with five keywords"
+											/>
+										)}
+										<button className="border ml-auto text-lg border-gray-600 px-5 bg-red-600  rounded ">
+											<span
+												className="text-xl text-white "
+												onClick={() => clearTags()}
+											>
+												Clear
+											</span>
+										</button>
 									</div>
-									{/* <input
-										value={formik?.values?.tags}
-										onChange={formik?.handleChange('tags')}
-										onBlur={formik?.handleBlur('tags')}
-										id="tags"
-										name="tags"
-										type="text"
-										onKeyDown={addTag}
-										autoComplete="tags"
-										placeholder="Input Tags  to your blog for search "
-										className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-									/>*/}
 								</div>
-								{/* Err msg */}
-								{/* <div className="text-red-500">
-									{formik.touched.title &&
-										formik.errors.title}
-								</div> */}
+								{/* Tag Err msg */}
+								<div className="text-red-500">
+									{tags.length > 0 &&
+										tags.length < 2 &&
+										'Minimum 2 tags reguired'}
+								</div>
 							</div>
 							<div className="w-full flex flex-row py-2 px-4 justify-center gap-6  ">
 								<button
