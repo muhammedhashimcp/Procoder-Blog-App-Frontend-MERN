@@ -35,46 +35,24 @@ export default function PostsList() {
 	}, [dispatch, likes, disLikes]);
 	return (
 		<>
-			<section className="mt-32">
-				<div className="py-20 bg-white min-h-screen radius-for-skewed ">
-					<div className="container mx-auto px-4">
-						<div className="mb-16 flex flex-wrap items-center">
-							{/* <div className="w-full lg:w-1/2 lg:fixed">
-								<span class="text-green-600 font-bold">
-									<span className="text-slate-700 font-bold">
+			<section className="">
+				<div class="py-20 bg-[#F1F5F9] min-h-screen radius-for-skewed">
+					<div class="container mx-auto px-4">
+						<div class="mb-16 flex flex-wrap items-center">
+							<div class="w-full lg:w-1/2 lg:fixed ">
+								{/* <span class="text-green-600 font-bold"> */}
+								<span class="text-slate-700 font-bold">
 									Latest Posts from our awesome authors
 								</span>
-								<h2 className="text-4xl text-black lg:text-5xl font-bold font-heading">
-									Latest Posts
+								<h2 class="text-4xl text-black lg:text-5xl font-bold font-heading ">
+									Latest Post
 								</h2>
-							</div> */}
-							         <div class="w-full lg:w-1/2 lg:fixed ">
-                <span class="text-green-600 font-bold">
-                  Latest Posts from our awesome authors
-                </span>
-                <h2 class="text-4xl text-black lg:text-5xl font-bold font-heading ">
-                  Latest Post
-                </h2>
-              </div>
-							{/* View All */}
-							{/* <div className=" block text-right w-1/2">
-								<button
-									onClick={() =>
-										dispatch(fetchPostsAction(''))
-									}
-									className="inline-block py-2 px-6 rounded-l-xl rounded-t-xl bg-green-600 hover:bg-green-700 text-gray-50 font-bold leading-loose transition duration-200"
-								>
-									View All Posts
-								</button>
-							</div> */}
+							</div>
 						</div>
-						<div className="flex flex-wrap -mx-3">
-							<div className="mb-8 lg:mb-0 w-full lg:w-1/4 px-3 lg:fixed">
-								<div className="py-4 px-6 bg-gray-200 shadow rounded lg:overflow-hidden lg:hover:overflow-y-scroll  lg:max-h-[600px]">
-									{/* <h4 className="mb-4 text-slate-600 font-bold uppercase flex justify-center">
-										Categories
-									</h4> */}
-									<h4 class="mb-4 text-black font-bold uppercase">
+						<div class="flex flex-wrap -mx-3">
+							<div class="mb-8 lg:mb-0 w-full lg:w-1/4 px-3 lg:fixed ">
+								<div class="py-4 px-6 bg-gray-200 shadow rounded lg:overflow-hidden lg:hover:overflow-y-scroll  lg:max-h-[600px]">
+									<h4 class="mb-4 text-slate-700 text-xl font-bold uppercase flex justify-center">
 										Categories
 									</h4>
 									<ul>
@@ -87,20 +65,16 @@ export default function PostsList() {
 											View All Posts
 										</p>
 										{catLoading ? (
-											<div className='flex flex-row justify-center'>
-												<LoadingComponent />
-											</div>
+											<LoadingComponent />
 										) : catAppErr || catServerErr ? (
 											<h1>
 												{catServerErr} {catAppErr}
 											</h1>
 										) : categoryList?.length <= 0 ? (
-											<h1 className="text-yellow-400 text-lg text-center">
-												No Category Found
-											</h1>
+											<h1>No Category Found</h1>
 										) : (
 											categoryList?.map((category) => (
-												<li key={category._id}>
+												<li>
 													<p
 														onClick={() =>
 															dispatch(
@@ -109,7 +83,7 @@ export default function PostsList() {
 																)
 															)
 														}
-														className=" cursor-pointer py-2 px-3 mb-4 rounded text-white font-bold bg-gray-700 flex justify-center"
+														className="block cursor-pointer py-2 px-3 mb-4 rounded text-white font-bold bg-gray-500"
 													>
 														{category?.title}
 													</p>
@@ -119,37 +93,34 @@ export default function PostsList() {
 									</ul>
 								</div>
 							</div>
-							<div className="w-full lg:w-3/4 px-3 py-3 ">
+							<div class="w-full lg:ml-[25%] lg:w-3/4 px-3">
 								{/* Post goes here */}
-								{/* {loading ? <LoadingComponent /> : null} */}
+
 								{appErr || serverErr ? (
-									<h1 className="text-red-600 text-center text-lg">
+									<p className="mt-2 text-center text-lg text-red-600">
 										{serverErr} {appErr}
-									</h1>
+									</p>
 								) : postLists?.length <= 0 ? (
-									<h1 className="text-yellow-400 text-lg   font-bold text-center">
-										No Post Found
-									</h1>
+									<h1>No Post Found</h1>
 								) : (
-									postLists?.map((post) => (
-										<div
-											key={post._id}
-											className="flex flex-wrap bg-white -mx-3 pb-3 lg:mb-6 shadow  shadow-black"
-										>
-											<div className="  w-full lg:w-1/4 px-3 ">
-												<Link to="">
+									postLists?.map((post, index) => (
+										<div class="flex flex-wrap bg-[#F1F5F9]  lg:mb-6 border border-gray-400 rounded-xl mr-10 p-10">
+											<div class="mb-10  w-full lg:w-1/4">
+												<Link
+													to={`/posts/${post?._id}`}
+												>
 													{/* Post image */}
 													<img
-														className="w-full pb-3 object-cover rounded"
+														class="w-full h-full object-cover rounded"
 														src={post?.image}
 														alt=""
 													/>
 												</Link>
 												{/* Likes, views dislikes */}
-												<div className="flex flex-row bg-gray-400  justify-center w-full  items-center ">
+												<div className="flex flex-row bg-gray-300 justify-center w-full  items-center mt-2">
 													{/* Likes */}
-													<div className="flex flex-row justify-center items-center ml-4 mr-2 pb-2 pt-1">
-														{/* Toggle like  */}
+													<div className="flex flex-row justify-center items-center ml-4 mr-4 pb-2 pt-1">
+														{/* Togle like  */}
 														<div className="">
 															<ThumbUpIcon
 																onClick={() =>
@@ -159,14 +130,14 @@ export default function PostsList() {
 																		)
 																	)
 																}
-																className="h-7 w-7 text-gray-600 cursor-pointer"
+																className="h-7 w-7 text-indigo-600 cursor-pointer"
 															/>
 														</div>
-														<div className="pl-1 text-gray-600">
-															{
-																post?.likes
-																	?.length
-															}
+														<div className="pl-2 text-gray-600">
+															{post?.likes?.length
+																? post?.likes
+																		?.length
+																: 0}
 														</div>
 													</div>
 													{/* Dislike */}
@@ -184,14 +155,15 @@ export default function PostsList() {
 															/>
 														</div>
 														<div className="pl-2 text-gray-600">
-															{
-																post?.disLikes
-																	?.length
-															}
+															{post?.disLikes
+																?.length
+																? post?.disLikes
+																		?.length
+																: 0}
 														</div>
 													</div>
 													{/* Views */}
-													<div className="flex flex-row justify-center items-center ml-4 mr-4 py-2">
+													<div className="flex flex-row justify-center items-center ml-4 mr-4 pb-2 pt-1">
 														<div>
 															<EyeIcon className="h-7 w-7  text-gray-400" />
 														</div>
@@ -201,34 +173,46 @@ export default function PostsList() {
 													</div>
 												</div>
 											</div>
-											<div className="w-full lg:w-3/4 px-5 flex flex-col ">
+											<div class=" flex flex-col w-full lg:w-3/4 px-3 mt-10 lg:mt-0 ">
 												<Link
-													to=""
+													to={`/posts/${post?._id}`}
 													className="hover:underline"
 												>
-													<h3 className="mb-1 text-2xl text-slate-800 font-bold font-heading cursor-pointer">
-														{/* {capitalizeWord(post?.title)}  */}
+													<h3 class="mb-1 text-3xl text-slate-800 font-bold font-heading cursor-pointer">
+														{/* {capitalizeWord(post?.title)} */}
 														{post?.title}
 													</h3>
 												</Link>
-												{/* <p className="text-gray-300">
-													{post?.description}
-												</p> */}
-												<p class="text-black truncate ">
-													{post?.description}
-												</p>
-
+												{/* <div className="">
+                          <p class="text-black break-words ">{post?.description}</p>
+                        </div> */}
+												<div
+													style={{
+														overflow: 'hidden',
+														textOverflow:
+															'ellipsis',
+														height: '150px',
+													}}
+													class="text-black"
+													dangerouslySetInnerHTML={{
+														__html: post?.description,
+													}}
+												></div>
 												{/* Read more */}
 												<Link
 													to={`/posts/${post?._id}`}
 													className="text-indigo-500 hover:underline"
 												>
-													Read More...
+													<p className="text-blue-700 cursor-pointer">
+														Read More..
+													</p>
 												</Link>
 												{/* User Avatar */}
-												<div className="mt-10 flex items-center mt-auto">
+												<div className=" mt-auto flex items-center">
 													<div className="flex-shrink-0">
-														<Link to="">
+														<Link
+															to={`/profile/${post?.user?._id}`}
+														>
 															<img
 																className="h-10 w-10 rounded-full"
 																src={
@@ -243,12 +227,12 @@ export default function PostsList() {
 														<p className="text-sm font-medium text-gray-900">
 															<Link
 																to={`/profile/${post?.user?._id}`}
-																className="text-slate-800 hover:underline "
+																className="text-slate-800 md:text-xl hover:underline "
 															>
 																{
 																	post?.user
 																		?.firstName
-																}
+																}{' '}
 																{
 																	post?.user
 																		?.lastName
@@ -263,12 +247,14 @@ export default function PostsList() {
 																	}
 																/>
 															</time>
-															<span aria-hidden="true">
-																&middot;
-															</span>
+														
 														</div>
 													</div>
 												</div>
+												{/* <p class="text-gray-500">
+                             Quisque id sagittis turpis. Nulla sollicitudin rutrum
+                             eros eu dictum...
+                           </p> */}
 											</div>
 										</div>
 									))
@@ -277,32 +263,26 @@ export default function PostsList() {
 						</div>
 					</div>
 				</div>
-				<div className="bg-gray-900">
-					<div className="skew bg-green-500 skew-bottom mr-for-radius">
-						<svg
-							className="h-8 md:h-12 lg:h-10 w-full text-gray-900"
-							viewBox="0 0 10 10"
-							preserveAspectRatio="none"
-						>
-							<polygon
-								fill="currentColor"
-								points="0 0 10 0 0 10"
-							></polygon>
-						</svg>
-					</div>
-					<div className="skew bg-gray-500  skew-bottom ml-for-radius">
-						<svg
-							className="h-8 bg-gray-500 md:h-12 lg:h-20 w-full text-gray-900"
-							viewBox="0 0 10 10"
-							preserveAspectRatio="none"
-						>
-							<polygon
-								fill="currentColor"
-								points="0 0 10 0 10 10"
-							></polygon>
-						</svg>
-					</div>
-				</div>
+				{/* <div className="bg-gray-900">
+          <div class="skew bg-green-500 skew-bottom mr-for-radius">
+            <svg
+              class="h-8 md:h-12 lg:h-10 w-full text-gray-900"
+              viewBox="0 0 10 10"
+              preserveAspectRatio="none"
+            >
+              <polygon fill="currentColor" points="0 0 10 0 0 10"></polygon>
+            </svg>
+          </div>
+          <div class="skew bg-gray-500  skew-bottom ml-for-radius">
+            <svg
+              class="h-8 bg-gray-500 md:h-12 lg:h-20 w-full text-gray-900"
+              viewBox="0 0 10 10"
+              preserveAspectRatio="none"
+            >
+              <polygon fill="currentColor" points="0 0 10 0 10 10"></polygon>
+            </svg>
+          </div>
+        </div> */}
 			</section>
 		</>
 	);

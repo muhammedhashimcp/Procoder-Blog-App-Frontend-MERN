@@ -11,9 +11,7 @@ border-color:red;
 `;
 const LoadingComponent = () => {
 	return (
-		<div className="mx-auto">
 			<RiseLoader color="red" loading={true} css={override} />
-		</div>
 	);
 }
 
