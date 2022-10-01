@@ -32,7 +32,7 @@ const CategoriesOptions = (props) => {
 		<div style={{ margin: "1rem 0" }}>
 			{loading ? (
 				<h3 className="text-base text-green-600">
-					Product categories list are loading please wait
+					Product categories list are loading please wait...
 				</h3>
 			) : (
 				<Select

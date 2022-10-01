@@ -1,10 +1,10 @@
 import React from 'react';
 import poster from '../../img/bgi.jpg';
 const HomePage = () => {
-	return ( 
+	return (
 		<>
-			<section className="pb-7 pt-2 px-14 bg-white mt-16">
-				<div className="px-auto ">
+			<section className=" min-h-screen  py-20 2xl:py-40 pb-7 pt-2 px-14 bg-white mt-16">
+				<div className="container px-auto mx-auto ">
 					<div className="flex flex-wrap items-center -mx-4 mb-10 2xl:mb-14">
 						<div className="w-full lg:w-1/2 px-4 mb-16 lg:mb-0">
 							<span className="text-2xl font-bold text-black">

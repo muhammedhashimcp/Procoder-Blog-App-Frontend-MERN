@@ -6,12 +6,12 @@ import { MenuIcon, XIcon, BookOpenIcon } from "@heroicons/react/outline";
 import { PlusIcon, LogoutIcon } from "@heroicons/react/solid";
 import { useDispatch } from 'react-redux'
 import { logoutAction } from "../../../redux/slices/users/userSlice";
+import Procoder from '../../../img/procoder logo.jpg';
 
 
 const navigation = [
 	{ name: "Home", href: "/", current: true },
-	{ name: "Create", href: "/create-post", current: false },
-	{ name: "Posts", href: "/posts", current: false },
+	{ name: "Blogs", href: "/blogs", current: false },
 	{ name: "Profile", href: "/users", current: false },
 ];
 
@@ -28,7 +28,10 @@ const PrivateNavbar = ({ isLogin }) => {
 	const dispatch = useDispatch()
 
 	return (
-		<Disclosure as="nav" className="bg-gray-800">
+		<Disclosure
+			as="nav"
+			className="bg-white border rounded-b-2xl drop-shadow sticky top-0"
+		>
 			{({ open }) => (
 				<>
 					<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -53,9 +56,16 @@ const PrivateNavbar = ({ isLogin }) => {
 										)}
 									</Disclosure.Button>
 								</div>
-								<div className="flex-shrink-0 flex items-center">
+								<div className="flex-shrink-0 flex items-center  text-2xl font-semibold">
 									{/* Logo */}
-									<BookOpenIcon className="h-10 w-10 text-yellow-200" />
+									<img
+										className="h-12 w-8 text-yellow-200"
+										src={Procoder}
+										alt="Procoder"
+									/>
+									<span className="logoText">
+										{'     '}Procoder
+									</span>
 								</div>
 								<div className="hidden md:ml-6 md:flex md:items-center md:space-x-4">
 									{navigation.map((item) => (
@@ -64,13 +74,13 @@ const PrivateNavbar = ({ isLogin }) => {
 											to={item.href}
 											className={classNames(
 												item.current
-													? "bg-gray-900 text-white"
-													: "text-gray-300 hover:bg-gray-700 hover:text-white",
-												"px-3 py-2 rounded-md text-sm font-medium"
+													? 'bg-slate-50 text-black'
+													: 'text-black hover:bg-gray-700 hover:text-white',
+												'px-3 py-2 rounded-md text-sm font-medium'
 											)}
 											aria-current={
 												item.current
-													? "page"
+													? 'page'
 													: undefined
 											}
 										>
@@ -156,9 +166,9 @@ const PrivateNavbar = ({ isLogin }) => {
 																			}
 																			className={classNames(
 																				active
-																					? "bg-gray-100"
-																					: "",
-																				"block px-4 py-2 text-sm text-gray-700"
+																					? 'bg-gray-100'
+																					: '',
+																				'block px-4 py-2 text-sm text-gray-700'
 																			)}
 																		>
 																			{
@@ -187,12 +197,12 @@ const PrivateNavbar = ({ isLogin }) => {
 									href={item.href}
 									className={classNames(
 										item.current
-											? "bg-gray-900 text-white"
-											: "text-gray-300 hover:bg-gray-700 hover:text-white",
-										"block px-3 py-2 rounded-md text-base font-medium"
+											? 'bg-gray-900 text-white'
+											: 'text-gray-300 hover:bg-gray-700 hover:text-white',
+										'block px-3 py-2 rounded-md text-base font-medium'
 									)}
 									aria-current={
-										item.current ? "page" : undefined
+										item.current ? 'page' : undefined
 									}
 								>
 									{item.name}
@@ -211,8 +221,7 @@ const PrivateNavbar = ({ isLogin }) => {
 								</div>
 								<div className="ml-3">
 									<div className="text-base font-medium text-white">
-										{isLogin?.firstName}{' '}
-										{isLogin?.lastName}
+										{isLogin?.firstName} {isLogin?.lastName}
 									</div>
 									<div className="text-sm font-medium text-gray-400">
 										{isLogin?.email}

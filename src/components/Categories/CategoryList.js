@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { PencilAltIcon } from "@heroicons/react/outline";
+import { PencilAltIcon, ArchiveIcon } from '@heroicons/react/outline';
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchCategoriesAction } from "../../redux/slices/category/categorySlice";
@@ -15,15 +15,15 @@ const CategoryList = () => {
 	return (
 		<>
 			{loading ? (
-				<>
+				<div className="flex justify-center">
 					<LoadingComponent />
-				</>
+				</div>
 			) : appErr || serverErr ? (
-				<h2 className="text-center text-3xl text-red-300">
+				<h2 className="text-center text-3xl text-red-500">
 					{serverErr} {appErr}
 				</h2>
 			) : categoryList?.length <= 0 ? (
-				<h2 className="text-center text-3xl text-green-800">
+				<h2 className="text-center text-3xl text-green-800 mt-5">
 					No Category Found
 				</h2>
 			) : (
@@ -58,6 +58,12 @@ const CategoryList = () => {
 											>
 												Edit
 											</th>
+											<th
+												scope="col"
+												className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+											>
+												Delete
+											</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -67,7 +73,7 @@ const CategoryList = () => {
 												key={category._id}
 												className="bg-gray-50"
 											>
-												<td className="px-6 py-4 whitespace-nowrap">
+												<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
 													<div className="flex items-center">
 														<div className="flex-shrink-0 h-10 w-10">
 															{/* User image */}
@@ -75,6 +81,7 @@ const CategoryList = () => {
 																className="h-10 w-10 rounded-full"
 																//   src="https://cdn.pixabay.com/photo/2021/02/24/23/43/boy-6047786_960_720.jpg"
 																src={
+																	/* A destructured object from the `category` object in the redux store. */
 																	category
 																		?.user
 																		?.profilePhoto
@@ -88,7 +95,7 @@ const CategoryList = () => {
 																	category
 																		?.user
 																		?.firstName
-																}{" "}
+																}{' '}
 																{
 																	category
 																		?.user

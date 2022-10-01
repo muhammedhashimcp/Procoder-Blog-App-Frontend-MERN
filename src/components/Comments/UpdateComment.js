@@ -21,20 +21,20 @@ export default function UpdateComment() {
 	const { commentDetails, isUpdated } = comment;
 
 	const formik = useFormik({
-		enableReinitialize:true,
+		enableReinitialize: true,
 		initialValues: {
-			descriptiton: commentDetails?.description,
+			description: commentDetails?.description,
 		},
-		onSubmit: values => {
+		onSubmit: (values) => {
 			const data = {
 				id,
 				description: values?.description,
-			}
+			};
 			// dispatch action
-			dispatch(updateCommentAction(data))
+			dispatch(updateCommentAction(data));
 		},
 		validationSchema: formSchema,
-	})
+	});
 	// fetch comment
 	useEffect(() => {
 		dispatch(fetchCommentAction(id));
@@ -42,13 +42,13 @@ export default function UpdateComment() {
 
 	// redirect
 	if (isUpdated) {
-		navigate(`/posts/${id}`)
+		navigate(`/posts`)
 		// navigate(-1)
 	}
 
 	return (
 		<>
-			<div className="min-h-screen bg-green-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+			<div className="min-h-screen  flex flex-col justify-center py-12 sm:px-6 lg:px-8">
 				<div className="sm:mx-auto sm:w-full sm:max-w-md">
 					<h2 className="mt-6 text-center text-3xl font-extrabold text-gray-300">
 						Update Comment

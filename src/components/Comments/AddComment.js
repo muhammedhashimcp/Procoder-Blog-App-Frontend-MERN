@@ -35,7 +35,7 @@ const AddComment = ({ postId }) => {
 			{/* Form start here */}
 			{/* Error */}
 			{serverErr || appErr ? (
-				<h2 className="text-red-400 pb-2 ">
+				<h2 className="text-red-600 text-xl pb-2 ">
 					{serverErr} {appErr}
 				</h2>
 			) : null}

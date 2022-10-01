@@ -9,7 +9,7 @@ import AccountVerificationSuccessAlert from "../../components/Alerts/AccountVeri
 
 const Navbar = () => {
 	//get user from store
-	const state = useSelector((state) => state.users);
+	const state = useSelector((state) => state?.users);
 	const { userAuth } = state;
 	const isAdmin = userAuth?.isAdmin;
 	//account verification
