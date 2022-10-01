@@ -19,7 +19,6 @@ const CategoriesOptions = (props) => {
 			value: category?._id,
 		};
 	});
-	console.log(allCategories);
 
 	// handleChange
 	const handleChange = (value) => props.onChange("category", value);

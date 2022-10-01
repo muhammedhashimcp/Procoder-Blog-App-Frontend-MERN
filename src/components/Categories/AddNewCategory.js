@@ -93,9 +93,9 @@ const AddNewCategory = () => {
 									<button
 										type="submit"
 										disabled
-										className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gray-600 "
+										className="group  w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gray-600 "
 									>
-										<span className="absolute left-0 inset-y-0 flex items-center pl-3">
+										<span className=" left-0 inset-y-0 flex items-center pl-3">
 											<PlusCircleIcon
 												className="h-5 w-5 text-yellow-500 group-hover:text-white"
 												aria-hidden="true"
