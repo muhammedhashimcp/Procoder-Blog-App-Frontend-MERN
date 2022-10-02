@@ -23,8 +23,14 @@ export const createPostAction = createAsyncThunk('post/created', async (post, { 
 		formData.append("description", post?.description);
 		formData.append("category", post?.category);
 		formData.append("image", post?.image);
-		const { data } = await axios.post(`${baseUrl}/api/posts`, formData, config)
+		// formData.append("bannerImage", post?.bannerImage);
+	
+
+		
+		const { data } = await axios.post(`${baseUrl}/api/posts`,post, config)
+		// const { data } = await axios.post(`${baseUrl}/api/posts`, formData, config)
 		// dispatch post reset action
+		console.log("🚀 ~ file: postSlices.js ~ line 28 ~ createPostAction ~ data", data)
 		dispatch(resetPost())
 		return data;
 	} catch (error) {

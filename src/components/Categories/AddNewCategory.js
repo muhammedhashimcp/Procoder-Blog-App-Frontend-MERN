@@ -4,27 +4,75 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createCategoryAction } from '../../redux/slices/category/categorySlice';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import styled from 'styled-components';
+
+import Dropzone from 'react-dropzone'; 
+//css for dropzone
+const Container = styled.div`
+flex: 1;
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 20px;
+border-width: 2px;
+border-radius: 2px;
+border-style: dashed;
+background-color: #fafafa;
+color: #bdbdbd;
+border-color: gray
+transition: border 0.24s ease-in-out;
+`;
 
 const formSchema = Yup.object({
 	title: Yup.string().required('Categoryr is Required'),
+	categoryImage: Yup.string().required('Image is required'),
 });
 
 const AddNewCategory = () => {
+	const [preview, setPreview] = useState('');
+
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const formik = useFormik({
 		initialValues: {
 			title: '',
+			categoryImage: '',
 		},
 		onSubmit: (values) => {
-			dispatch(createCategoryAction(values));
+		console.log(
+			'🚀 ~ file: AddNewCategory.js ~ line 43 ~ AddNewCategory ~ values',
+			formik.values
+		);
+				const data = {
+					title: values?.title,
+					categoryImage: values?.image,
+					
+				};
+			dispatch(createCategoryAction(data));
 		},
 		validationSchema: formSchema,
 	});
+		console.log(
+			'🚀 ~ file: AddNewCategory.js ~ line 55 ~ AddNewCategory ~ values',
+			formik.values
+		);
+
 	// get data from store
 	const state = useSelector((state) => state?.category);
 	const { loading, appErr, serverErr, isCreated } = state;
-
+let image = formik?.values?.image;
+useEffect(() => {
+	if (image) {
+		const reader = new FileReader();
+		reader.onloadend = () => {
+			setPreview(reader.result);
+		};
+		reader.readAsDataURL(image);
+	} else {
+		setPreview(null);
+	}
+}, [image]);
 	// redirect
 	if (isCreated) navigate('/category-list');
 	return (
@@ -54,8 +102,8 @@ const AddNewCategory = () => {
 					</div>
 					{/* Form */}
 					<form
-						className="mt-8 space-y-6"
 						onSubmit={formik.handleSubmit}
+						className="mt-8 space-y-6"
 					>
 						<input
 							type="hidden"
@@ -64,10 +112,7 @@ const AddNewCategory = () => {
 						/>
 						<div className="rounded-md shadow-sm -space-y-px">
 							<div>
-								<label
-									htmlFor="email-address"
-									className="sr-only"
-								>
+								<label htmlFor="category" className="sr-only">
 									Name
 								</label>
 								{/* Title */}
@@ -84,6 +129,66 @@ const AddNewCategory = () => {
 									{formik.touched.title &&
 										formik.errors.title}
 								</div>
+							</div>
+							{/* Image component */}
+
+							<div>
+								<label
+									htmlFor="image"
+									className="block text-sm font-medium mb-2 text-gray-700"
+								>
+									Select a image as category icon
+								</label>
+								{/* image preview */}
+								{preview ? (
+									<div className="border border-gray-300 p-2 bg-gray-100 rounded-md shadow-sm">
+										<img
+											className="mx-auto  w-2/4"
+											src={preview}
+											alt=""
+											onClick={() => {
+												setPreview(null);
+											}}
+										/>
+									</div>
+								) : (
+									<Container className="container bg-gray-700">
+										<Dropzone
+											onBlur={formik.handleBlur('image')}
+											accept="image/jpeg, image/jpg,image/*, image/png"
+											onDrop={(acceptedFiles) => {
+												formik.setFieldValue(
+													'image',
+													acceptedFiles[0]
+												);
+											}}
+										>
+											{({
+												getRootProps,
+												getInputProps,
+											}) => (
+												<div className="container">
+													<div
+														{...getRootProps({
+															className:
+																'dropzone',
+															onDrop: (event) =>
+																event.stopPropagation(),
+														})}
+													>
+														<input
+															{...getInputProps()}
+														/>
+														<p className="text-gray-300 text-lg cursor-pointer hover:text-gray-500">
+															Click here to select
+															Category Image
+														</p>
+													</div>
+												</div>
+											)}
+										</Dropzone>
+									</Container>
+								)}
 							</div>
 						</div>
 						<div>

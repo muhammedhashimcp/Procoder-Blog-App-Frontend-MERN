@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import { createAsyncThunk, createSlice, createAction } from "@reduxjs/toolkit";
+import baseUrl from "../../../utils/baseURL";
 
 // action to redirect
 const resetEditAction = createAction("category/reset")
@@ -18,6 +19,8 @@ const resetCategoryAction = createAction("category/category-reset")
 export const createCategoryAction = createAsyncThunk(
 	'category/create',
 	async (category, { rejectWithValue, getState, dispatch }) => {
+		console.log("🚀 ~ file: categorySlice.jsx ~ line 22 ~ category", category)
+		
 		const user = getState()?.users;
 		const { userAuth } = user;
 
@@ -27,9 +30,12 @@ export const createCategoryAction = createAsyncThunk(
 			}
 		}
 		try {
-			const { data } = await axios.post(`http://localhost:5000/api/category`, {
-				title: category?.title,
-			},
+			const formData = new FormData();
+			formData.append('title', category?.title);
+			formData.append('image', category?.categoryImage);
+			const { data } = await axios.post(
+				`${baseUrl}/api/category`,
+				formData,
 				config
 			);
 			// dispatch action
@@ -56,7 +62,7 @@ export const fetchCategoriesAction = createAsyncThunk(
 			}
 		}
 		try {
-			const { data } = await axios.get(`http://localhost:5000/api/category`,
+			const { data } = await axios.get(`${baseUrl}/api/category`,
 				config);
 			return data
 		} catch (error) {
@@ -80,7 +86,7 @@ export const fetchCategoryAction = createAsyncThunk(
 			}
 		}
 		try {
-			const { data } = await axios.get(`http://localhost:5000/api/category/${id}`,
+			const { data } = await axios.get(`${baseUrl}/api/category/${id}`,
 				config
 			);
 			console.log(data);
@@ -105,7 +111,7 @@ export const updateCategoryAction = createAsyncThunk(
 			}
 		}
 		try {
-			const { data } = await axios.put(`http://localhost:5000/api/category/${category.id}`,
+			const { data } = await axios.put(`${baseUrl}/api/category/${category.id}`,
 				{ title: category?.title },
 				config
 			);
@@ -134,7 +140,7 @@ export const deleteCategoryAction = createAsyncThunk(
 			}
 		}
 		try {
-			const { data } = await axios.delete(`http://localhost:5000/api/category/${id}`,
+			const { data } = await axios.delete(`${baseUrl}/api/category/${id}`,
 				config
 			);
 			// dispatch action for delete reset
