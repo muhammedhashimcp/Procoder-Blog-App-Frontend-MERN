@@ -1,30 +1,32 @@
-import { useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import React from 'react';
+
+import { useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import {
 	followUserAction,
 	unFollowUserAction,
 	userProfileAction,
-} from "../../redux/slices/users/userSlice";
+} from '../../redux/slices/users/userSlice';
 import {
 	HeartIcon,
 	EmojiSadIcon,
 	UploadIcon,
 	UserIcon,
-} from "@heroicons/react/outline";
-import { MailIcon, EyeIcon } from "@heroicons/react/solid";
-import DateFormatter from "../../utils/DateFormatter";
-import LoadingComponent from "../../utils/LoadingComponent";
+} from '@heroicons/react/outline';
+import { MailIcon, EyeIcon } from '@heroicons/react/solid';
+import DateFormatter from '../../utils/DateFormatter';
+import LoadingComponent from '../../utils/LoadingComponent';
 
 export default function Profile() {
-	console.log("logging fdrom profile");
+	console.log('logging fdrom profile');
 	// dispatch
 	const dispatch = useDispatch();
 	// use params
 	const { id } = useParams();
 
 	// User data from store
-	const user = useSelector((state) => state?.users);
+	const user = useSelector((state) => state.users);
 	const {
 		profile,
 		profileLoading,
@@ -35,7 +37,7 @@ export default function Profile() {
 		userAuth,
 	} = user;
 	// const { isFollowing } = profile;
-	console.log("🚀 ~ file: Profile.js ~ line 29 ~ Profile ~ profile", profile);
+	console.log('🚀 ~ file: Profile.js ~ line 29 ~ Profile ~ profile', profile);
 	useEffect(() => {
 		dispatch(userProfileAction(id));
 	}, [id, dispatch, followed, unFollowed]);
@@ -43,7 +45,7 @@ export default function Profile() {
 	//isLogin
 	const isLoginUser = userAuth?._id === profile?._id;
 	console.log(
-		"🚀 ~ file: Profile.js ~ line 37 ~ Profile ~ isLoginUser",
+		'🚀 ~ file: Profile.js ~ line 37 ~ Profile ~ isLoginUser',
 		isLoginUser
 	);
 
@@ -90,7 +92,7 @@ export default function Profile() {
 															<h1 className="text-2xl font-bold text-gray-900 ">
 																{
 																	profile?.firstName
-																}{" "}
+																}{' '}
 																{
 																	profile?.lastName
 																}
@@ -113,31 +115,31 @@ export default function Profile() {
 																)}
 															</h1>
 															<p className="m-3 text-lg">
-																Date Joined:{" "}
+																Date Joined:{' '}
 																<DateFormatter
 																	date={
 																		profile?.createdAt
 																	}
-																/>{" "}
+																/>{' '}
 															</p>
 															<p className="text-green-600 mt-2 mb-2">
 																{
 																	profile
 																		?.posts
 																		?.length
-																}{" "}
-																posts{" "}
+																}{' '}
+																posts{' '}
 																{
 																	profile
 																		?.followers
 																		?.length
-																}{" "}
-																followers{" "}
+																}{' '}
+																followers{' '}
 																{
 																	profile
 																		?.following
 																		?.length
-																}{" "}
+																}{' '}
 																following
 															</p>
 															{/* Who view my profile */}
@@ -147,12 +149,12 @@ export default function Profile() {
 																	<span className="text-indigo-400 cursor-pointer">
 																		Number
 																		of
-																		Viewers{" "}
+																		Viewers{' '}
 																		{
 																			profile
 																				?.viewedBy
 																				?.length
-																		}{" "}
+																		}{' '}
 																	</span>
 																</div>
 															</div>
@@ -246,7 +248,7 @@ export default function Profile() {
 																				aria-hidden="true"
 																			/>
 																			<span>
-																				Follow{" "}
+																				Follow{' '}
 																			</span>
 																			<span className="pl-2">
 																				{
@@ -298,7 +300,7 @@ export default function Profile() {
 												</div>
 												<div className="hidden sm:block 2xl:hidden mt-6 min-w-0 flex-1">
 													<h1 className="text-2xl font-bold text-gray-900 truncate">
-														{profile?.firstName}{" "}
+														{profile?.firstName}{' '}
 														{profile?.lastName}
 													</h1>
 												</div>
@@ -313,7 +315,7 @@ export default function Profile() {
 										<div className="flex justify-center place-items-start flex-wrap  md:mb-0">
 											<div className="w-full md:w-1/3 px-4 mb-4 md:mb-0">
 												<h1 className="text-center text-xl border-gray-500 mb-2 border-b-2">
-													Who viewed my profile :{" "}
+													Who viewed my profile :{' '}
 													{profile?.viewedBy?.length}
 												</h1>
 
@@ -343,7 +345,7 @@ export default function Profile() {
 																				<h3>
 																					{
 																						user?.firstName
-																					}{" "}
+																					}{' '}
 																					{
 																						user?.lastName
 																					}

@@ -1,6 +1,6 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { CheckCircleIcon } from "@heroicons/react/solid";
-
+import React from 'react';
 export default function AccountVerificationSuccessAlert() {
   return (
     <div className="rounded-md bg-green-300 p-4">

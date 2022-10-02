@@ -1,8 +1,10 @@
 /* This example requires Tailwind CSS v2.0+ */
+import React from 'react';
+
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Link } from "react-router-dom";
-import { MenuIcon, XIcon, BookOpenIcon } from "@heroicons/react/outline";
+import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { PlusIcon, LogoutIcon } from "@heroicons/react/solid";
 import { useDispatch } from 'react-redux'
 import { logoutAction } from "../../../redux/slices/users/userSlice";

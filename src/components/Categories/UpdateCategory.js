@@ -1,42 +1,47 @@
-import { useEffect } from "react";
-import { useParams,useNavigate } from "react-router-dom";
-import { PlusCircleIcon, BookOpenIcon } from "@heroicons/react/solid";
-import { useFormik } from "formik";
-import { useDispatch, useSelector, } from "react-redux";
-import { fetchCategoryAction,updateCategoryAction,deleteCategoryAction } from "../../redux/slices/category/categorySlice";
-import * as Yup from 'yup'
+import React from 'react';
 
+import { useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { PlusCircleIcon, BookOpenIcon } from '@heroicons/react/solid';
+import { useFormik } from 'formik';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+	fetchCategoryAction,
+	updateCategoryAction,
+	deleteCategoryAction,
+} from '../../redux/slices/category/categorySlice';
+import * as Yup from 'yup';
 
 const formSchema = Yup.object({
-	title: Yup.string().required("title is required"),
-})
+	title: Yup.string().required('Title is required'),
+});
 const UpdateCategory = () => {
-	const navigate=useNavigate()
-	const dispatch = useDispatch()
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	let { id } = useParams();
 	useEffect(() => {
 		dispatch(fetchCategoryAction(id));
 	}, [id, dispatch]);
-	console.log("update category");
+	console.log('update category');
 
 	// get data from store
-	const state = useSelector((state) => state?.category);
+	const state = useSelector((state) => state.category);
 	const { loading, appErr, serverErr, category, isEdited, isDeleted } = state;
 	const formik = useFormik({
-		enableReinitialize:true,
+		enableReinitialize: true,
 		initialValues: {
 			title: category?.title,
 		},
-		onSubmit: values => {
+		onSubmit: (values) => {
 			console.log(values);
 			//build up the data for update
-			dispatch(updateCategoryAction({title:values.title,id}));
+			dispatch(updateCategoryAction({ title: values.title, id }));
 		},
 		validationSchema: formSchema,
 	});
 
 	// redirect
-	if (isEdited || isDeleted) navigate('/category-list')
+	if (isEdited || isDeleted) navigate('/category-list');
 
 	return (
 		<div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -48,13 +53,18 @@ const UpdateCategory = () => {
 					</h2>
 					<div className="mt-2 text-center text-sm text-gray-600">
 						<p className="font-medium text-indigo-600 hover:text-indigo-500">
-							These are the categories user will select when creating a post
+							These are the categories user will select when
+							creating a post
 						</p>
 						{/* Display error */}
 						<div>
-							{appErr || serverErr ? <h2 className="text-red-500 text-center text-lg"> {serverErr} {appErr}</h2> : null}
+							{appErr || serverErr ? (
+								<h2 className="text-red-500 text-center text-lg">
+									{' '}
+									{serverErr} {appErr}
+								</h2>
+							) : null}
 						</div>
-
 					</div>
 				</div>
 				{/* Form */}
@@ -68,8 +78,8 @@ const UpdateCategory = () => {
 							{/* Title */}
 							<input
 								value={formik.values.title}
-								onChange={formik.handleChange("title")}
-								onBlur={formik.handleBlur("title")}
+								onChange={formik.handleChange('title')}
+								onBlur={formik.handleBlur('title')}
 								type="text"
 								autoComplete="text"
 								className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-center focus:z-10 sm:text-sm"
@@ -96,30 +106,32 @@ const UpdateCategory = () => {
 										/>
 									</span>
 									Loading please wait....
-								</button>) : (
-									<>
-										<button
-											type="submit"
-											className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-										>
-											<span className="absolute left-0 inset-y-0 flex items-center pl-3">
-												<PlusCircleIcon
-													className="h-5 w-5 text-yellow-500 group-hover:text-indigo-400"
-													aria-hidden="true"
-												/>
-											</span>
-											Update Category
-										</button>
+								</button>
+							) : (
+								<>
+									<button
+										type="submit"
+										className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+									>
+										<span className="absolute left-0 inset-y-0 flex items-center pl-3">
+											<PlusCircleIcon
+												className="h-5 w-5 text-yellow-500 group-hover:text-indigo-400"
+												aria-hidden="true"
+											/>
+										</span>
+										Update Category
+									</button>
 
-										<button
-											onClick={() => dispatch(deleteCategoryAction(id))}
-											type="submit"
-											className="group mt-2 relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-										>
-
-											Delete Category
-										</button>
-									</>
+									<button
+										onClick={() =>
+											dispatch(deleteCategoryAction(id))
+										}
+										type="submit"
+										className="group mt-2 relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+									>
+										Delete Category
+									</button>
+								</>
 							)}
 						</div>
 					</div>

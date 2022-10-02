@@ -17,7 +17,7 @@ const PostDetails = () => {
 	const navigate = useNavigate();
 
 	// select post details from store
-	const post = useSelector((state) => state?.post);
+	const post = useSelector((state) => state.post);
 	const { postDetails, loading, appErr, serverErr, isDeleted } = post;
 	// Get login user
 	const user = useSelector((state) => state.users);
@@ -84,7 +84,7 @@ const PostDetails = () => {
 							</div>
 							{/* Post description */}
 							<div className="max-w-xl mx-auto">
-								<div class="mb-6  text-xl text-black text-justify">
+								<div className="mb-6  text-xl text-black text-justify">
 									{postDetails?.description}
 									{/* Show delete and update btn if created by the user */}
 									{isCreatedBy ? (

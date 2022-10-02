@@ -1,4 +1,5 @@
 /* This example requires Tailwind CSS v2.0+ */
+import React from 'react';
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import Procoder from '../../../img/procoder logo.jpg';
@@ -9,7 +10,7 @@ import {
   BellIcon,
   MenuIcon,
   XIcon,
-  BookOpenIcon,
+ 
   LogoutIcon,
 } from "@heroicons/react/outline";
 import { PlusIcon } from "@heroicons/react/solid";
@@ -29,7 +30,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const AdminNavbar = ({isLogin}) => {
+const AdminNavbar = ({isLogin}) => { 
   //Navigation
   const userNavigation = [
     { name: "Your Profile", href: `/profile/${isLogin?._id}` },

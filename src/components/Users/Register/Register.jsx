@@ -18,7 +18,7 @@ const formSchema = Yup.object({
 const Register = () => {
 	const navigate = useNavigate();
 	//select state from store
-	const storeData = useSelector((store) => store?.users);
+	const storeData = useSelector((store) => store.users);
 	const { loading, appErr, serverErr, registered } = storeData;
 	console.log(storeData);
 

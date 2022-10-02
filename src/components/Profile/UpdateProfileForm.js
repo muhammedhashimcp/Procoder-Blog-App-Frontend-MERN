@@ -23,7 +23,7 @@ const UpdateProfileForm = () => {
 	const dispatch = useDispatch();
 
 	//get user from store
-	const users = useSelector((store) => store?.users);
+	const users = useSelector((store) => store.users);
 	const { userDetails, isUpdated, appErr, serverErr } = users;
 	console.log(userDetails);
 	useEffect(() => {

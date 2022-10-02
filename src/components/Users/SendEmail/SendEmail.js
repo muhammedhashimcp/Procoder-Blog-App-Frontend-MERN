@@ -17,7 +17,7 @@ const SendEmail = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-	const { email } = location?.state;
+	const { email } = location.state;
 	//formik
 	const formik = useFormik({
 		initialValues: {

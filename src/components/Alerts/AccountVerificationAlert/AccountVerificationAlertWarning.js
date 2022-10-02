@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { ExclamationIcon } from '@heroicons/react/solid';
 import { useDispatch } from 'react-redux';
 import { accVerificationSendTokenAction } from '../../../redux/slices/accountVerification/accVerificationSlices';

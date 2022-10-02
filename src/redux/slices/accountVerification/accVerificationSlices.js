@@ -15,11 +15,11 @@ export const accVerificationSendTokenAction = createAsyncThunk(
 	"account/token",
 	async (email, { rejectWithValue, getState, dispatch }) => {
 		// get user token
-		const user = getState()?.users;
+		const user = getState().users;
 		const { userAuth } = user;
 		const config = {
 			headers: {
-				Authorization: `Bearer ${userAuth?.token}`,
+				Authorization: `Bearer ${userAuth.token}`,
 			},
 		};
 		try {
@@ -44,7 +44,7 @@ export const verifyAccountAction = createAsyncThunk(
 	"account/verify",
 	async (token, { rejectWithValue, getState, dispatch }) => {
 		// get user token
-		const user = getState()?.users;
+		const user = getState().users;
 		const { userAuth } = user;
 		const config = {
 			headers: {

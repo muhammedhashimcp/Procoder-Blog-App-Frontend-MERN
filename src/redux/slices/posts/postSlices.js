@@ -9,11 +9,11 @@ const resetPostDelete = createAction("post/delete")
 // Create Post
 export const createPostAction = createAsyncThunk('post/created', async (post, { rejectWithValue, getState, dispatch }) => {
 	// get user token
-	const user = getState()?.users;
+	const user = getState().users;
 	const { userAuth } = user;
 	const config = {
 		headers: {
-			Authorization: `Bearer ${userAuth?.token}`,
+			Authorization: `Bearer ${userAuth.token}`,
 		},
 	};
 	try {
@@ -23,12 +23,10 @@ export const createPostAction = createAsyncThunk('post/created', async (post, { 
 		formData.append("description", post?.description);
 		formData.append("category", post?.category);
 		formData.append("image", post?.image);
-		// formData.append("bannerImage", post?.bannerImage);
 	
-
+    console.log(formData, post);
 		
-		const { data } = await axios.post(`${baseUrl}/api/posts`,post, config)
-		// const { data } = await axios.post(`${baseUrl}/api/posts`, formData, config)
+		const { data } = await axios.post(`${baseUrl}/api/posts`,  formData, config)
 		// dispatch post reset action
 		console.log("🚀 ~ file: postSlices.js ~ line 28 ~ createPostAction ~ data", data)
 		dispatch(resetPost())
@@ -47,7 +45,7 @@ export const updatePostAction = createAsyncThunk('post/updated', async (post, { 
 	const { userAuth } = user;
 	const config = {
 		headers: {
-			Authorization: `Bearer ${userAuth?.token}`,
+			Authorization: `Bearer ${userAuth.token}`,
 		},
 	};
 	try {
@@ -92,7 +90,7 @@ export const toggleAddLikesToPost = createAsyncThunk('post/like', async (postId,
 	const { userAuth } = user;
 	const config = {
 		headers: {
-			Authorization: ` Bearer ${userAuth?.token}`,
+			Authorization: ` Bearer ${userAuth.token}`,
 		},
 	};
 	try {
@@ -114,7 +112,7 @@ console.log('toggleAddDisLikesToPost :', "toggleAddDisLikesToPost");
 	const { userAuth } = user;
 	const config = {
 		headers: {
-			Authorization: ` Bearer ${userAuth?.token}`,
+			Authorization: ` Bearer ${userAuth.token}`,
 		},
 	};
 	try {
@@ -134,7 +132,7 @@ export const deletePostAction = createAsyncThunk('post/deleted', async (postId, 
 	const { userAuth } = user;
 	const config = {
 		headers: {
-			Authorization: `Bearer ${userAuth?.token}`,
+			Authorization: `Bearer ${userAuth.token}`,
 		},
 	};
 	try {

@@ -8,13 +8,13 @@ const resetCommentAction = createAction("comment/reset");
 // create
 export const createCommentAction = createAsyncThunk(
 	"comment/create",
-	async (comment, { rejectWithValue, getState, dispatch }) => {
+	async (comment, { rejectWithValue, getState }) => {
 		// get user token
-		const user = getState()?.users;
+		const user = getState().users;
 		const { userAuth } = user;
 		const config = {
 			headers: {
-				Authorization: `Bearer ${userAuth?.token}`,
+				Authorization: `Bearer ${userAuth.token}`,
 			},
 		};
 		// http call

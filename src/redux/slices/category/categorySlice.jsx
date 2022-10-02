@@ -21,12 +21,12 @@ export const createCategoryAction = createAsyncThunk(
 	async (category, { rejectWithValue, getState, dispatch }) => {
 		console.log("🚀 ~ file: categorySlice.jsx ~ line 22 ~ category", category)
 		
-		const user = getState()?.users;
+		const user = getState().users;
 		const { userAuth } = user;
 
 		const config = {
 			headers: {
-				Authorization: `Bearer ${userAuth?.token}`,
+				Authorization: `Bearer ${userAuth.token}`,
 			}
 		}
 		try {

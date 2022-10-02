@@ -1,28 +1,25 @@
-import { Disclosure } from "@headlessui/react";
-import { Link } from "react-router-dom";
-import {
-  MenuIcon,
-  XIcon,
-  LoginIcon,
-  BookOpenIcon,
-} from "@heroicons/react/outline";
-import { PlusIcon } from "@heroicons/react/solid";
-import Procoder from '../../../img/procoder logo.jpg'
+import React from 'react';
+
+import { Disclosure } from '@headlessui/react';
+import { Link } from 'react-router-dom';
+import { MenuIcon, XIcon, LoginIcon } from '@heroicons/react/outline';
+import { PlusIcon } from '@heroicons/react/solid';
+import Procoder from '../../../img/procoder logo.jpg';
 
 const navigation = [
-  { name: "Home", href: "/", current: true },
-  { name: "Blogs", href: "/blogs", current: false },
+	{ name: 'Home', href: '/', current: true },
+	{ name: 'Blogs', href: '/blogs', current: false },
 ];
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
+	return classes.filter(Boolean).join(' ');
 }
 
 const PublicNavbar = () => {
-  return (
+	return (
 		<Disclosure
 			as="nav"
-			className="bg-white border rounded-b-2xl drop-shadow sticky top-0"
+			className="bg-white border drop-shadow sticky top-0"
 		>
 			{({ open }) => (
 				<>
@@ -51,10 +48,10 @@ const PublicNavbar = () => {
 								<div className="flex-shrink-0 flex items-center  text-2xl font-semibold">
 									{/* Logo */}
 									<img
-										className="h-12 w-8 text-yellow-200"
+										className="h-12 w-8 "
 										src={Procoder}
 										alt="Procoder"
-								  />
+									/>
 									<span className="logoText">
 										{'     '}Procoder
 									</span>
@@ -66,9 +63,9 @@ const PublicNavbar = () => {
 											to={item.href}
 											className={classNames(
 												item.current
-													? 'bg-gray-900 text-white'
-													: 'text-gray-300 hover:bg-gray-700 hover:text-white',
-												'px-3 py-2 rounded-md text-sm font-medium'
+													? 'bg-gray-700 text-white font-semibold'
+													: 'text-black hover:bg-gray-700 hover:text-white font-semibold',
+												'px-3 py-2 rounded-md text-md font-medium'
 											)}
 											aria-current={
 												item.current
@@ -86,7 +83,7 @@ const PublicNavbar = () => {
 									<Link
 										to="/login"
 										type="button"
-										className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
+										className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-slate-900 hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
 									>
 										<LoginIcon
 											className="-ml-1 mr-2 h-5 w-5"
@@ -98,7 +95,7 @@ const PublicNavbar = () => {
 								<div className="hidden md:ml-4 md:flex-shrink-0 md:flex md:items-center">
 									<Link
 										to="/register"
-										className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-pink-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
+										className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-slate-900 hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
 									>
 										<PlusIcon
 											className="-ml-1 mr-2 h-5 w-5"
@@ -135,7 +132,7 @@ const PublicNavbar = () => {
 				</>
 			)}
 		</Disclosure>
-  );
+	);
 };
 
 export default PublicNavbar;

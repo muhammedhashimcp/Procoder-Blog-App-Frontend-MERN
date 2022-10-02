@@ -1,12 +1,14 @@
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { useDispatch, useSelector } from "react-redux";
-import { updatePasswordAction } from "../../../redux/slices/users/userSlice";
-import { useNavigate } from "react-router-dom";
+import React from 'react';
+
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import { useDispatch, useSelector } from 'react-redux';
+import { updatePasswordAction } from '../../../redux/slices/users/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 //Form schema
 const formSchema = Yup.object({
-	password: Yup.string().required("Password is required"),
+	password: Yup.string().required('Password is required'),
 });
 
 const UpdatePassword = () => {
@@ -17,18 +19,18 @@ const UpdatePassword = () => {
 	//formik
 	const formik = useFormik({
 		initialValues: {
-			password: "",
+			password: '',
 		},
 		onSubmit: (values) => {
 			//dispath the action
 			console.log(values);
-			dispatch(updatePasswordAction(values?.password));
+			dispatch(updatePasswordAction(values.password));
 		},
 		validationSchema: formSchema,
 	});
 
 	const users = useSelector((state) => state?.users);
-	const { isPasswordUpdated, loading, appErr, serverErr ,userAuth} = users;
+	const { isPasswordUpdated, loading, appErr, serverErr, userAuth } = users;
 	//redirect
 	if (isPasswordUpdated) {
 		navigate(`/profile/${userAuth?._id}`);
@@ -75,8 +77,8 @@ const UpdatePassword = () => {
 
 							<input
 								value={formik.values.password}
-								onChange={formik.handleChange("password")}
-								onBlur={formik.handleBlur("password")}
+								onChange={formik.handleChange('password')}
+								onBlur={formik.handleBlur('password')}
 								className="w-full border-gray-300 border-2 pr-6 pl-4 py-4 font-bold placeholder-gray-300 rounded-r-full focus:outline-none"
 								type="password"
 								placeholder=" Password"

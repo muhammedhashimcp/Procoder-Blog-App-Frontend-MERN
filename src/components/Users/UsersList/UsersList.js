@@ -9,7 +9,7 @@ const UsersList = () => {
 	// dispatch
 	const dispatch = useDispatch()
 	// data from store
-	const users = useSelector(state => state?.users)
+	const users = useSelector(state => state.users)
 	const { userList, appErr, serverErr, loading,block,unblock} = users
 	// fetch all users
 	useEffect(() => {

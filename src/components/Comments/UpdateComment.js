@@ -1,36 +1,39 @@
-import { useParams,useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { updateCommentAction, fetchCommentAction } from "../../redux/slices/comments/commentSlices";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { useEffect } from "react";
+import React from 'react';
 
+import { useParams, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+	updateCommentAction,
+	fetchCommentAction,
+} from '../../redux/slices/comments/commentSlices';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import { useEffect } from 'react';
 
 // Form schema
 const formSchema = Yup.object({
-	description: Yup.string().required("Description is required"),
+	description: Yup.string().required('Description is required'),
 });
 
-
 export default function UpdateComment() {
-	const navigate=useNavigate()
-	const { id } = useParams()
-	const dispatch = useDispatch()
+	const navigate = useNavigate();
+	const { id } = useParams();
+	const dispatch = useDispatch();
 	//select comment from store
-	const comment = useSelector(state => state?.comment);
+	const comment = useSelector((state) => state.comment);
 	const { commentDetails, isUpdated } = comment;
 
 	const formik = useFormik({
 		enableReinitialize: true,
 		initialValues: {
-			description: commentDetails?.description,
-		},
+			description: commentDetails.description,
+		}, 
 		onSubmit: (values) => {
 			const data = {
-				id,
+				id, 
 				description: values?.description,
 			};
-			// dispatch action
+			// dispatch action 
 			dispatch(updateCommentAction(data));
 		},
 		validationSchema: formSchema,
@@ -42,7 +45,7 @@ export default function UpdateComment() {
 
 	// redirect
 	if (isUpdated) {
-		navigate(`/posts`)
+		navigate(`/posts`);
 		// navigate(-1)
 	}
 
@@ -57,26 +60,30 @@ export default function UpdateComment() {
 				<div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
 					<div className="bg-gray-300 py-8 px-4 shadow sm:rounded-lg sm:px-10">
 						{/* Form start here */}
-						<form onSubmit={formik.handleSubmit} className="space-y-6">
+						<form
+							onSubmit={formik.handleSubmit}
+							className="space-y-6"
+						>
 							<div className="flex items-center pl-6 mb-6 border border-gray-50 bg-white rounded-full">
 								<span className="inline-block pr-3 border-r border-gray-50"></span>
 								{/* Description */}
 
 								<input
-									onBlur={formik.handleBlur("description")}
+									onBlur={formik.handleBlur('description')}
 									value={formik.values.description}
-									onChange={formik.handleChange("description")}
+									onChange={formik.handleChange(
+										'description'
+									)}
 									type="text"
 									name="text"
 									id="text"
 									className="w-full pr-6 pl-4 py-4 font-bold placeholder-gray-300 rounded-r-full focus:outline-none"
-
 									placeholder="Description"
 								/>
 							</div>
 							<div className="text-red-400 mb-2">
-								{formik.touched.description && formik.errors.description}
-
+								{formik.touched.description &&
+									formik.errors.description}
 							</div>
 							<div>
 								{/* submit btn */}

@@ -11,11 +11,11 @@ const resetEmailAction = createAction("mail/reset");
  */
 export const sendMailAction = createAsyncThunk('mail/sent', async (email, { rejectWithValue, getState, dispatch }) => {
 	// get user token
-	const user = getState()?.users;
+	const user = getState().users;
 	const { userAuth } = user;
 	const config = {
 		headers: {
-			Authorization: `Bearer ${userAuth?.token}`,
+			Authorization: `Bearer ${userAuth.token}`,
 		},
 	};
 	try {

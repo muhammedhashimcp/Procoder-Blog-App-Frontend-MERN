@@ -3,9 +3,11 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { loginUserAction } from "../../../redux/slices/users/userSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-
+import { GoogleLogin } from '@react-oauth/google';
+import jwtDecode from 'jwt-decode';
+import { gapi } from 'gapi-script';
 
 //Form schema
 const formSchema = Yup.object({
@@ -14,33 +16,57 @@ const formSchema = Yup.object({
 });
 
 const Login = () => {
-	const store = useSelector(state => state?.users )
+	const store = useSelector((state) => state.users);
+	const { userAuth, loading, serverErr, appErr } = store;
+
 	console.log(store);
-	const navigate = useNavigate()
-	const dispatch = useDispatch()
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
+	const location = useLocation();
+	const from = location.state?.from?.pathname || '/home';
+	console.log(from);
 	//formik
 	const formik = useFormik({
 		initialValues: {
-			email: "",
-			password: "",
+			email: '',
+			password: '',
 		},
-		onSubmit: values => {
+		onSubmit: (values) => {
 			//dispacth the action
-			dispatch(loginUserAction(values))
+			dispatch(loginUserAction(values));
 		},
 		validationSchema: formSchema,
 	});
-	// navigate
-	const { userAuth, loading, serverErr, appErr } = store;
+	//redired when registered
 	useEffect(() => {
 		if (userAuth) {
 			navigate(`/profile/${userAuth?._id}`);
 		}
 	}, [userAuth, navigate]);
+
+	//  const createOrGetUser = async (response) => {
+	// 		const decoded = jwtDecode(response.credential);
+	// 		const userData = {
+	// 			fullName: decoded.name,
+	// 			email: decoded.email,
+	// 			password: decoded.sub,
+	// 		};
+	// 		dispatch(loginUserAction(userData));
+	// 		console.log(userData);
+	// 	};
+
+	// var accessToken = gapi.auth.getToken().access_token;
+	// console.log(accessToken);
+		const onLoginSuccess = (res) => {
+			console.log('login success ', res.profileObj);
+		};
+		const onFailureSuccess = (res) => {
+			console.log('login Failure ', res);
+		};
 	return (
 		<>
-			<section className="min-h-screen relative py-20 2xl:py-40 bg-gray-900 overflow-hidden">
-				<div className="absolute top-0 left-0 lg:bottom-0 h-full lg:h-auto w-full lg:w-4/12 bg-violet-500 lg:overflow-hidden">
+			<section className="min-h-screen  py-20 2xl:py-40 bg-white overflow-hidden">
+				<div className=" container top-0 left-0 lg:bottom-0 h-full lg:h-auto w-full lg:w-4/12 bg-violet-500 lg:overflow-hidden">
 					<img
 						className="hidden lg:block h-full w-full object-cover"
 						alt=""
@@ -50,7 +76,7 @@ const Login = () => {
 					<div className="max-w-5xl mx-auto">
 						<div className="flex flex-wrap items-center -mx-4">
 							<div className="w-full lg:w-2/5 px-4">
-								<div className="px-6 lg:px-12 py-12 lg:py-24 bg-white shadow-lg rounded-lg">
+								<div className="px-6 lg:px-12 py-12 lg:py-24 bg-white shadow-lg rounded-lg border border-gray-500 drop-shadow-lg">
 									{/* Form */}
 									<form onSubmit={formik.handleSubmit}>
 										<h3 className="mb-10 text-2xl font-bold font-heading">
@@ -63,7 +89,7 @@ const Login = () => {
 												{serverErr}-{appErr}
 											</h2>
 										) : null}
-										<div className="flex items-center pl-6 mb-3 border border-gray-50 bg-white rounded-full">
+										<div className="flex items-center pl-6 mb-3 border border-slate-400 bg-white rounded-full">
 											<span className="inline-block pr-3 border-r border-gray-50">
 												<svg
 													className="w-5 h-5"
@@ -102,7 +128,7 @@ const Login = () => {
 											{formik.touched.email &&
 												formik.errors.email}
 										</div>
-										<div className="flex items-center pl-6 mb-6 border border-gray-50 bg-white rounded-full">
+										<div className="flex items-center pl-6 mb-6 border border-slate-400 bg-white rounded-full">
 											<span className="inline-block pr-3 border-r border-gray-50">
 												<svg
 													className="w-5 h-5"
@@ -144,7 +170,7 @@ const Login = () => {
 										{/* Login btn */}
 										{loading ? (
 											<button
-												type="submit"
+												disabled
 												className="py-4 w-full bg-gray-500  text-white font-bold rounded-full transition duration-200"
 											>
 												Loading...
@@ -152,14 +178,14 @@ const Login = () => {
 										) : (
 											<button
 												type="submit"
-												className="py-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-full transition duration-200"
+												className="py-4 w-full bg-slate-900 hover:bg-black text-white font-bold rounded-full transition duration-200"
 											>
 												Login
 											</button>
 										)}
 									</form>
 									<div className="flex justify-between">
-										<div className="p-2">
+										<div className="text-md mt-4">
 											<Link
 												to="/password-reset-token"
 												className="font-medium text-indigo-600 hover:text-indigo-500"
@@ -167,19 +193,31 @@ const Login = () => {
 												Forgot Password ?
 											</Link>
 										</div>
-										<div className="p-2">
+										<div className="text-md mt-4">
 											<Link
 												to="/register"
 												className="font-medium text-indigo-600 hover:text-indigo-500"
 											>
-												Not registered yet? Sign-up
+												Or Sign-up
 											</Link>
 										</div>
+									</div>
+									{/* login with google */}
+									<h1 className="text-center mt-3"> OR </h1>
+									<div className="w-full mt-3 flex items-center justify-center">
+										<GoogleLogin
+											size="large"
+											theme=""
+											text="signin_with"
+											onSuccess={onLoginSuccess}
+											onFailure={onFailureSuccess}
+											cookiePolicy={'single_host_origin'}
+										/>
 									</div>
 								</div>
 							</div>
 							<div className="w-full lg:w-3/5 px-4 mb-16 lg:mb-0 order-first lg:order-last">
-								<span className="flex mb-10 mx-auto items-center justify-center h-20 w-20 bg-blue-500 rounded-lg">
+								<span className="flex mb-10 mx-auto items-center justify-center h-20 w-20 bg-black text-white  hover:bg-slate-900 rounded-lg">
 									<svg
 										width="37"
 										height="37"
@@ -219,7 +257,7 @@ const Login = () => {
 										</g>
 									</svg>
 								</span>
-								<h2 className="mb-10 text-center text-6xl lg:text-7xl text-gray-300 font-bold font-heading">
+								<h2 className="mb-10 text-center text-6xl lg:text-7xl text-slate-900 font-bold font-heading">
 									Ready to start? Login Now.
 								</h2>
 							</div>
@@ -229,6 +267,6 @@ const Login = () => {
 			</section>
 		</>
 	);
-};
+};;
 
 export default Login;

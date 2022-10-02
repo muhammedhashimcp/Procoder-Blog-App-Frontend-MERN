@@ -1,16 +1,18 @@
-import { NavLink } from "react-router-dom";
-import { PencilAltIcon, ArchiveIcon } from '@heroicons/react/outline';
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { fetchCategoriesAction } from "../../redux/slices/category/categorySlice";
-import DateFormatter from "../../utils/DateFormatter";
-import LoadingComponent from "../../utils/LoadingComponent";
+import React from 'react';
+
+import { NavLink } from 'react-router-dom';
+import { PencilAltIcon } from '@heroicons/react/outline';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { fetchCategoriesAction } from '../../redux/slices/category/categorySlice';
+import DateFormatter from '../../utils/DateFormatter';
+import LoadingComponent from '../../utils/LoadingComponent';
 const CategoryList = () => {
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(fetchCategoriesAction());
 	}, [dispatch]);
-	const category = useSelector((state) => state?.category);
+	const category = useSelector((state) => state.category);
 	const { categoryList, loading, appErr, serverErr } = category;
 	return (
 		<>

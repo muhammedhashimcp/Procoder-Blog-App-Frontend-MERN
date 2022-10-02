@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { EyeIcon, ThumbDownIcon, ThumbUpIcon } from '@heroicons/react/solid';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,10 +21,10 @@ export default function PostsList() {
 		dispatch(fetchCategoriesAction());
 	}, [dispatch]);
 	// select post from store
-	const post = useSelector((state) => state?.post);
+	const post = useSelector((state) => state.post);
 	const { postLists, loading, appErr, serverErr, likes, disLikes } = post;
 	// select categories from store
-	const category = useSelector((state) => state?.category);
+	const category = useSelector((state) => state.category);
 	const {
 		categoryList,
 		loading: catLoading,
@@ -36,23 +38,24 @@ export default function PostsList() {
 	return (
 		<>
 			<section className="">
-				<div class="py-20 bg-white min-h-screen radius-for-skewed">
-					<div class="container mx-auto px-4">
-						<div class="mb-16 flex flex-wrap items-center">
-							<div class="w-full lg:w-1/2 lg:fixed ">
-								{/* <span class="text-green-600 font-bold"> */}
-								<span class="text-slate-700 font-bold">
+				<div className="py-20 bg-white min-h-screen radius-for-skewed">
+					{loading?<LoadingComponent/>:null}
+					<div className="container mx-auto px-4">
+						<div className="mb-16 flex flex-wrap items-center">
+							<div className="w-full lg:w-1/2 lg:fixed ">
+								{/* <span className="text-green-600 font-bold"> */}
+								<span className="text-slate-700 font-bold">
 									Latest Posts from our awesome authors
 								</span>
-								<h2 class="text-4xl text-black lg:text-5xl font-bold font-heading ">
+								<h2 className="text-4xl text-black lg:text-5xl font-bold font-heading ">
 									Latest Post
 								</h2>
 							</div>
 						</div>
-						<div class="flex flex-wrap -mx-3">
-							<div class="mb-8 lg:mb-0 w-full lg:w-1/4 px-3 lg:fixed ">
-								<div class="py-4 px-6 bg-gray-200 shadow rounded lg:overflow-hidden lg:hover:overflow-y-scroll  lg:max-h-[600px]">
-									<h4 class="mb-4 text-slate-700 text-xl font-bold uppercase flex justify-center">
+						<div className="flex flex-wrap -mx-3">
+							<div className="mb-8 lg:mb-0 w-full lg:w-1/4 px-3 lg:fixed ">
+								<div className="py-4 px-6 bg-gray-200 shadow rounded lg:overflow-hidden lg:hover:overflow-y-scroll  lg:max-h-[600px]">
+									<h4 className="mb-4 text-slate-700 text-xl font-bold uppercase flex justify-center">
 										Categories
 									</h4>
 									<ul>
@@ -70,22 +73,22 @@ export default function PostsList() {
 											<h1>
 												{catServerErr} {catAppErr}
 											</h1>
-										) : categoryList?.length <= 0 ? (
+										) : categoryList.length <= 0 ? (
 											<h1>No Category Found</h1>
 										) : (
-											categoryList?.map((category) => (
-												<li>
+											categoryList.map((category) => (
+												<li key={category.id}>
 													<p
 														onClick={() =>
 															dispatch(
 																fetchPostsAction(
-																	category?.title
+																	category.title
 																)
 															)
 														}
 														className="block cursor-pointer py-2 px-3 mb-4 rounded text-white font-bold bg-gray-500"
 													>
-														{category?.title}
+														{category.title}
 													</p>
 												</li>
 											))
@@ -93,25 +96,25 @@ export default function PostsList() {
 									</ul>
 								</div>
 							</div>
-							<div class="w-full lg:ml-[25%] lg:w-3/4 px-3">
+							<div className="w-full lg:ml-[25%] lg:w-3/4 px-3">
 								{/* Post goes here */}
 
 								{appErr || serverErr ? (
 									<p className="mt-2 text-center text-lg text-red-600">
 										{serverErr} {appErr}
 									</p>
-								) : postLists?.length <= 0 ? (
+								) : postLists.length <= 0 ? (
 									<h1>No Post Found</h1>
 								) : (
-									postLists?.map((post, index) => (
-										<div class="flex flex-wrap bg-[#F1F5F9] md:mb-6 lg:mb-6 border border-gray-400 rounded-xl mr-10 p-10">
-											<div class="mb-10  w-full lg:w-1/4">
+									postLists.map((post, index) => (
+										<div key={index} className="flex flex-wrap bg-[#F1F5F9] md:mb-6 lg:mb-6 border border-gray-400 rounded-xl mr-10 p-10">
+											<div className="mb-10  w-full lg:w-1/4">
 												<Link
 													to={`/posts/${post?._id}`}
 												>
 													{/* Post image */}
 													<img
-														class="w-full h-full  rounded 	object-fit"
+														className="w-full h-full  rounded 	object-fit"
 														src={post?.image}
 														alt=""
 													/>
@@ -173,18 +176,18 @@ export default function PostsList() {
 													</div>
 												</div>
 											</div>
-											<div class=" flex flex-col w-full lg:w-3/4 px-3 mt-10 lg:mt-0 ">
+											<div className=" flex flex-col w-full lg:w-3/4 px-3 mt-10 lg:mt-0 ">
 												<Link
 													to={`/posts/${post?._id}`}
 													className="hover:underline"
 												>
-													<h3 class="mb-1 text-3xl text-slate-800 font-bold font-heading cursor-pointer">
+													<h3 className="mb-1 text-3xl text-slate-800 font-bold font-heading cursor-pointer">
 														{/* {capitalizeWord(post?.title)} */}
 														{post?.title}
 													</h3>
 												</Link>
 												{/* <div className="">
-                          <p class="text-black break-words ">{post?.description}</p>
+                          <p className="text-black break-words ">{post?.description}</p>
                         </div> */}
 												<div
 													style={{
@@ -193,7 +196,7 @@ export default function PostsList() {
 															'ellipsis',
 														height: '150px',
 													}}
-													class="text-black"
+													className="text-black"
 													dangerouslySetInnerHTML={{
 														__html: post?.description,
 													}}
@@ -232,7 +235,7 @@ export default function PostsList() {
 																{
 																	post?.user
 																		?.firstName
-																}{' '}
+																}
 																{
 																	post?.user
 																		?.lastName
@@ -250,7 +253,7 @@ export default function PostsList() {
 														</div>
 													</div>
 												</div>
-												{/* <p class="text-gray-500">
+												{/* <p className="text-gray-500">
                              Quisque id sagittis turpis. Nulla sollicitudin rutrum
                              eros eu dictum...
                            </p> */}
@@ -263,18 +266,18 @@ export default function PostsList() {
 					</div>
 				</div>
 				{/* <div className="bg-gray-900">
-          <div class="skew bg-green-500 skew-bottom mr-for-radius">
+          <div className="skew bg-green-500 skew-bottom mr-for-radius">
             <svg
-              class="h-8 md:h-12 lg:h-10 w-full text-gray-900"
+              className="h-8 md:h-12 lg:h-10 w-full text-gray-900"
               viewBox="0 0 10 10"
               preserveAspectRatio="none"
             >
               <polygon fill="currentColor" points="0 0 10 0 0 10"></polygon>
             </svg>
           </div>
-          <div class="skew bg-gray-500  skew-bottom ml-for-radius">
+          <div className="skew bg-gray-500  skew-bottom ml-for-radius">
             <svg
-              class="h-8 bg-gray-500 md:h-12 lg:h-20 w-full text-gray-900"
+              className="h-8 bg-gray-500 md:h-12 lg:h-20 w-full text-gray-900"
               viewBox="0 0 10 10"
               preserveAspectRatio="none"
             >

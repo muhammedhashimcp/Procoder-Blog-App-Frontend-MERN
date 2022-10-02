@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { PlusCircleIcon, BookOpenIcon } from '@heroicons/react/solid';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import Dropzone from 'react-dropzone'; 
+import Dropzone from 'react-dropzone';
 //css for dropzone
 const Container = styled.div`
 flex: 1;
@@ -40,39 +42,38 @@ const AddNewCategory = () => {
 			categoryImage: '',
 		},
 		onSubmit: (values) => {
-		console.log(
-			'🚀 ~ file: AddNewCategory.js ~ line 43 ~ AddNewCategory ~ values',
-			formik.values
-		);
-				const data = {
-					title: values?.title,
-					categoryImage: values?.image,
-					
-				};
+			console.log(
+				'🚀 ~ file: AddNewCategory.js ~ line 43 ~ AddNewCategory ~ values',
+				formik.values
+			);
+			const data = {
+				title: values?.title,
+				categoryImage: values?.image,
+			};
 			dispatch(createCategoryAction(data));
 		},
 		validationSchema: formSchema,
 	});
-		console.log(
-			'🚀 ~ file: AddNewCategory.js ~ line 55 ~ AddNewCategory ~ values',
-			formik.values
-		);
+	console.log(
+		'🚀 ~ file: AddNewCategory.js ~ line 55 ~ AddNewCategory ~ values',
+		formik.values
+	);
 
 	// get data from store
 	const state = useSelector((state) => state?.category);
 	const { loading, appErr, serverErr, isCreated } = state;
-let image = formik?.values?.image;
-useEffect(() => {
-	if (image) {
-		const reader = new FileReader();
-		reader.onloadend = () => {
-			setPreview(reader.result);
-		};
-		reader.readAsDataURL(image);
-	} else {
-		setPreview(null);
-	}
-}, [image]);
+	let image = formik?.values?.image;
+	useEffect(() => {
+		if (image) {
+			const reader = new FileReader();
+			reader.onloadend = () => {
+				setPreview(reader.result);
+			};
+			reader.readAsDataURL(image);
+		} else {
+			setPreview(null);
+		}
+	}, [image]);
 	// redirect
 	if (isCreated) navigate('/category-list');
 	return (

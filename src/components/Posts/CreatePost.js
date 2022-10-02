@@ -1,4 +1,6 @@
-import { useMemo, useRef } from 'react';
+import React from 'react';
+
+import {  useRef } from 'react';
 import { useFormik } from 'formik';
 import DropZone from 'react-dropzone';
 import styled from 'styled-components';
@@ -8,7 +10,6 @@ import { createPostAction } from '../../redux/slices/posts/postSlices';
 import CategoriesOptions from '../Categories/CategoriesOptions';
 import { useNavigate } from 'react-router-dom';
 import JoditEditor from 'jodit-react';
-import RichTextEditor from 'react-rte';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
@@ -58,7 +59,6 @@ export default function CreatePost() {
 			description: '',
 			category: '',
 			image: '',
-		
 		},
 		onSubmit: (values) => {
 			// dispatch the action
@@ -67,14 +67,7 @@ export default function CreatePost() {
 				title: values?.title,
 				description: values?.description,
 				image: values?.image,
-				// bannerImage: values?.bannerImage,
-				// tags
 			};
-			console.log(
-				'🚀 ~ file: CreatePost.js ~ line 69 ~ CreatePost ~ data',
-				data
-			);
-
 			dispatch(createPostAction(data));
 		},
 		validationSchema: formSchema,
@@ -194,7 +187,7 @@ export default function CreatePost() {
 								<Container className="container bg-gray-700">
 									<DropZone
 										onBlur={formik.handleBlur('image')}
-										accept="image/jpeg, image/jpg, image/png"
+										accept="image/jpeg, image/jpg, image/png,image/webp"
 										onDrop={(acceptedFiles) => {
 											formik.setFieldValue(
 												'image',
