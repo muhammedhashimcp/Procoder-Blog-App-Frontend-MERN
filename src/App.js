@@ -27,19 +27,13 @@ import UpdatePassword from "./components/Users/PasswordManagement/UpdatePassword
 import ResetPasswordForm from "./components/Users/PasswordManagement/ResetPasswordForm";
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { gapi } from 'gapi-script';
+import Sample from "./components/sample/Sample";
 
-// require('dotenv').config();
-let clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+
+
+
 function App() {
-		useEffect(() => {
-			function start() {
-				gapi.auth2.init({
-					clientId: clientId,
-					scope: '',
-				});
-			}
-			gapi.load('client:auth2', start);
-		});
+	
 	return (
 		<>
 			<GoogleOAuthProvider
@@ -54,6 +48,7 @@ function App() {
   └─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  */}
 						<Route path="/" element={<HomePage />} />
+						<Route path="/sample" element={<Sample />} />
 						<Route path="/register" element={<Register />} />
 						<Route path="/login" element={<Login />} />
 						<Route path="/posts" element={<PostsList />} />

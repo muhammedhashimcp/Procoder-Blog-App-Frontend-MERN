@@ -10,7 +10,7 @@ export default function AccountVerificationAlertWarning() {
 	return (
 		<div className="container px-4 mx-auto">
 			<div className="bg-red-500 border-l-4 border-yellow-400 p-2">
-				<div className="flex">
+				<div className="flex justify-between">
 					<div className="flex-shrink-0">
 						<ExclamationIcon
 							className="h-5 w-5 text-yellow-500"
@@ -27,6 +27,18 @@ export default function AccountVerificationAlertWarning() {
 								className="font-medium underline text-green-200 hover:text-yellow-600"
 							>
 								Click this link to verify
+							</button>
+						</p>
+					</div>
+					<div>
+						<p className="text-sm text-yellow-200">
+							<button
+								// onClick={() =>
+								// 	dispatch(accVerificationSendTokenAction())
+								// }
+								className="font-medium underline text-green-200 hover:text-yellow-600"
+							>
+								Remind me later <span className='text-black'>X</span>
 							</button>
 						</p>
 					</div>

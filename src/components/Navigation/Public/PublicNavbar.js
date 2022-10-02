@@ -8,7 +8,7 @@ import Procoder from '../../../img/procoder logo.jpg';
 
 const navigation = [
 	{ name: 'Home', href: '/', current: true },
-	{ name: 'Blogs', href: '/blogs', current: false },
+	{ name: 'Blogs', href: '/posts', current: false },
 ];
 
 function classNames(...classes) {
@@ -19,11 +19,11 @@ const PublicNavbar = () => {
 	return (
 		<Disclosure
 			as="nav"
-			className="bg-white border drop-shadow sticky top-0"
+			className="bg-white border drop-shadow sticky top-0 "
 		>
 			{({ open }) => (
 				<>
-					<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<div className="   max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 						<div className="flex justify-between h-16">
 							<div className="flex">
 								<div className="-ml-2 mr-2 flex items-center md:hidden">

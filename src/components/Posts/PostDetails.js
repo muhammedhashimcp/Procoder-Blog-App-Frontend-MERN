@@ -38,7 +38,9 @@ const PostDetails = () => {
 		<div>
 			{loading ? (
 				<div className="h-screen">
-					<LoadingComponent />{' '}
+					<div className="flex justify-center">
+						<LoadingComponent />
+					</div>{' '}
 				</div>
 			) : appErr || serverErr ? (
 				<h1 className="h-screen text-red-400 text-xl">

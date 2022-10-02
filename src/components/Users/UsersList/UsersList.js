@@ -21,7 +21,9 @@ const UsersList = () => {
 			<UsersListHeader />
 			<section className="py-8 bg-gray-900 min-h-screen">
 				{loading ? (
-					<LoadingComponent />
+					<div className="flex justify-center">
+						<LoadingComponent />
+					</div>
 				) : appErr || serverErr ? (
 					<h3 className="text-yellow-600 text-center text-lg">
 						{serverErr} {appErr}

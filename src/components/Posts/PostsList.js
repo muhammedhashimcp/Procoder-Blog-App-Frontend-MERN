@@ -39,7 +39,11 @@ export default function PostsList() {
 		<>
 			<section className="">
 				<div className="py-20 bg-white min-h-screen radius-for-skewed">
-					{loading?<LoadingComponent/>:null}
+					{loading ? (
+						<div className="flex justify-center">
+							<LoadingComponent />
+						</div>
+					) : null}
 					<div className="container mx-auto px-4">
 						<div className="mb-16 flex flex-wrap items-center">
 							<div className="w-full lg:w-1/2 lg:fixed ">
@@ -68,15 +72,17 @@ export default function PostsList() {
 											View All Posts
 										</p>
 										{catLoading ? (
-											<LoadingComponent />
+											<div className="flex justify-center">
+												<LoadingComponent />
+											</div>
 										) : catAppErr || catServerErr ? (
 											<h1>
 												{catServerErr} {catAppErr}
 											</h1>
-										) : categoryList.length <= 0 ? (
+										) : categoryList?.length <= 0 ? (
 											<h1>No Category Found</h1>
 										) : (
-											categoryList.map((category) => (
+											categoryList?.map((category) => (
 												<li key={category.id}>
 													<p
 														onClick={() =>
@@ -103,11 +109,14 @@ export default function PostsList() {
 									<p className="mt-2 text-center text-lg text-red-600">
 										{serverErr} {appErr}
 									</p>
-								) : postLists.length <= 0 ? (
+								) : postLists?.length <= 0 ? (
 									<h1>No Post Found</h1>
 								) : (
-									postLists.map((post, index) => (
-										<div key={index} className="flex flex-wrap bg-[#F1F5F9] md:mb-6 lg:mb-6 border border-gray-400 rounded-xl mr-10 p-10">
+									postLists?.map((post, index) => (
+										<div
+											key={index}
+											className="flex flex-wrap bg-[#F1F5F9] md:mb-6 lg:mb-6 border border-gray-400 rounded-xl mr-10 p-10"
+										>
 											<div className="mb-10  w-full lg:w-1/4">
 												<Link
 													to={`/posts/${post?._id}`}

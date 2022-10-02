@@ -8,7 +8,8 @@ import { useEffect } from "react";
 import { GoogleLogin } from '@react-oauth/google';
 import jwtDecode from 'jwt-decode';
 import { gapi } from 'gapi-script';
-
+let clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+console.log('🚀 ~ file: App.js ~ line 34 ~ clientId', clientId);
 //Form schema
 const formSchema = Yup.object({
 	email: Yup.string().required("Email is required"),
@@ -44,25 +45,36 @@ const Login = () => {
 		}
 	}, [userAuth, navigate]);
 
-	//  const createOrGetUser = async (response) => {
-	// 		const decoded = jwtDecode(response.credential);
-	// 		const userData = {
-	// 			fullName: decoded.name,
-	// 			email: decoded.email,
-	// 			password: decoded.sub,
-	// 		};
-	// 		dispatch(loginUserAction(userData));
-	// 		console.log(userData);
-	// 	};
-
+	 const createOrGetUser = async (response) => {
+			const decoded = jwtDecode(response.credential);
+			const userData = {
+				fullName: decoded.name,
+				email: decoded.email,
+				password: decoded.sub,
+			};
+			dispatch(loginUserAction(userData));
+			console.log(userData);
+		};
+	// useEffect(() => {
+	// 	// console.log(clientId, 'clientId,');
+	// 	function start() {
+	// 		gapi.auth2.init({
+	// 			clientId: clientId,
+	// 			scope: '',
+	// 		});
+	// 	}
+	// 	gapi.load('client:auth2', start);
+	// });
+	// const onLoginSuccess = (res) => {
+	// 	console.log('login success ', res.profileObj);
+	// };
+	// const onFailureSuccess = (res) => {
+	// 	console.log('login Failure ', res);
+	// };
 	// var accessToken = gapi.auth.getToken().access_token;
 	// console.log(accessToken);
-		const onLoginSuccess = (res) => {
-			console.log('login success ', res.profileObj);
-		};
-		const onFailureSuccess = (res) => {
-			console.log('login Failure ', res);
-		};
+
+
 	return (
 		<>
 			<section className="min-h-screen  py-20 2xl:py-40 bg-white overflow-hidden">
@@ -204,17 +216,34 @@ const Login = () => {
 									</div>
 									{/* login with google */}
 									<h1 className="text-center mt-3"> OR </h1>
-									<div className="w-full mt-3 flex items-center justify-center">
-										<GoogleLogin
+									{/* <div className="w-full mt-3 min-w-full flex items-center justify-center"> */}
+										{/* <GoogleLogin
 											size="large"
-											theme=""
-											text="signin_with"
+
 											onSuccess={onLoginSuccess}
 											onFailure={onFailureSuccess}
 											cookiePolicy={'single_host_origin'}
-										/>
+										/> */}
+									{/* </div> */}
+										{/* login with google */}
+								
+										<div className="w-full mt-3 flex items-center justify-center">
+											<GoogleLogin
+												size="large"
+												theme=""
+												text="signin_with"
+												onSuccess={(response) => {
+													createOrGetUser(response);
+												}}
+												onError={() => {
+													console.log(
+														'Error with google login'
+													);
+												}}
+											/>
+										</div>
 									</div>
-								</div>
+								
 							</div>
 							<div className="w-full lg:w-3/5 px-4 mb-16 lg:mb-0 order-first lg:order-last">
 								<span className="flex mb-10 mx-auto items-center justify-center h-20 w-20 bg-black text-white  hover:bg-slate-900 rounded-lg">
@@ -267,6 +296,6 @@ const Login = () => {
 			</section>
 		</>
 	);
-};;
+}
 
 export default Login;
