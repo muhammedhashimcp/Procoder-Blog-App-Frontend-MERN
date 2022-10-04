@@ -39,9 +39,9 @@ export default function AccountVerificationAlertWarning() {
 								onClick={() =>
 									dispatch(remindMeLaterAction())
 								}
-								className="font-medium underline text-green-200 hover:text-yellow-600"
+								className="font-medium underline text-green-200 hover:text-slate-900"
 							>
-								Remind me later <span className='text-gray-800 mr-3'>X</span>
+								Remind me later <span className='text-slate-900 mr-3'>{ ' '}X</span>
 							</button>
 						</p>
 					</div>

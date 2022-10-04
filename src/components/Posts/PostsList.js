@@ -12,7 +12,24 @@ import {
 } from '../../redux/slices/posts/postSlices';
 import DateFormatter from '../../utils/DateFormatter';
 import LoadingComponent from '../../utils/LoadingComponent';
+import {
+	HeartIcon,
+	EmojiSadIcon,
+	UploadIcon,
+	UserIcon,
+	SaveIcon,
+	ShareIcon,
+	BookOpenIcon,
+	DocumentReportIcon,
+	BookmarkIcon,
+	UserAddIcon,
+	UserCircleIcon,
+	UserGroupIcon,
+	UserRemoveIcon,
+	UsersIcon,
+	ExclamationIcon,
 
+} from '@heroicons/react/outline';
 export default function PostsList() {
 	// dispatch
 	const dispatch = useDispatch();
@@ -46,7 +63,7 @@ export default function PostsList() {
 					) : null}
 					<div className="container mx-auto px-4">
 						<div className="mb-16 flex flex-wrap items-center">
-							<div className="w-full lg:w-1/2 lg:fixed ">
+							<div className="w-full lg:w-1/4 lg:fixed ">
 								{/* <span className="text-green-600 font-bold"> */}
 								<span className="text-slate-700 font-bold">
 									Latest Posts from our awesome authors
@@ -56,7 +73,7 @@ export default function PostsList() {
 								</h2>
 							</div>
 						</div>
-						<div className="flex flex-wrap -mx-3">
+						<div className="flex flex-wrap mx-3">
 							<div className="mb-8 lg:mb-0 w-full lg:w-1/4 px-3 lg:fixed ">
 								<div className="py-4 px-6 bg-gray-200 shadow rounded lg:overflow-hidden lg:hover:overflow-y-scroll  lg:max-h-[600px]">
 									<h4 className="mb-4 text-slate-700 text-xl font-bold uppercase flex justify-center">
@@ -102,7 +119,7 @@ export default function PostsList() {
 									</ul>
 								</div>
 							</div>
-							<div className="w-full lg:ml-[25%] lg:w-3/4 px-3">
+							<div className="w-full lg:ml-[25%] lg:w-3/4 px-5 ">
 								{/* Post goes here */}
 
 								{appErr || serverErr ? (
@@ -115,15 +132,15 @@ export default function PostsList() {
 									postLists?.map((post, index) => (
 										<div
 											key={index}
-											className="flex flex-wrap bg-[#F1F5F9] mb-4 lg:mb-6 border border-gray-400 rounded-xl mr-10 p-10"
+											className="flex flex-wrap bg-[#F1F5F9] mb-4 lg:mb-6 border border-gray-400 rounded-xl mx-auto p-10"
 										>
-											<div className="mb-10  w-full lg:w-1/4">
+											<div className="mx-auto  w-full lg:w-1/4">
 												<Link
 													to={`/posts/${post?._id}`}
 												>
 													{/* Post image */}
 													<img
-														className="w-full h-full  rounded 	object-fit"
+														className=" h-60 mx-auto rounded object-fit"
 														src={post?.image}
 														alt=""
 													/>
@@ -185,19 +202,16 @@ export default function PostsList() {
 													</div>
 												</div>
 											</div>
-											<div className=" flex flex-col w-full lg:w-3/4 px-3 mt-10 lg:mt-0 ">
+											<div className=" relative flex flex-col w-full lg:w-3/4 px-3 mt-10 lg:mt-0 ">
 												<Link
 													to={`/posts/${post?._id}`}
 													className="hover:underline"
 												>
-													<h3 className="mb-1 text-3xl text-slate-800 font-bold font-heading cursor-pointer">
-														{/* {capitalizeWord(post?.title)} */}
+													<h3 className="absolute left-1/2 -translate-x-1/2 mb-1 text-2xl text-gray-800 font-bold font-heading">
 														{post?.title}
 													</h3>
 												</Link>
-												{/* <div className="">
-                          <p className="text-black break-words ">{post?.description}</p>
-                        </div> */}
+
 												<div
 													style={{
 														overflow: 'hidden',
@@ -205,17 +219,18 @@ export default function PostsList() {
 															'ellipsis',
 														height: '150px',
 													}}
-													className="text-black"
+													className="text-black absolute top-10 line-clamp-5"
 													dangerouslySetInnerHTML={{
 														__html: post?.description,
 													}}
 												></div>
+
 												{/* Read more */}
 												<Link
 													to={`/posts/${post?._id}`}
-													className="text-indigo-500 hover:underline"
+													className="text-indigo-500 hover:underline absolute bottom-10"
 												>
-													<p className="text-blue-700 cursor-pointer">
+													<p className="text-blue-700 cursor-pointer mb-3">
 														Read More..
 													</p>
 												</Link>
@@ -262,10 +277,21 @@ export default function PostsList() {
 														</div>
 													</div>
 												</div>
-												{/* <p className="text-gray-500">
-                             Quisque id sagittis turpis. Nulla sollicitudin rutrum
-                             eros eu dictum...
-                           </p> */}
+												<div className=" mt-auto flex items-center">
+													<div className="flex flex-row bottom-3 ml-10 absolute left-1/2 -translate-x-1/2">
+														<SaveIcon className="text-black w-10 h-7" />
+														<BookmarkIcon className="text-black w-10 h-7" />
+														<UserRemoveIcon className="text-black w-10 h-7" />
+														<UserAddIcon className="text-black w-10 h-7" />
+														<UserCircleIcon className="text-black w-10 h-7" />
+														<UserGroupIcon className="text-black w-10 h-7" />
+														<UserIcon className="text-black w-10 h-7" />
+														<UsersIcon className="text-black w-10 h-7" />
+														<ShareIcon className="text-black w-10 h-7" />
+														<BookOpenIcon className="text-black w-10 h-7" />
+														<DocumentReportIcon className="text-black w-10 h-7" />
+													</div>
+												</div>
 											</div>
 										</div>
 									))
@@ -274,26 +300,32 @@ export default function PostsList() {
 						</div>
 					</div>
 				</div>
-				{/* <div className="bg-gray-900">
-          <div className="skew bg-green-500 skew-bottom mr-for-radius">
-            <svg
-              className="h-8 md:h-12 lg:h-10 w-full text-gray-900"
-              viewBox="0 0 10 10"
-              preserveAspectRatio="none"
-            >
-              <polygon fill="currentColor" points="0 0 10 0 0 10"></polygon>
-            </svg>
-          </div>
-          <div className="skew bg-gray-500  skew-bottom ml-for-radius">
-            <svg
-              className="h-8 bg-gray-500 md:h-12 lg:h-20 w-full text-gray-900"
-              viewBox="0 0 10 10"
-              preserveAspectRatio="none"
-            >
-              <polygon fill="currentColor" points="0 0 10 0 10 10"></polygon>
-            </svg>
-          </div>
-        </div> */}
+				<div className="bg-gray-900">
+					<div className="skew bg-green-500 skew-bottom mr-for-radius">
+						<svg
+							className="h-8 md:h-12 lg:h-10 w-full text-gray-900"
+							viewBox="0 0 10 10"
+							preserveAspectRatio="none"
+						>
+							<polygon
+								fill="currentColor"
+								points="0 0 10 0 0 10"
+							></polygon>
+						</svg>
+					</div>
+					<div className="skew bg-gray-500  skew-bottom ml-for-radius">
+						<svg
+							className="h-8 bg-gray-500 md:h-12 lg:h-20 w-full text-gray-900"
+							viewBox="0 0 10 10"
+							preserveAspectRatio="none"
+						>
+							<polygon
+								fill="currentColor"
+								points="0 0 10 0 10 10"
+							></polygon>
+						</svg>
+					</div>
+				</div>
 			</section>
 		</>
 	);

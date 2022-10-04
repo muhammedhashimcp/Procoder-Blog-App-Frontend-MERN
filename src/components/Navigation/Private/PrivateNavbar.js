@@ -81,7 +81,7 @@ const PrivateNavbar = ({ isLogin }) => {
 										src={Procoder}
 										alt="Procoder"
 									/>
-									<span className="logoText">
+									<span className="logoText hidden lg:block">
 										{'     '}Procoder
 									</span>
 								</div>
@@ -106,7 +106,7 @@ const PrivateNavbar = ({ isLogin }) => {
 								<div className="flex-shrink-0 ">
 									<Link
 										to="/create-post"
-										className="pr-3  relative inline-flex items-center mr-2 px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-slate-900 hover:bg-blac focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+										className="pr-3  relative inline-flex items-center mr-2 px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-slate-900 hover:bg-black "
 									>
 										<PlusIcon
 											className="-ml-1 mr-2 h-5 w-5"
@@ -118,7 +118,7 @@ const PrivateNavbar = ({ isLogin }) => {
 									<button
 										onClick={() => dispatch(logoutAction())}
 										type="button"
-										className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-slate-900 hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+										className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-slate-900 hover:bg-black "
 									>
 										<LogoutIcon
 											className="-ml-1 mr-2 h-5 w-5"
