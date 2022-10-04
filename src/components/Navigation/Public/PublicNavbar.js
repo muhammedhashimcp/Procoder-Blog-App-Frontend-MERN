@@ -1,14 +1,14 @@
 import React from 'react';
 
 import { Disclosure } from '@headlessui/react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { MenuIcon, XIcon, LoginIcon } from '@heroicons/react/outline';
 import { PlusIcon } from '@heroicons/react/solid';
 import Procoder from '../../../img/procoder logo.jpg';
 
 const navigation = [
-	{ name: 'Home', href: '/', current: true },
-	{ name: 'Blogs', href: '/posts', current: false },
+	{ name: 'Home', href: '/' },
+	{ name: 'Blogs', href: '/posts'},
 ];
 
 function classNames(...classes) {
@@ -16,6 +16,17 @@ function classNames(...classes) {
 }
 
 const PublicNavbar = () => {
+	const navLinkStyles = ({ isActive,item }) => {
+		console.log("🚀 ~ file: PublicNavbar.js ~ line 20 ~ navLinkStyles ~ isActive", isActive)
+		console.log("🚀 ~ file: PublicNavbar.js ~ line 21 ~ navLinkStyles ~ item", item)
+		
+		return (
+				isActive?('bg-gray-700 text-white font-semibold px-3 py-2 rounded-md text-md font-medium'):('text-black hover:bg-gray-700 hover:text-white font-semibold px-3 py-2 rounded-md text-md font-medium')
+				// isActive?'bg-gray-700 text-white font-semibold px-3 py-2 rounded-md text-md font-medium':'text-black hover:bg-gray-700 hover:text-white font-semibold px-3 py-2 rounded-md text-md font-medium'
+													
+												
+		)
+	}
 	return (
 		<Disclosure
 			as="nav"
@@ -45,8 +56,12 @@ const PublicNavbar = () => {
 										)}
 									</Disclosure.Button>
 								</div>
-								<div className="flex-shrink-0 flex items-center  text-2xl font-semibold">
-									{/* Logo */}
+
+								{/* Logo */}
+								<Link
+									to={'/'}
+									className="flex-shrink-0 flex items-center  text-2xl font-semibold "
+								>
 									<img
 										className="h-12 w-8 "
 										src={Procoder}
@@ -55,26 +70,24 @@ const PublicNavbar = () => {
 									<span className="logoText">
 										{'     '}Procoder
 									</span>
-								</div>
+								</Link>
+
 								<div className="hidden md:ml-6 md:flex md:items-center md:space-x-4">
 									{navigation.map((item) => (
-										<Link
-											key={item.name}
-											to={item.href}
-											className={classNames(
-												item.current
-													? 'bg-gray-700 text-white font-semibold'
-													: 'text-black hover:bg-gray-700 hover:text-white font-semibold',
-												'px-3 py-2 rounded-md text-md font-medium'
-											)}
-											aria-current={
-												item.current
-													? 'page'
-													: undefined
-											}
-										>
-											{item.name}
-										</Link>
+										<nav>
+											<NavLink
+												key={item.name}
+												to={item.href}
+												className={navLinkStyles}
+												aria-current={
+													item.current
+														? 'page'
+														: undefined
+												}
+											>
+												{item.name}
+											</NavLink>
+										</nav>
 									))}
 								</div>
 							</div>
@@ -111,21 +124,18 @@ const PublicNavbar = () => {
 					<Disclosure.Panel className="md:hidden">
 						<div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
 							{navigation.map((item) => (
-								<a
-									key={item.name}
-									href={item.href}
-									className={classNames(
-										item.current
-											? 'bg-gray-900 text-white'
-											: 'text-gray-300 hover:bg-gray-700 hover:text-white',
-										'block px-3 py-2 rounded-md text-base font-medium'
-									)}
-									aria-current={
-										item.current ? 'page' : undefined
-									}
-								>
-									{item.name}
-								</a>
+								<nav>
+									<NavLink
+										key={item.name}
+										to={item.href}
+										className={navLinkStyles}
+										aria-current={
+											item.current ? 'page' : undefined
+										}
+									>
+										{item.name}
+									</NavLink>
+								</nav>
 							))}
 						</div>
 					</Disclosure.Panel>

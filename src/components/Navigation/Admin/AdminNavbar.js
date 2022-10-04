@@ -39,7 +39,12 @@ const AdminNavbar = ({isLogin}) => {
   ];
 
 	// logout
-	const dispatch=useDispatch()
+	const dispatch = useDispatch()
+	const navLinkStyles = ({ isActive,item }) => {		
+		return (
+				isActive?('bg-gray-700 text-white font-semibold px-3 py-2 rounded-md text-md font-medium'):('text-black hover:bg-gray-700 hover:text-white font-semibold px-3 py-2 rounded-md text-md font-medium')							
+		)
+	}
   return (
 		<Disclosure
 			as="nav"
@@ -82,15 +87,27 @@ const AdminNavbar = ({isLogin}) => {
 								</div>
 								<div className="hidden md:ml-6 md:flex md:items-center md:space-x-4">
 									{navigation.map((item) => (
-										<Link
+										// <Link
+										// 	key={item.name}
+										// 	to={item.href}
+										// 	className={classNames(
+										// 		item.current
+										// 			? 'bg-slate-50 text-black'
+										// 			: 'text-black hover:bg-gray-700 hover:text-white',
+										// 		'px-3 py-2 rounded-md text-sm font-medium'
+										// 	)}
+										// 	aria-current={
+										// 		item.current
+										// 			? 'page'
+										// 			: undefined
+										// 	}
+										// >
+										// 	{item.name}
+										// </Link>
+										<NavLink
 											key={item.name}
 											to={item.href}
-											className={classNames(
-												item.current
-													? 'bg-slate-50 text-black'
-													: 'text-black hover:bg-gray-700 hover:text-white',
-												'px-3 py-2 rounded-md text-sm font-medium'
-											)}
+											className={navLinkStyles}
 											aria-current={
 												item.current
 													? 'page'
@@ -98,7 +115,7 @@ const AdminNavbar = ({isLogin}) => {
 											}
 										>
 											{item.name}
-										</Link>
+										</NavLink>
 									))}
 								</div>
 							</div>
@@ -254,13 +271,18 @@ const AdminNavbar = ({isLogin}) => {
 							</div>
 							<div className="mt-3 px-2 space-y-1 sm:px-3">
 								{userNavigation.map((item) => (
-									<a
-										key={item.name}
-										href={item.href}
-										className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
-									>
-										{item.name}
-									</a>
+									<NavLink
+											key={item.name}
+											to={item.href}
+											className={navLinkStyles}
+											aria-current={
+												item.current
+													? 'page'
+													: undefined
+											}
+										>
+											{item.name}
+										</NavLink>
 								))}
 							</div>
 						</div>

@@ -2,7 +2,10 @@ import React from 'react';
 
 import { ExclamationIcon } from '@heroicons/react/solid';
 import { useDispatch } from 'react-redux';
-import { accVerificationSendTokenAction } from '../../../redux/slices/accountVerification/accVerificationSlices';
+import {
+	accVerificationSendTokenAction,
+	remindMeLaterAction,
+} from '../../../redux/slices/accountVerification/accVerificationSlices';
 
 export default function AccountVerificationAlertWarning() {
 	const dispatch = useDispatch();
@@ -33,12 +36,12 @@ export default function AccountVerificationAlertWarning() {
 					<div>
 						<p className="text-sm text-yellow-200">
 							<button
-								// onClick={() =>
-								// 	dispatch(accVerificationSendTokenAction())
-								// }
+								onClick={() =>
+									dispatch(remindMeLaterAction())
+								}
 								className="font-medium underline text-green-200 hover:text-yellow-600"
 							>
-								Remind me later <span className='text-black'>X</span>
+								Remind me later <span className='text-gray-800 mr-3'>X</span>
 							</button>
 						</p>
 					</div>

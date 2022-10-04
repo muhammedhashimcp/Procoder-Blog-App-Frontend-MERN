@@ -43,7 +43,7 @@ export default function Profile() {
 	}, [id, dispatch, followed, unFollowed]);
 
 	//isLogin
-	const isLoginUser = userAuth?._id === profile?._id;
+	const isLoggedUser = userAuth?._id === profile?._id;
 
 
 	return (
@@ -163,7 +163,7 @@ export default function Profile() {
 																{/* is login user */}
 																{/* Upload profile photo */}
 
-																{isLoginUser && (
+																{isLoggedUser && (
 																	<Link
 																		to={`/upload-profile-photo`}
 																		className="inline-flex justify-center w-48 px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
@@ -181,7 +181,7 @@ export default function Profile() {
 															</div>
 															<div className="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
 																{/* // Hide follow button from the same */}
-																{!isLoginUser && (
+																{!isLoggedUser && (
 																	<div>
 																		{/* {profile?.isFollowing ? (
 																	<button

@@ -5,11 +5,12 @@ import BlogAppPoster from '../../img/blog-app.jpg';
 const HomePage = () => {
 	return (
 		<>
-			<section className=" min-h-screen  relative 2xl:py-20 pt-5 px-14 bg-white ">
-				<div className=" container px-auto mx-auto ">
-					<div className="flex  flex-wrap items-center -mx-4 mb-10 2xl:mb-14">
-						<div className="w-full relative lg:w-1/2 px-4 mb-16 lg:mb-0 opacity-80">
-							<span className="text-2xl font-bold text-black ">
+			<section className=" min-h-screen  2xl:py-20 pt-5 px-14 bg-white ">
+				<div className=" px-auto mx-auto ">
+					<div className="flex  flex-wrap items-center -mx-4 mb-10 2xl:mb-14">p
+						<div className="w-full lg:w-1/2 px-4 ">
+							{/* <h4 className="max-w-2xl font-bold font-bold font-heading"> */}
+							<h4 className=" mt-2  text-3xl 2xl:text-6xl text-zinc  font-heading text-slate-600">
 								<span className="text-red-600">
 									Create Blogs
 								</span>
@@ -18,9 +19,9 @@ const HomePage = () => {
 								<span className="text-yellow-400">) </span>
 								<span>&#61;&#62;</span>{' '}
 								<span className="text-blue-600">&#123;</span>
-							</span>
+							</h4>
 
-							<h4 className="max-w-2xl mt-2  text-4xl 2xl:text-6xl text-zinc font-bold font-heading text-slate-600">
+							<h4 className="max-w-2xl mt-2  text-3xl 2xl:text-6xl text-zinc  font-heading text-slate-600">
 								Pen down your
 								<span className="text-green-600">
 									{' '}
@@ -28,7 +29,7 @@ const HomePage = () => {
 								</span>{' '}
 								By
 							</h4>
-							<h4 className="max-w-2xl text-4xl 2xl:text-6xl text-zinc font-bold font-heading text-slate-600 ">
+							<h4 className="max-w-2xl text-3xl 2xl:text-6xl text-zinc  font-heading text-slate-600 ">
 								{' '}
 								<span className="text-red-600">
 									Creating{' '}
@@ -42,7 +43,7 @@ const HomePage = () => {
 									){' '}
 								</span>
 							</h4>
-							<h4 className="text-blue-600  mt-1  text-2xl font-bold ">
+							<h4 className="text-blue-600  mt-1  text-2xl  ">
 								&#125;
 							</h4>
 						</div>
@@ -71,4 +72,4 @@ const HomePage = () => {
 	);
 };
 
-export default HomePage; 
+export default HomePage;

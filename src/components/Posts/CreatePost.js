@@ -43,7 +43,7 @@ transition: border 0.24s ease-in-out;
 
 export default function CreatePost() {
 	const [preview, setPreview] = useState('');
-	// const [tags, setTags] = useState([]);
+	const [tags, setTags] = useState([]);
 
 	const editor = useRef(null);
 	const dispatch = useDispatch();
@@ -87,25 +87,25 @@ export default function CreatePost() {
 		}
 	}, [image]);
 	// Tags
-	// const addTag = (e) => {
-	// 	console.log(e.target.value, e.key);
-	// 	if (e.key === 'Enter') {
-	// 		console.log('inside the enter');
-	// 		if (e.target.value.length > 0) {
-	// 			setTags([...tags, e.target.value]);
-	// 			console.log(tags);
-	// 		}
-	// 		e.target.value = '';
-	// 	}
-	// };
-	// const removeTag = (removedTag) => {
-	// 	console.log(removedTag, 'hello');
-	// 	const newTags = tags.filter((tag) => tag !== removedTag);
-	// 	setTags(newTags);
-	// };
-	// const clearTags = () => {
-	// 	setTags([]);
-	// };
+	const addTag = (e) => {
+		console.log(e.target.value, e.key);
+		if (e.key === 'Enter') {
+
+			if (e.target.value.length > 0) {
+				setTags([...tags, e.target.value]);
+				console.log(tags);
+			}
+			e.target.value = '';
+		}
+	};
+	const removeTag = (removedTag) => {
+		console.log(removedTag, 'hello');
+		const newTags = tags.filter((tag) => tag !== removedTag);
+		setTags(newTags);
+	};
+	const clearTags = () => {
+		setTags([]);
+	};
 	return (
 		<>
 			<div className="min-h-screen bg-white flex flex-col justify-center  px-4 sm:px-6 lg:px-8 overflow-hidden relative">
@@ -174,9 +174,7 @@ export default function CreatePost() {
 										formik.errors.title}
 								</div>
 							</div>
-
 							{/* Image component */}
-
 							<div>
 								<label
 									htmlFor="image"
@@ -184,38 +182,7 @@ export default function CreatePost() {
 								>
 									Select a image to banner
 								</label>
-								<Container className="container bg-gray-700">
-									<DropZone
-										onBlur={formik.handleBlur('image')}
-										accept="image/jpeg, image/jpg, image/png,image/webp"
-										onDrop={(acceptedFiles) => {
-											formik.setFieldValue(
-												'image',
-												acceptedFiles[0]
-											);
-										}}
-									>
-										{({ getRootProps, getInputProps }) => (
-											<div className="container">
-												<div
-													{...getRootProps({
-														className: 'dropzone',
-														onDrop: (event) =>
-															event.stopPropagation(),
-													})}
-												>
-													<input
-														{...getInputProps()}
-													/>
-													<p className="text-gray-300 text-lg cursor-pointer hover:text-gray-500">
-														Click here to select
-														image
-													</p>
-												</div>
-											</div>
-										)}
-									</DropZone>
-								</Container>
+
 								{/* image preview */}
 								{preview ? (
 									<div className="border border-gray-300 p-2 bg-gray-100 rounded-md shadow-sm">
@@ -277,29 +244,7 @@ export default function CreatePost() {
 									Description
 								</label>
 								{/* Description */}
-								{/* <JoditEditor
-									ref={editor}
-									value={formik?.values?.description}
-									onChange={formik.handleChange(
-										'description'
-									)}
-									onBlur={formik.handleBlur('description')}
-									className="rounded-lg appearance-none block w-full py-3 px-3 text-base text-center leading-tight text-gray-600 bg-transparent focus:bg-transparent  border border-gray-200 focus:border-gray-500  focus:outline-none"
-									type="text"
-								/> */}
-								{/* <JoditEditor
-									ref={editor}
-									name="description"
-									value={formik?.values?.description}
-									onChange={formik?.handleChange(
-										'description'
-									)}
-									onBlur={formik?.handleBlur('description')}
-									// config={config}
 
-									className="rounded-lg appearance-none block w-full py-3 px-3 text-base text-center leading-tight text-gray-600 bg-transparent focus:bg-transparent  border border-gray-200 focus:border-gray-500  focus:outline-none"
-									type="text"
-								/> */}
 								<JoditEditor
 									ref={editor}
 									value={formik.values.description}
@@ -320,6 +265,57 @@ export default function CreatePost() {
 								</div>
 							</div>
 							{/* Tags  */}
+							<div>
+								<label
+									htmlFor="tags"
+									className="block  text-sm font-medium text-gray-700"
+								>
+									Tags
+								</label>
+								<div className=" my-1">
+									{/* Tags */}
+									<div className="flex flex-row  w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+										{tags.map((tag, index) => (
+											<div
+												key={index}
+												className="border text-lg border-gray-600 px-5  ml-3 rounded "
+											>
+												{tag}
+												<span
+													className="text-xl text-red-700 ml-5"
+													onClick={() =>
+														removeTag(tag)
+													}
+												>
+													X
+												</span>
+											</div>
+										))}
+										{tags.length < 5 && (
+											<input
+												className="text-lg border-0 ml-3 pl-3"
+												type="text"
+												onKeyDown={addTag}
+												placeholder="Tag your Blog with five keywords"
+											/>
+										)}
+										<button className="border ml-auto text-lg border-gray-600 px-5 bg-red-600  rounded ">
+											<span
+												className="text-xl text-white "
+												onClick={() => clearTags()}
+											>
+												Clear
+											</span>
+										</button>
+									</div>
+								</div>
+								{/* Tag Err msg */}
+								<div className="text-red-500">
+									{tags.length > 0 &&
+										tags.length < 2 &&
+										'Minimum 2 tags reguired'}
+								</div>
+							</div>
 
 							<div className="w-full flex flex-row py-2 px-4 justify-center gap-6  ">
 								<button

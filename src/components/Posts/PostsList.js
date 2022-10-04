@@ -115,7 +115,7 @@ export default function PostsList() {
 									postLists?.map((post, index) => (
 										<div
 											key={index}
-											className="flex flex-wrap bg-[#F1F5F9] md:mb-6 lg:mb-6 border border-gray-400 rounded-xl mr-10 p-10"
+											className="flex flex-wrap bg-[#F1F5F9] mb-4 lg:mb-6 border border-gray-400 rounded-xl mr-10 p-10"
 										>
 											<div className="mb-10  w-full lg:w-1/4">
 												<Link

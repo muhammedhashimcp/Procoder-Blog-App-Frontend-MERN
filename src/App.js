@@ -7,6 +7,7 @@ import Navbar from "./components/Navigation/Navbar";
 import Login from "./components/Users/Login/Login";
 import Register from "./components/Users/Register/Register";
 import Profile from "./components/Profile/Profile";
+import ProfileAnas from "./components/Profile/ProfileAnas";
 import PageNotFound from "./components/PageNotFound";
 import AddNewCategory from "./components/Categories/AddNewCategory";
 import CategoryList from "./components/Categories/CategoryList";
@@ -84,6 +85,7 @@ function App() {
 								path="/update-profile/:id"
 								element={<UpdateProfileForm />}
 							/>
+							<Route path="/profile/:id" element={<ProfileAnas />} />
 							<Route path="/profile/:id" element={<Profile />} />
 							<Route path="/send-mail" element={<SendEmail />} />
 							<Route

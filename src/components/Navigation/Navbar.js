@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import AdminNavbar from "./Admin/AdminNavbar";
 import PrivateNavbar from "./Private/PrivateNavbar";
@@ -14,7 +14,8 @@ const Navbar = () => {
 	const isAdmin = userAuth?.isAdmin;
 	//account verification
 	const account = useSelector((state) => state.accountVerification);
-	const { loading, appErr, serverErr, token } = account;
+	const { loading, appErr, serverErr, token, remindMeLater } = account;
+	const [close, setClose] = useState(false);
 	return (
 		<>
 			{isAdmin ? (
@@ -25,12 +26,12 @@ const Navbar = () => {
 				<PublicNavbar />
 			)}
 			{/* Display alert */}
-			{userAuth && !userAuth.isVerified && (
-				<AccountVerificationAlertWarning />
-			)}
+			{userAuth &&
+				!userAuth.isVerified &&
+				!remindMeLater&&(<AccountVerificationAlertWarning />)}
 			{/* display success msg */}
 			{loading && <h2 className="text-center">Loading please wait...</h2>}
-			{token && <AccountVerificationSuccessAlert />}
+			{token &&!close&& <AccountVerificationSuccessAlert setClose={setClose} />}
 			{appErr || serverErr ? (
 				<h2 className="text-center text-red-500">
 					{serverErr} {appErr}

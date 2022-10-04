@@ -67,6 +67,34 @@ export const verifyAccountAction = createAsyncThunk(
 	}
 );
 
+
+// Remind Me Later Action
+export const remindMeLaterAction = createAsyncThunk(
+	'account/remind-later',
+	async (token, { rejectWithValue, getState, dispatch }) => {
+		// get user token
+		const user = getState().users;
+		const { userAuth } = user;
+		const config = {
+			headers: {
+				Authorization: `Bearer ${userAuth?.token}`,
+			},
+		};
+		try {
+			const { data } = await axios.put(
+				`${baseUrl}/api/users/remind-later`,
+				{ token },
+				config
+			);
+			return data;
+		} catch (error) {
+			if (!error?.response) {
+				throw error;
+			}
+			return rejectWithValue(error?.response?.data);
+		}
+	}
+);
 const accountVerificationSlices = createSlice({
 	name: "account",
 	initialState: {},
@@ -111,6 +139,25 @@ const accountVerificationSlices = createSlice({
 			state.serverErr = undefined;
 		});
 		builder.addCase(verifyAccountAction.rejected, (state, action) => {
+			state.loading = false;
+			state.appErr = action?.payload?.message;
+			state.serverErr = action?.error?.message;
+		});
+
+		// Remind Me Later Action
+		builder.addCase(remindMeLaterAction.pending, (state, action) => {
+			state.loading = true;
+		});
+		
+		builder.addCase(remindMeLaterAction.fulfilled, (state, action) => {
+			state.token = action?.payload;
+			state.isVerified = false;
+			state.remindMeLater=true
+			state.loading = false;
+			state.appErr = undefined;
+			state.serverErr = undefined;
+		});
+		builder.addCase(remindMeLaterAction.rejected, (state, action) => {
 			state.loading = false;
 			state.appErr = action?.payload?.message;
 			state.serverErr = action?.error?.message;
