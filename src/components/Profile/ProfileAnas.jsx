@@ -62,7 +62,7 @@ export default function Profile() {
 			<section className="min-h-screen bg-white ">
 				<div className="container px-4 mx-auto">
 					{profileLoading ? (
-						<div className="flex justify-center">
+						<div className="flex justify-center align-center">
 							<LoadingComponent />
 						</div>
 					) : profileAppErr || profileServerErr ? (
@@ -122,7 +122,7 @@ export default function Profile() {
 														{/* Upload banner photo */}
 														<Link
 															className=" pr-3  relative inline-flex items-center   px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-slate-900 hover:bg-blac focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-															to={`/upload-profile-photo`}
+															to={`/upload-profile-banner`}
 															state={{
 																banner: true,
 															}}
@@ -529,6 +529,7 @@ export default function Profile() {
 																				}
 																				alt="poster"
 																			/>
+
 																		</Link>
 																	</div>
 																	<div className=" w-full lg:w-3/4 pl-4 border-1 ">

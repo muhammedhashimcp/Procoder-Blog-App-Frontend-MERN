@@ -17,14 +17,10 @@ function classNames(...classes) {
 
 const PublicNavbar = () => {
 	const navLinkStyles = ({ isActive,item }) => {
-		console.log("🚀 ~ file: PublicNavbar.js ~ line 20 ~ navLinkStyles ~ isActive", isActive)
-		console.log("🚀 ~ file: PublicNavbar.js ~ line 21 ~ navLinkStyles ~ item", item)
 		
 		return (
-				isActive?('bg-gray-700 text-white font-semibold px-3 py-2 rounded-md text-md font-medium'):('text-black hover:bg-gray-700 hover:text-white font-semibold px-3 py-2 rounded-md text-md font-medium')
+				isActive?('bg-gray-700  text-white font-semibold px-3 py-2 mt-5  rounded-md text-md font-medium'):('text-black hover:bg-gray-700 hover:text-white font-semibold px-3 py-2 sm:my-5 rounded-md text-md mt-5 font-medium')
 				// isActive?'bg-gray-700 text-white font-semibold px-3 py-2 rounded-md text-md font-medium':'text-black hover:bg-gray-700 hover:text-white font-semibold px-3 py-2 rounded-md text-md font-medium'
-													
-												
 		)
 	}
 	return (
@@ -34,8 +30,8 @@ const PublicNavbar = () => {
 		>
 			{({ open }) => (
 				<>
-					<div className="   max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-						<div className="flex justify-between h-16">
+					<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+						<div className="flex justify-between ">
 							<div className="flex">
 								<div className="-ml-2 mr-2 flex items-center md:hidden">
 									{/* Mobile menu button */}
@@ -72,7 +68,7 @@ const PublicNavbar = () => {
 									</span>
 								</Link>
 
-								<div className="hidden md:ml-6 md:flex md:items-center md:space-x-4">
+								<div className="hidden md:ml-6 md:flex md:items-center md:space-x-4 ">
 									{navigation.map((item) => (
 										<nav>
 											<NavLink
@@ -122,7 +118,7 @@ const PublicNavbar = () => {
 					</div>
 
 					<Disclosure.Panel className="md:hidden">
-						<div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+						<div className="px-2 pt-5 pb-3 space-y-1 ">
 							{navigation.map((item) => (
 								<nav>
 									<NavLink

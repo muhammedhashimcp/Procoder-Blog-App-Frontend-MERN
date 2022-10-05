@@ -12,7 +12,7 @@ const Navbar = () => {
 	const state = useSelector((state) => state.users);
 	const { userAuth } = state;
 	const isAdmin = userAuth?.isAdmin;
-	//account verification
+	//account verification 
 	const account = useSelector((state) => state.accountVerification);
 	const { loading, appErr, serverErr, token, remindMeLater } = account;
 	const [close, setClose] = useState(false);

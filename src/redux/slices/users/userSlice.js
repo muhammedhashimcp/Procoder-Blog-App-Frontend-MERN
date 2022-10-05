@@ -150,6 +150,7 @@ export const unFollowUserAction = createAsyncThunk(
 		}
 	}
 );
+
 // Upload Profile photo
 export const uploadProfilePhotoAction = createAsyncThunk(
 	"user/profile-photo",
@@ -169,6 +170,36 @@ export const uploadProfilePhotoAction = createAsyncThunk(
 			formData.append("image", userImage?.image);
 			const { data } = await axios.put(
 				`${baseUrl}/api/users/profile-photo-upload`,
+				formData,
+				config
+			);
+			return data;
+		} catch (error) {
+			if (!error?.response) throw error;
+			return rejectWithValue(error?.response?.data);
+		}
+	}
+);
+
+// Upload Profile Banner
+export const uploadProfileBannerAction = createAsyncThunk(
+	"user/profile-banner",
+	async (userImage, { rejectWithValue, getState, dispatch }) => {
+		// get user token
+		const user = getState()?.users;
+		const { userAuth } = user;
+		const config = {
+			headers: {
+				Authorization: `Bearer ${userAuth?.token}`,
+			},
+		};
+		try {
+			console.log(userImage);
+			// http call
+			const formData = new FormData();
+			formData.append("image", userImage?.image);
+			const { data } = await axios.put(
+				`${baseUrl}/api/users/profile-banner-photo-upload`,
 				formData,
 				config
 			);
@@ -608,6 +639,23 @@ const userSlices = createSlice({
 			state.serverErr = undefined;
 		});
 		builder.addCase(uploadProfilePhotoAction.rejected, (state, action) => {
+			state.loading = false;
+			state.appErr = action?.payload?.message;
+			state.serverErr = action?.error?.message;
+		});
+		// Upload Profile Banner
+		builder.addCase(uploadProfileBannerAction.pending, (state, action) => {
+			state.loading = true;
+			state.appErr = undefined;
+			state.serverErr = undefined;
+		});
+		builder.addCase(uploadProfileBannerAction.fulfilled, (state, action) => {
+			state.bannerPhoto = action?.payload;
+			state.loading = false;
+			state.appErr = undefined;
+			state.serverErr = undefined;
+		});
+		builder.addCase(uploadProfileBannerAction.rejected, (state, action) => {
 			state.loading = false;
 			state.appErr = action?.payload?.message;
 			state.serverErr = action?.error?.message;

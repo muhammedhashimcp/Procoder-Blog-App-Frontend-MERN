@@ -18,14 +18,11 @@ const formSchema = Yup.object({
 	title: Yup.string().required('Title is required'),
 	description: Yup.string().required('Description is required'),
 	category: Yup.object().required('Category is required'),
-	image: Yup.string().required('Image is required'),
+	blogBannerImage: Yup.string().required('Banner Image is required'),
+	blogIconImage: Yup.string().required('Blog Icon Image is required'),
+	
 });
-// .test(
-// 		'len',
-// 		'Must be more than 1000 characters',
-// 		(val) => val?.length > 1000
-// 	),
-//css for dropzone
+
 const Container = styled.div`
 flex: 1;
 display: flex;
@@ -42,7 +39,6 @@ transition: border 0.24s ease-in-out;
 `;
 
 export default function CreatePost() {
-	const [preview, setPreview] = useState('');
 	const [tags, setTags] = useState([]);
 
 	const editor = useRef(null);
@@ -58,7 +54,9 @@ export default function CreatePost() {
 			title: '',
 			description: '',
 			category: '',
-			image: '',
+			blogBannerImage: '',
+			blogIconImage: '',
+			tags:[]
 		},
 		onSubmit: (values) => {
 			// dispatch the action
@@ -66,31 +64,87 @@ export default function CreatePost() {
 				category: values?.category?.label,
 				title: values?.title,
 				description: values?.description,
-				image: values?.image,
+				blogBannerImage: values?.blogBannerImage,
+				blogIconImage: values?.blogIconImage,
+				tags:values?.tags
 			};
+			
+			console.log("🚀 ~ file: CreatePost.js ~ line 75 ~ CreatePost ~ data", data)
 			dispatch(createPostAction(data));
 		},
 		validationSchema: formSchema,
 	});
 	if (isCreated) navigate('/posts');
-	// Image Preview
-	let image = formik?.values?.bannerImage;
+	//Banner  Image Preview
+	const [blogBannerPreview, setBlogBannerPreview] = useState('');
+
+	let blogBannerImage = formik?.values?.blogBannerImage;
 	useEffect(() => {
-		if (image) {
+		if (blogBannerImage) {
 			const reader = new FileReader();
 			reader.onloadend = () => {
-				setPreview(reader.result);
+				setBlogBannerPreview(reader.result);
 			};
-			reader.readAsDataURL(image);
+			reader.readAsDataURL(blogBannerImage);
 		} else {
-			setPreview(null);
+			setBlogBannerPreview(null);
 		}
-	}, [image]);
+	}, [blogBannerImage]);
+
+	//Blog Icon Image Preview
+	const [blogIconImagePreview, setBlogIconImagePreview] = useState('');
+
+	let blogIconImage = formik?.values?.blogIconImage;
+	useEffect(() => {
+		if (blogIconImage) {
+			const reader = new FileReader();
+			reader.onloadend = () => {
+				setBlogIconImagePreview(reader.result);
+			};
+			reader.readAsDataURL(blogIconImage);
+		} else {
+			setBlogIconImagePreview(null);
+		}
+	}, [blogIconImage]);
+
+	// description box 
+	const config = {
+		zIndex: 0,
+		readonly: false,
+		activeButtonsInReadOnly: ['source', 'fullsize', 'print', 'about'],
+		toolbarButtonSize: 'middle',
+		theme: 'default',
+		enableDragAndDropFileToEditor: true,
+		enter: "BR",
+		saveModeInCookie: false,
+		spellcheck: true,
+		editorCssClass: false,
+		triggerChangeEvent: true,
+		height: 300,
+		direction: 'ltr',
+		language: 'en',
+		debugLanguage: false,
+		i18n: 'en',
+		tabIndex: -1,
+		toolbar: true,
+		
+		useSplitMode: false,
+		colorPickerDefaultTab: 'background',
+		imageDefaultWidth: 500,
+		// removeButtons: ['source', 'fullsize', 'about', 'outdent', 'indent', 'video', 'print', 'table', 'fontsize', 'superscript', 'subscript', 'file', 'cut', 'selectall'],
+		// disablePlugins: ['paste', 'stat'],
+		events: {},
+		textIcons: false,
+		uploader: {
+			insertImageAsBase64URI: true,
+		},
+		placeholder: 'Start typing',
+		showXPathInStatusbar: false,
+	};
 	// Tags
 	const addTag = (e) => {
 		console.log(e.target.value, e.key);
 		if (e.key === 'Enter') {
-
 			if (e.target.value.length > 0) {
 				setTags([...tags, e.target.value]);
 				console.log(tags);
@@ -114,12 +168,12 @@ export default function CreatePost() {
 						Create Post
 					</h2>
 
-					<p className="mt-2 text-center text-sm text-gray-600">
+					<div className="mt-2 text-center text-sm text-gray-600">
 						<p className="font-medium text-green-600 hover:text-indigo-500">
 							Share your ideas to the world. Your post must be
 							free from Profanity
 						</p>
-					</p>
+					</div>
 					{appErr || serverErr ? (
 						<p className="mt-2 text-center text-lg text-red-600">
 							{serverErr} {appErr}
@@ -174,24 +228,24 @@ export default function CreatePost() {
 										formik.errors.title}
 								</div>
 							</div>
-							{/* Image component */}
+							{/* Banner Image component */}
 							<div>
 								<label
-									htmlFor="image"
+									htmlFor="bannerImage"
 									className="block text-sm font-medium mb-2 text-gray-700"
 								>
-									Select a image to banner
+									Select an image as your Blog banner
 								</label>
 
-								{/* image preview */}
-								{preview ? (
+								{/* Banner Image preview */}
+								{blogBannerPreview ? (
 									<div className="border border-gray-300 p-2 bg-gray-100 rounded-md shadow-sm">
 										<img
 											className="mx-auto  w-2/4"
-											src={preview}
+											src={blogBannerPreview}
 											alt=""
 											onClick={() => {
-												setPreview(null);
+												setBlogBannerPreview(null);
 											}}
 										/>
 									</div>
@@ -199,12 +253,74 @@ export default function CreatePost() {
 									<Container className="container bg-gray-700">
 										<DropZone
 											onBlur={formik.handleBlur(
-												'bannerImage'
+												'blogBannerImage'
+											)}
+											accept="image/jpeg, image/jpg, image/png"
+											onDrop={(acceptedFiles) => {
+												formik.setFieldValue(
+													'blogBannerImage',
+													acceptedFiles[0]
+												);
+											}}
+										>
+											{({
+												getRootProps,
+												getInputProps,
+											}) => (
+												<div className="container">
+													<div
+														{...getRootProps({
+															className:
+																'dropzone',
+															onDrop: (event) =>
+																event.stopPropagation(),
+														})}
+													>
+														<input
+															{...getInputProps()}
+														/>
+														<p className="text-gray-300 text-lg cursor-pointer hover:text-gray-500">
+															Click here to select
+															image
+														</p>
+													</div>
+												</div>
+											)}
+										</DropZone>
+									</Container>
+								)}
+							</div>
+							{/*Blog Icon Image component */}
+							<div>
+								<label
+									htmlFor="blogIconImage"
+									className="block text-sm font-medium mb-2 text-gray-700"
+								>
+									Select an image as Blog icon
+								</label>
+
+								{/* Blog Icon image preview */}
+								{blogIconImagePreview ? (
+									<div className="border border-gray-300 p-2 bg-gray-100 rounded-md shadow-sm">
+										<img
+											className="mx-auto  w-1/4"
+											src={blogIconImagePreview}
+											alt=""
+											onClick={() => {
+												setBlogIconImagePreview(null);
+											}}
+										/>
+									</div>
+								) : (
+									<Container className="container bg-gray-700">
+										<DropZone
+											onBlur={formik.handleBlur(
+												'blogIconImage'
 											)}
 											accept="image/jpeg, image/jpg,image/*, image/png"
 											onDrop={(acceptedFiles) => {
 												formik.setFieldValue(
-													'bannerImage',
+													'blogIconImage',
 													acceptedFiles[0]
 												);
 											}}
@@ -251,6 +367,7 @@ export default function CreatePost() {
 									onChange={formik.handleChange(
 										'description'
 									)}
+									config={config}
 									onBlur={formik.handleBlur('description')}
 									rows="5"
 									cols="10"
@@ -267,7 +384,7 @@ export default function CreatePost() {
 							{/* Tags  */}
 							<div>
 								<label
-									htmlFor="tags"
+									htmlFor="Keywords"
 									className="block  text-sm font-medium text-gray-700"
 								>
 									Tags

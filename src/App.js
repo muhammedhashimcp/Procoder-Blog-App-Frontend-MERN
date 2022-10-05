@@ -29,8 +29,10 @@ import ResetPasswordForm from "./components/Users/PasswordManagement/ResetPasswo
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { gapi } from 'gapi-script';
 import Sample from "./components/sample/Sample";
+import UploadProfileBanner from "./components/Profile/UploadProfileBanner";
 
-
+import { ToastContainer} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 function App() {
@@ -41,6 +43,8 @@ function App() {
 				clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
 			>
 				<Router>
+					<ToastContainer />
+					
 					<Navbar />
 					<Routes>
 						{/*
@@ -80,6 +84,10 @@ function App() {
 							<Route
 								path="/upload-profile-photo"
 								element={<UploadProfilePhoto />}
+							/>
+							<Route
+								path="/upload-profile-banner"
+								element={<UploadProfileBanner />}
 							/>
 							<Route
 								path="/update-profile/:id"

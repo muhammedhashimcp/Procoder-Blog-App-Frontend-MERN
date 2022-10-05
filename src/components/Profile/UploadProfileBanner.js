@@ -5,7 +5,7 @@ import DropZone from 'react-dropzone';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import styled from 'styled-components';
-import { uploadProfilePhotoAction } from '../../redux/slices/users/userSlice';
+import { uploadProfileBannerAction } from '../../redux/slices/users/userSlice';
 import { useNavigate } from 'react-router-dom';
 
 //Css for dropzone
@@ -27,7 +27,8 @@ const Container = styled.div`
 const formSchema = Yup.object({
 	image: Yup.string().required('Image is required'),
 });
-export default function UploadProfilePhoto() {
+export default function UploadProfileBanner() {
+
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const [preview, setPreview] = useState('');
@@ -39,7 +40,7 @@ export default function UploadProfilePhoto() {
 		},
 		onSubmit: (values) => {
 			console.log(values);
-			dispatch(uploadProfilePhotoAction(values));
+			dispatch(uploadProfileBannerAction(values));
 		},
 		validationSchema: formSchema,
 	});
@@ -69,7 +70,7 @@ export default function UploadProfilePhoto() {
 			<div className="container px-4 mx-auto">
 				<div className="sm:mx-auto sm:w-full sm:max-w-md">
 					<h2 className="mt-6 text-center text-3xl font-extrabold text-slate-700">
-						Upload profile photo
+						Upload Banner Image
 					</h2>
 					{/* Displya err here */}
 				</div>
@@ -116,11 +117,12 @@ export default function UploadProfilePhoto() {
 								</DropZone>
 							</Container> */}
 							<div>
+								
 								{/* image preview */}
 								{preview ? (
 									<div className="border border-gray-300 p-2 bg-gray-100 rounded-md shadow-sm">
 										<img
-											className="mx-auto  w-2/4"
+											className="mx-auto   w-2/4"
 											src={preview}
 											alt=""
 											onClick={() => {
@@ -134,7 +136,7 @@ export default function UploadProfilePhoto() {
 											onBlur={formik.handleBlur(
 												'image'
 											)}
-											accept="image/jpeg, image/jpg, image/png"
+											accept="image/jpeg, image/jpg,image/*, image/png"
 											onDrop={(acceptedFiles) => {
 												formik.setFieldValue(
 													'image',

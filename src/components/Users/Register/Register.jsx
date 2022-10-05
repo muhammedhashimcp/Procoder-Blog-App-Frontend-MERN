@@ -11,18 +11,23 @@ const formSchema = Yup.object({
 	firstName: Yup.string().required('First Name is required'),
 	lastName: Yup.string().required('Last Name is required'),
 	email: Yup.string().required('Email is required'),
-	password: Yup.string().required('Password is required'),
-	confirmPassword: Yup.string().required('Confirm Password is required'),
+	password: Yup.string().min(4).max(10).required('Password is required'),
+	confirmPassword: Yup.string()
+		.min(4)
+		.max(10)
+		.required('Confirm Password is required')
+		
 });
+
+
 //-------------------------------
 //Register
 //-------------------------------
 const Register = () => {
 	const navigate = useNavigate();
 	//select state from store
-	const storeData = useSelector((store) => store.users);
+	const storeData = useSelector((store) => store?.users);
 	const { loading, appErr, serverErr, registered } = storeData;
-	console.log(storeData);
 
 	//dispath
 	const dispatch = useDispatch();
@@ -33,11 +38,14 @@ const Register = () => {
 			lastName: '',
 			email: '',
 			password: '',
-			confirmPassword: '',
+			confirmPassword:''
+			
 		},
 		onSubmit: (values) => {
+			console.log("🚀 ~ file: Register.jsx ~ line 41 ~ Register ~ values", values)
+			
 			if (values.password !== values.confirmPassword) {
-				toast.error('Passwords is Invalid');
+				toast.error('Passwords must match');
 			} else {
 				 const userData = {
 						firstName: values.firstName,
@@ -84,7 +92,7 @@ const Register = () => {
 										Register Account
 										{/* display error message*/}
 										{appErr || serverErr ? (
-											<div className="text-red-400">
+											<div className="text-red-600">
 												{serverErr} {appErr}
 											</div>
 										) : null}
@@ -143,7 +151,7 @@ const Register = () => {
 										/>
 									</div>
 									{/* Err msg*/}
-									<div className="text-red-400 mb-2">
+									<div className="text-red-600 mb-2">
 										{formik.touched.firstName &&
 											formik.errors.firstName}
 									</div>
@@ -201,7 +209,7 @@ const Register = () => {
 										/>
 									</div>
 									{/* Err msg*/}
-									<div className="text-red-400 mb-2">
+									<div className="text-red-600 mb-2">
 										{formik.touched.lastName &&
 											formik.errors.lastName}
 									</div>
@@ -257,7 +265,7 @@ const Register = () => {
 										/>
 									</div>
 									{/* Err msg*/}
-									<div className="text-red-400 mb-2">
+									<div className="text-red-600 mb-2">
 										{formik.touched.email &&
 											formik.errors.email}
 									</div>
@@ -295,7 +303,7 @@ const Register = () => {
 										/>
 									</div>
 									{/* Err msg*/}
-									<div className="text-red-400 mb-2">
+									<div className="text-red-600 mb-2">
 										{formik.touched.password &&
 											formik.errors.password}
 									</div>
@@ -323,13 +331,13 @@ const Register = () => {
 										</span>
 										<input
 											value={
-												formik.values.confirmpassword
+												formik.values.confirmPassword
 											}
 											onChange={formik.handleChange(
-												'confirmpassword'
+												'confirmPassword'
 											)}
 											onBlur={formik.handleBlur(
-												'confirmpassword'
+												'confirmPassword'
 											)}
 											className="w-full pl-4 pr-6 py-4 font-bold placeholder-gray-300 rounded-r-full focus:outline-none"
 											type="confirmpassword"
@@ -337,7 +345,7 @@ const Register = () => {
 										/>
 									</div>
 									{/* Err msg*/}
-									<div className="text-red-400 mb-2">
+									<div className="text-red-600 mb-2">
 										{formik.touched.confirmpassword &&
 											formik.errors.confirmpassword}
 									</div>

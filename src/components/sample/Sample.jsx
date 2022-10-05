@@ -1,5 +1,6 @@
 import React from 'react'
 			import { GoogleLogin } from '@react-oauth/google';
+import { toast } from 'react-toastify';
 
 
 const Sample = () => {
@@ -14,7 +15,7 @@ const Sample = () => {
 					console.log('Login Failed');
 				}}
 			/>
-			;
+		<button onClick={()=>toast.success('hello ')}>click here</button>
 		</div>
   );
 }
