@@ -30,14 +30,7 @@ const PrivateNavbar = ({ isLogin }) => {
 	// logout
 	const dispatch = useDispatch()
 	const navLinkStyles = ({ isActive, item }) => {
-		console.log(
-			'🚀 ~ file: PublicNavbar.js ~ line 20 ~ navLinkStyles ~ isActive',
-			isActive
-		);
-		console.log(
-			'🚀 ~ file: PublicNavbar.js ~ line 21 ~ navLinkStyles ~ item',
-			item
-		);
+	
 
 		return isActive
 			? 'bg-gray-700 text-white font-semibold px-3 py-2 rounded-md text-md font-medium'

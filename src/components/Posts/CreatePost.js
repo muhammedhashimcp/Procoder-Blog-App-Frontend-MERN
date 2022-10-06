@@ -1,7 +1,15 @@
 import React from 'react';
 
-import {  useRef } from 'react';
-import { useFormik } from 'formik';
+import { useRef } from 'react';
+import {
+	useFormik,
+	Formik,
+	Form,
+	Field,
+	ErrorMessage,
+	FieldArray,
+	FastField,
+} from 'formik';
 import DropZone from 'react-dropzone';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,7 +28,6 @@ const formSchema = Yup.object({
 	category: Yup.object().required('Category is required'),
 	blogBannerImage: Yup.string().required('Banner Image is required'),
 	blogIconImage: Yup.string().required('Blog Icon Image is required'),
-	
 });
 
 const Container = styled.div`
@@ -56,9 +63,9 @@ export default function CreatePost() {
 			category: '',
 			blogBannerImage: '',
 			blogIconImage: '',
-			tags:[]
+			tags: [''],
 		},
-		onSubmit: (values) => {
+		onSubmit: (values,submitProps) => {
 			// dispatch the action
 			const data = {
 				category: values?.category?.label,
@@ -66,11 +73,15 @@ export default function CreatePost() {
 				description: values?.description,
 				blogBannerImage: values?.blogBannerImage,
 				blogIconImage: values?.blogIconImage,
-				tags:values?.tags
+				tags: values?.tags,
 			};
-			
-			console.log("🚀 ~ file: CreatePost.js ~ line 75 ~ CreatePost ~ data", data)
+
+			console.log(
+				'🚀 ~ file: CreatePost.js ~ line 75 ~ CreatePost ~ data',
+				data
+			);
 			dispatch(createPostAction(data));
+			 submitProps.setSubmitting(false);
 		},
 		validationSchema: formSchema,
 	});
@@ -107,7 +118,7 @@ export default function CreatePost() {
 		}
 	}, [blogIconImage]);
 
-	// description box 
+	// description box
 	const config = {
 		zIndex: 0,
 		readonly: false,
@@ -115,7 +126,7 @@ export default function CreatePost() {
 		toolbarButtonSize: 'middle',
 		theme: 'default',
 		enableDragAndDropFileToEditor: true,
-		enter: "BR",
+		enter: 'BR',
 		saveModeInCookie: false,
 		spellcheck: true,
 		editorCssClass: false,
@@ -127,7 +138,7 @@ export default function CreatePost() {
 		i18n: 'en',
 		tabIndex: -1,
 		toolbar: true,
-		
+
 		useSplitMode: false,
 		colorPickerDefaultTab: 'background',
 		imageDefaultWidth: 500,
@@ -433,6 +444,7 @@ export default function CreatePost() {
 										'Minimum 2 tags reguired'}
 								</div>
 							</div>
+							
 
 							<div className="w-full flex flex-row py-2 px-4 justify-center gap-6  ">
 								<button
