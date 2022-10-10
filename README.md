@@ -1,70 +1,87 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Procoder Blog App
 
-## Available Scripts
+## Table of contents
 
-In the project directory, you can run:
+- [Introduction](#introduction)
+- [Run](#run)
+- [Technology](#technology)
+- [Features](#features)
+- [License](#license)
 
-### `npm start`
+## Introduction
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+ Procoder is a Blog website for creating blogs and helpful documentaries for developers. Developers can browse and see the posts and search the doubt topics. users can see Like Dislike comments to the Other Author posts. users can manage their account details by Add Posts, changing profile pictures and profile details, and payment methods for premium. For the permium user, they can create private blogs like a note and they can chat each other. This website has an admin section. Admin can manage users like block, delete, search, etc. admin can manage Users' Blogs, give verification, give premium Access to users, etc.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Run
 
-### `npm test`
+# This repo is the Frontend  part of Procoder Blog App 
+Backend repo is available here:  [Backend of Procoder blog app](https://github.com/muhammedhashimcp/Procoder-Blog-App-Backend-MERN.git)   
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+To run this application, you have to set your own environmental variables. For security reasons, some variables have been hidden from view and used as environmental variables with the help of dotenv package. Below are the variables that you need to set in order to run the application:
 
-### `npm run build`
+- JWT_KEY: This is the JWT AuthToken (string).
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- SENDER:This is the sender, who sends the mails, used for nodemailer(string)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- EMAIL:This is the email id, used for nodemailer(string)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- PASSWORD : This is the password, used for nodemailer(String)
 
-### `npm run eject`
+- CLOUDINARY_CLOUD_NAME : This is the cloud name to store images, Cloudinary(String)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- CLOUDINARY_API_KEY : This is the API Key, Cloudinary(String)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- CLOUDINARY_SECRET_KEY : This is the secret key, Cloudinary(String)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- MONGO_DB : This is the database, Mongo DB(String)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+After you've set these environmental variables in the .env file at the root of the project, and intsall node modules using  `npm install` in backend root directory and also install frontend packages by using 'npm install'. 
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Now you can run the backend and frontend using `npm start` in the terminal , then the application should work.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Technology
 
-### Code Splitting
+The application is built with:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- React JS
+- Redux Toolkit
+- Tailwind CSS
+- Node JS
+- MongoDB
+- Express JS
+- Node mailer
+- REST API
+- Cloudinary
 
-### Analyzing the Bundle Size
+## Features
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+This application is a Blog website for creating blogs and helpful documentaries for developers. Which displays posts/blogs created by different authors.
 
-### Making a Progressive Web App
+Users can do the following:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- Signup with OTP verification using nodemailer.
+- User can login using the credentials.
+- Through otp verification, the user can manage forgotten passwords.
+- Users can change their password and set a new one.
+- Users can change their personal info.
+- The Topics are split into categories users can select the Topics By Category.
+- Loggined user can create posts, like posts, unlike posts add comments.
+- User without login can view posts only.
+- User can view single post details.
+- Users can follow each other.
 
-### Advanced Configuration
+Admins can do the following:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- The Admin can become a controller of the APP by using the signup option and providing his role-based credentials, which he can later use to log in.
+- Admin can log  in using registered credentials username and password, and can also end the  session using the logout button
+- Admin can handle user block , unblock and delete.
+- Admin can add category, edit category and delete categories.
 
-### Deployment
+## License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+[![License](https://img.shields.io/:License-MIT-blue.svg?style=flat-square)](http://badges.mit-license.org)
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- MIT License
+- Copyright 2022 © [MUHAMMED HASHIM CP](https://github.com/muhammedhashimcp)
