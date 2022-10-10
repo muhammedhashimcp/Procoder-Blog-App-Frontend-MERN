@@ -15,8 +15,8 @@
 
 ## Run
 
-# This repo is the Frontend  part of Procoder Blog App 
-Backend repo is available here:  [Backend of Procoder blog app](https://github.com/muhammedhashimcp/Procoder-Blog-App-Backend-MERN.git)   
+### Note:- This repo is the Frontend  part of Procoder Blog App 
+Backend repo is available here:  [Procoder blog app Backend](https://github.com/muhammedhashimcp/Procoder-Blog-App-Backend-MERN.git)   
 
 To run this application, you have to set your own environmental variables. For security reasons, some variables have been hidden from view and used as environmental variables with the help of dotenv package. Below are the variables that you need to set in order to run the application:
 
