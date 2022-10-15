@@ -44,12 +44,12 @@ const SendEmail = () => {
 		navigate(`/profile/${location?.state?.id}`);
 	}
 	return (
-		<div className="min-h-screen bg-gray-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-			<div className="sm:mx-auto sm:w-full sm:max-w-md">
-				<h2 className="mt-6 text-center text-3xl font-extrabold text-gray-300">
+		<div className="min-h-screen bg-white flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+			<div className="sm:mx-auto sm:w-full sm:max-w-md text-gray-700">
+				<h2 className="mt-6 text-center text-3xl font-extrabold text-slate-500">
 					Send Mesage
 					{/* Email title */}
-					<span className="text-green-300">email title</span>
+					<span className="text-green-500">email title</span>
 				</h2>
 
 				<p className="mt-2 text-center text-sm text-red-600">
@@ -66,7 +66,7 @@ const SendEmail = () => {
 			</div>
 
 			<div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-				<div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+				<div className="bg-white shadow-gray-600 py-8 px-4 shadow sm:rounded-lg sm:px-10">
 					<form className="space-y-6" onSubmit={formik.handleSubmit}>
 						<div>
 							<label
@@ -78,6 +78,7 @@ const SendEmail = () => {
 							{/* Email message */}
 							<div className="mt-1">
 								<input
+									disabled
 									value={formik.values.recipientEmail}
 									onChange={formik.handleChange(
 										"recipientEmail"
@@ -158,7 +159,7 @@ const SendEmail = () => {
 							) : (
 								<button
 									type="submit"
-									className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+									className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-slate-900 hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
 								>
 									Send
 								</button>

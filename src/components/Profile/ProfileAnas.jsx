@@ -30,7 +30,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import LoadingComponent from '../../utils/LoadingComponent';
 import { number } from 'yup/lib/locale';
-import webDevBanner from '../../img/webDevBanner.jpg';
+import webDevBanner from '../../img/webDefaultBanner.jpg';
 import capitalName from '../../utils/capitalName';
 export default function Profile() {
 	const { id } = useParams();
@@ -72,17 +72,30 @@ export default function Profile() {
 					) : (
 						<div className="h-screen flex bg-white ">
 							{/* Static sidebar for desktop */}
-							<div className="flex flex-col min-w-0 flex-1 overflow-hidden">
-								<div className="flex-1 relative z-0 flex overflow-hidden">
+							<div className="flex flex-col min-w-0 flex-1 ">
+								<div className="flex-1 relative z-0 flex ">
 									<main className="flex-1 relative z-0 overflow-y-auto focus:outline-none xl:order-last">
 										<article>
 											{/* Profile header */}
-											<div className="h-70 relative lg:mx-10 mt-4 flex justify-center object-cover border border-slate-800  rounded-2xl  p-2 ">
+											<div className="h-30 relative lg:mx-10 mt-4 flex justify-center object-cover border border-slate-800  rounded-2xl  p-2 ">
 												<img
-													className=" w-full border border-spacing-3 border-slate-400 object-cover  rounded-2xl mx-10"
-													src={webDevBanner}
+													className=" w-full  h-auto border border-spacing-3 border-slate-400 object-cover   rounded-2xl mx-10"
+													src={
+														profile?.bannerImage
+															? profile?.bannerImage
+															: webDevBanner
+													}
 													alt={profile?.firstName}
 												/>
+												{/* <img
+													className=" w-full h-30 border border-spacing-3 border-slate-400 object-cover   rounded-2xl mx-10"
+													src={
+														profile?.bannerImage
+															? profile?.bannerImage
+															: webDevBanner
+													}
+													alt={profile?.firstName}
+												/> */}
 												<div className="absolute text-md bg-gray-300  p-1 hover:bg-slate-900 hover:text-white border-none rounded-lg top-5 left-0 ml-5 lg:ml-20">
 													Date Joined:{' '}
 													<DateFormater
@@ -96,7 +109,8 @@ export default function Profile() {
 														{profile?.isAccountVerified ? (
 															<h3 className="  rounded-md px-3 py-2  inline-flex text-lg font-medium bg-green-400 hover:bg-green-600 text-white">
 																{/* <FontAwesomeIcon
-																	icon="fa-regular fa-badge-check"
+												/media/hashimcp/BROCAMP/procoder-blog-app-frontend/src/components/Profile/ProfileAnas.jsx
+												icon="fa-regular fa-badge-check"
 																	className="w-6 h-6 text-md  mx-1 font-medium text-yellow-500"
 																/> */}
 																<span className="hidden lg:block ">
@@ -142,7 +156,7 @@ export default function Profile() {
 												<div className="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
 													<div className="flex -mt-20">
 														<img
-															className="z-10 h-24 w-24 rounded-full shadow-2xl shadow-gray-500 ring-4 ring-white sm:h-52 sm:w-52 lg:w-60 lg:h-60"
+															className="z-10 h-24 w-24 rounded-full shadow-2xl shadow-gray-500 ring-4 ring-white sm:mx-50 sm:h-52 sm:w-52 lg:w-60 lg:h-60"
 															src={
 																profile?.profilePhoto
 															}
@@ -372,15 +386,10 @@ export default function Profile() {
 													{/* <div> */}
 													<ul>
 														{data.map((user) => (
-															<li className="bg-white rounded-lg py-4 px-4 border border-gray-600">
+															<li className="bg-white my-1 rounded-lg py-4 px-4 border border-gray-600">
 																<Link className="flex items-center space-x-4 lg:space-x-6">
 																	<div className=" flex justify-center">
-																		{/* <img
-																			className="w-16 h-16 object-cover rounded-full lg:w-20 lg:h-20 mx-auto pl-5 "
-																			src={
-																				profile?.profilePhoto
-																			}
-																		/> */}
+															
 																		<img
 																			className="z-10 h-16 w-16 rounded-full shadow-md shadow-gray-400  ring-white sm:w-52 lg:w-20 lg:h-20"
 																			src={
@@ -416,10 +425,7 @@ export default function Profile() {
 																			<div className="m-1 pt-1 ">
 																				{user?.isAccountVerified ? (
 																					<h3 className="  rounded-md px-3 py-2  inline-flex text-lg font-medium bg-green-400 hover:bg-green-600 text-white">
-																						{/* <FontAwesomeIcon
-																	icon="fa-regular fa-badge-check"
-																	className="w-6 h-6 text-md  mx-1 font-medium text-yellow-500"
-																/> */}
+															
 																						<span className="hidden lg:block ">
 																							{' '}
 																							<span className="mx-auto">
@@ -529,7 +535,6 @@ export default function Profile() {
 																				}
 																				alt="poster"
 																			/>
-
 																		</Link>
 																	</div>
 																	<div className=" w-full lg:w-3/4 pl-4 border-1 ">

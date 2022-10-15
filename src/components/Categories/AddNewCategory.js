@@ -39,30 +39,27 @@ const AddNewCategory = () => {
 	const formik = useFormik({
 		initialValues: {
 			title: '',
-			categoryImage: '',
+			image: '',
 		},
 		onSubmit: (values) => {
-			console.log(
-				'🚀 ~ file: AddNewCategory.js ~ line 43 ~ AddNewCategory ~ values',
-				formik.values
-			);
+			console.log("🚀 ~ file: AddNewCategory.js ~ line 45 ~ AddNewCategory ~ values", values)
+			
 			const data = {
 				title: values?.title,
-				categoryImage: values?.image,
+				image: values?.image,
 			};
 			dispatch(createCategoryAction(data));
 		},
 		validationSchema: formSchema,
 	});
-	console.log(
-		'🚀 ~ file: AddNewCategory.js ~ line 55 ~ AddNewCategory ~ values',
-		formik.values
-	);
+
 
 	// get data from store
 	const state = useSelector((state) => state?.category);
 	const { loading, appErr, serverErr, isCreated } = state;
 	let image = formik?.values?.image;
+
+	console.log("🚀 ~ file: AddNewCategory.js ~ line 61 ~ AddNewCategory ~ formik?.values", formik?.values)
 	useEffect(() => {
 		if (image) {
 			const reader = new FileReader();
@@ -156,7 +153,7 @@ const AddNewCategory = () => {
 									<Container className="container bg-gray-700">
 										<Dropzone
 											onBlur={formik.handleBlur('image')}
-											accept="image/jpeg, image/jpg,image/*, image/png"
+											accept="image/jpeg, image/jpg, image/png"
 											onDrop={(acceptedFiles) => {
 												formik.setFieldValue(
 													'image',
@@ -197,7 +194,6 @@ const AddNewCategory = () => {
 								{/* Submit */}
 								{loading ? (
 									<button
-										type="submit"
 										disabled
 										className="group  w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gray-600 "
 									>

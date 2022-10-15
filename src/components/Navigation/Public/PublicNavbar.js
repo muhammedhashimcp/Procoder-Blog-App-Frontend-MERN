@@ -7,8 +7,8 @@ import { PlusIcon } from '@heroicons/react/solid';
 import Procoder from '../../../img/procoder logo.jpg';
 
 const navigation = [
-	{ name: 'Home', href: '/' },
-	{ name: 'Blogs', href: '/posts'},
+	{ name: 'Blogs', href: '/posts', current: false  },
+	{ name: 'About Us', href: '/about', current: false },
 ];
 
 function classNames(...classes) {
@@ -16,17 +16,11 @@ function classNames(...classes) {
 }
 
 const PublicNavbar = () => {
-	const navLinkStyles = ({ isActive,item }) => {
-		
-		return (
-				isActive?('bg-gray-700  text-white font-semibold px-3 py-2 mt-5  rounded-md text-md font-medium'):('text-black hover:bg-gray-700 hover:text-white font-semibold px-3 py-2 sm:my-5 rounded-md text-md mt-5 font-medium')
-				// isActive?'bg-gray-700 text-white font-semibold px-3 py-2 rounded-md text-md font-medium':'text-black hover:bg-gray-700 hover:text-white font-semibold px-3 py-2 rounded-md text-md font-medium'
-		)
-	}
+
 	return (
 		<Disclosure
 			as="nav"
-			className="bg-white border drop-shadow sticky top-0 "
+			className="bg-white border drop-shadow sticky top-0  py-3 z-10"
 		>
 			{({ open }) => (
 				<>
@@ -70,20 +64,23 @@ const PublicNavbar = () => {
 
 								<div className="hidden md:ml-6 md:flex md:items-center md:space-x-4 ">
 									{navigation.map((item) => (
-										<nav>
-											<NavLink
-												key={item.name}
-												to={item.href}
-												className={navLinkStyles}
-												aria-current={
-													item.current
-														? 'page'
-														: undefined
-												}
-											>
-												{item.name}
-											</NavLink>
-										</nav>
+								
+										<Link
+											key={item.name}
+											to={item.href}
+											className={classNames(
+												item.current
+													? 'bg-gray-500 text-white hover:bg-gray-700 shadow-lg shadow-gray-400'
+													: 'relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-slate-900 hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white'
+											)}
+											aria-current={
+												item.current
+													? 'page'
+													: undefined
+											}
+										>
+											{item.name}
+										</Link>
 									))}
 								</div>
 							</div>
@@ -120,18 +117,33 @@ const PublicNavbar = () => {
 					<Disclosure.Panel className="md:hidden">
 						<div className="px-2 pt-5 pb-3 space-y-1 ">
 							{navigation.map((item) => (
-								<nav>
-									<NavLink
-										key={item.name}
-										to={item.href}
-										className={navLinkStyles}
-										aria-current={
-											item.current ? 'page' : undefined
-										}
-									>
-										{item.name}
-									</NavLink>
-								</nav>
+								// <nav>
+								// 	<NavLink
+								// 		key={item.name}
+								// 		to={item.href}
+								// 		className={navLinkStyles}
+								// 		aria-current={
+								// 			item.current ? 'page' : undefined
+								// 		}
+								// 	>
+								// 		{item.name}
+								// 	</NavLink>
+								// </nav>
+								<a
+									key={item.name}
+									href={item.href}
+									className={classNames(
+										item.current
+											? 'bg-gray-900 text-white'
+											: 'text-slate-900 hover:bg-gray-700 hover:text-white',
+										'block px-3 py-2 rounded-md text-base font-medium'
+									)}
+									aria-current={
+										item.current ? 'page' : undefined
+									}
+								>
+									{item.name}
+								</a>
 							))}
 						</div>
 					</Disclosure.Panel>

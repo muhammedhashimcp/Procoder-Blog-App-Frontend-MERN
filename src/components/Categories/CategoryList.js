@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { NavLink } from 'react-router-dom';
-import { PencilAltIcon } from '@heroicons/react/outline';
+import { PencilAltIcon ,TrashIcon} from '@heroicons/react/outline';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchCategoriesAction } from '../../redux/slices/category/categorySlice';
@@ -29,12 +29,12 @@ const CategoryList = () => {
 					No Category Found
 				</h2>
 			) : (
-				<div className="flex flex-col">
+				<div className="flex flex-col max-w-7xl mx-auto mt-5">
 					<div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
 						<div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-							<div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+							<div className="shadow overflow-hidden border-b border-gray-900 sm:rounded-lg">
 								<table className="min-w-full divide-y divide-gray-200">
-									<thead className="bg-gray-50">
+									<thead className="bg-gray-200">
 										<tr>
 											<th
 												scope="col"
@@ -75,7 +75,7 @@ const CategoryList = () => {
 												key={category._id}
 												className="bg-gray-50"
 											>
-												<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+												<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 ">
 													<div className="flex items-center">
 														<div className="flex-shrink-0 h-10 w-10">
 															{/* User image */}
@@ -117,7 +117,7 @@ const CategoryList = () => {
 												<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
 													{category.title}
 												</td>
-												<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+												<td className="px-6 py-4 whitespace-nowrap  text-sm text-gray-500">
 													{
 														<DateFormatter
 															date={
@@ -126,14 +126,26 @@ const CategoryList = () => {
 														/>
 													}
 												</td>
-												<NavLink
-													to={`/update-category/${category?._id}`}
-												>
-													<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-														<PencilAltIcon className="h-5 text-indigo-500" />
-														Edit
-													</td>
-												</NavLink>
+												<td className="">
+													<NavLink
+														to={`/update-category/${category?._id}`}
+													>
+														<div className="px-6 py-4 whitespace-nowrap text-sm text-slate-900">
+															<PencilAltIcon className="h-5 text-slate-900" />
+															Edit
+														</div>
+													</NavLink>
+												</td>
+												<td className="">
+													<NavLink
+														to={`/update-category/${category?._id}`}
+													>
+														<div className="px-6 py-4 whitespace-nowrap text-sm text-slate-900">
+															<TrashIcon className="h-5 text-red-600" />
+															Delete
+														</div>
+													</NavLink>
+												</td>
 											</tr>
 										))}
 									</tbody>

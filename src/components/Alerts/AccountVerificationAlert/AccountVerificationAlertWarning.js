@@ -11,7 +11,7 @@ export default function AccountVerificationAlertWarning() {
 	const dispatch = useDispatch();
 
 	return (
-		<div className="container px-4 mx-auto">
+		<div className="container px-4 max-w-[75%] mx-auto z-5">
 			<div className="bg-red-500 border-l-4 border-yellow-400 p-2">
 				<div className="flex justify-between">
 					<div className="flex-shrink-0">

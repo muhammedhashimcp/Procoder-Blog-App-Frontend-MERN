@@ -30,6 +30,8 @@ import {
 	ExclamationIcon,
 
 } from '@heroicons/react/outline';
+import  Sidebar  from '../../DynamicSideBar/Sidebar';
+import AnimatedSidebar from '../../DynamicSideBar/AnimatedSidebar';
 export default function PostsList() {
 	// dispatch
 	const dispatch = useDispatch();
@@ -55,7 +57,10 @@ export default function PostsList() {
 	return (
 		<>
 			<section className="">
-				<div className="py-20 bg-white min-h-screen radius-for-skewed">
+				{/* <Sidebar /> */}
+				<AnimatedSidebar />
+
+				<div className="py-20 bg-white min-h-screen radius-for-skewed z-10">
 					{loading ? (
 						<div className="flex justify-center">
 							<LoadingComponent />
@@ -141,7 +146,7 @@ export default function PostsList() {
 													{/* Post image */}
 													<img
 														className=" h-60 mx-auto rounded object-fit"
-														src={post?.image}
+														src={post?.blogImage}
 														alt=""
 													/>
 												</Link>
@@ -228,52 +233,57 @@ export default function PostsList() {
 												{/* Read more */}
 												<Link
 													to={`/posts/${post?._id}`}
-													className="text-indigo-500 hover:underline absolute bottom-10"
+													className="text-indigo-500 hover:underline absolute my-auto bottom-10"
 												>
-													<p className="text-blue-700 cursor-pointer mb-3">
+													<p className="text-blue-700 cursor-pointer mb-8">
 														Read More..
 													</p>
 												</Link>
 												{/* User Avatar */}
-												<div className=" mt-auto flex items-center">
-													<div className="flex-shrink-0">
-														<Link
-															to={`/profile/${post?.user?._id}`}
-														>
-															<img
-																className="h-10 w-10 rounded-full"
-																src={
-																	post?.user
-																		?.profilePhoto
-																}
-																alt=""
-															/>
-														</Link>
-													</div>
-													<div className="ml-3">
-														<p className="text-sm font-medium text-gray-900">
+												<div className="absolute  bottom-2 ">
+													<div className='inline-flex'>
+														<div className="">
 															<Link
 																to={`/profile/${post?.user?._id}`}
-																className="text-slate-800 md:text-xl hover:underline "
 															>
-																{
-																	post?.user
-																		?.firstName
-																}
-																{
-																	post?.user
-																		?.lastName
-																}
-															</Link>
-														</p>
-														<div className="flex space-x-1 text-sm text-gray-500 font-semibold">
-															<time>
-																<DateFormatter
-																	date={
-																		post?.createdAt
+																<img
+																	className="h-10 w-10 rounded-full"
+																	src={
+																		post
+																			?.user
+																			?.profilePhoto
 																	}
+																	alt=""
 																/>
-															</time>
+															</Link>
+														</div>
+														<div className="ml-3">
+															<p className="text-sm font-medium text-gray-900">
+																<Link
+																	to={`/profile/${post?.user?._id}`}
+																	className="text-slate-800 md:text-xl hover:underline "
+																>
+																	{
+																		post
+																			?.user
+																			?.firstName
+																	}
+																	{
+																		post
+																			?.user
+																			?.lastName
+																	}
+																</Link>
+															</p>
+															<div className="flex space-x-1 text-sm text-gray-500 font-semibold">
+																<time>
+																	<DateFormatter
+																		date={
+																			post?.createdAt
+																		}
+																	/>
+																</time>
+															</div>
 														</div>
 													</div>
 												</div>
@@ -281,7 +291,7 @@ export default function PostsList() {
 													<div className="flex flex-row bottom-3 ml-10 absolute left-1/2 -translate-x-1/2">
 														<SaveIcon className="text-black w-10 h-7" />
 														<BookmarkIcon className="text-black w-10 h-7" />
-														<UserRemoveIcon className="text-black w-10 h-7" />
+														{/* <UserRemoveIcon className="text-black w-10 h-7" />
 														<UserAddIcon className="text-black w-10 h-7" />
 														<UserCircleIcon className="text-black w-10 h-7" />
 														<UserGroupIcon className="text-black w-10 h-7" />
@@ -289,7 +299,7 @@ export default function PostsList() {
 														<UsersIcon className="text-black w-10 h-7" />
 														<ShareIcon className="text-black w-10 h-7" />
 														<BookOpenIcon className="text-black w-10 h-7" />
-														<DocumentReportIcon className="text-black w-10 h-7" />
+														<DocumentReportIcon className="text-black w-10 h-7" /> */}
 													</div>
 												</div>
 											</div>

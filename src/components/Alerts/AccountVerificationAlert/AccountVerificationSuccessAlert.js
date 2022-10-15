@@ -3,7 +3,7 @@ import { CheckCircleIcon } from '@heroicons/react/solid';
 import React, { useState } from 'react';
 export default function AccountVerificationSuccessAlert({ setClose }) {
 	return (
-		<div className="rounded-md bg-green-300 p-4 mx-4 my-1">
+		<div className="rounded-md bg-green-300 p-4 mx-auto my-1 max-w-[75%]">
 			<div className="flex">
 				<div className="flex-shrink-0">
 					<CheckCircleIcon

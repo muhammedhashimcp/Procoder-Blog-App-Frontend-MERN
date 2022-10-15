@@ -1,6 +1,8 @@
 import React from 'react';
 import poster from '../../img/bgi.jpg';
 import BlogAppPoster from '../../img/blog-app.jpg';
+import PostsList from '../Posts/PostsList';
+import HomePost from '../Posts/HomePost';
 
 const HomePage = () => {
 	return (
@@ -59,10 +61,19 @@ const HomePage = () => {
 							Read Blogs
 						</a>
 					</div>
+					{/* posts */}
+					<div className="mx-auto w-full">
+						<HomePost />
+					</div>
 					<div className="bg-slate-200 bg-center">
-						<p className=" text-xl mb-16 lg:mb-10 2xl:mb-15 text-slate-700 text-center font-semibold">
+						<p className=" text-xl  text-slate-700 text-center font-semibold">
 							Your Posts must be free from Racism and Unhealthy
 							words
+						</p>
+					</div>
+					<div className="bg-slate-900 mt-2 h-20 -mb-16 flex items-center justify-center">
+						<p className=" text-xl  text-white text-center ">
+						Thank You For Visiting
 						</p>
 					</div>
 				</div>
