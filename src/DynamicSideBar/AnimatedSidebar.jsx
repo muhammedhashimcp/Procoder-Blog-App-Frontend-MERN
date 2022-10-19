@@ -22,12 +22,13 @@ const AnimatedSidebar = ({ category }) => {
 	);
 	return (
 		<>
-			<div
+			{/* <div class="mb-8 lg:mb-0 w-full lg:w-1/4 px-3"> */}
+				<div
 				className={`top-15 left-10 w-[50vw] md:w-[30vw] bg-gray-400 p-10 pl-10 text-white fixed h-full ease-in-out duration-300 ${
 					showSidebar ? '-translate-x-full ' : '-translate-x-10'
 				}`}
 			>
-			{/* <div
+				{/* <div
 				className={`top-15 left-10 w-[50vw] md:w-[30vw] bg-gray-400 p-10 pl-10 text-white fixed h-full ease-in-out duration-300 ${
 					showSidebar ? '-translate-x-full ' : '-translate-x-10'
 				}`}
