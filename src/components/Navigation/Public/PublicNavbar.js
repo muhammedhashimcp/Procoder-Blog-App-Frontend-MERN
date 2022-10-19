@@ -5,7 +5,6 @@ import { Link, NavLink } from 'react-router-dom';
 import { MenuIcon, XIcon, LoginIcon } from '@heroicons/react/outline';
 import { PlusIcon } from '@heroicons/react/solid';
 import Procoder from '../../../img/procoder logo.jpg';
-console.log(NavLink);
 const navigation = [
 	{ name: 'Blogs', href: '/posts', current: true },
 	{ name: 'About Us', href: '/about', current: false },
@@ -63,43 +62,7 @@ const PublicNavbar = () => {
 
 								<div className="hidden md:ml-6 md:flex md:items-center md:space-x-4 ">
 									{navigation.map((item) => (
-										// <Link
-
-										// 	key={item.name}
-										// 	to={item.href}
-										// 	className={classNames(
-										// 		item.current
-										// 			? 'bg-gray-500 text-white hover:bg-gray-700 shadow-lg shadow-gray-400 ring-4 ring-blue-700'
-										// 			: 'relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-slate-900 hover:bg-black focus:outline-none focus:ring-4 focus:ring-offset-5 focus:ring-offset-gray-800 focus:ring-blue-700'
-										// 	)}
-										// 	aria-current={
-										// 		item.current
-										// 			? 'page'
-										// 			: undefined
-										// 	}
-										// >
-										// 	{item.name}
-
-										// </Link>
-
-										// <Link
-
-										// 	key={item.name}
-										// 	to={item.href}
-										// 	className={classNames(
-										// 		item.current
-										// 			? 'bg-gray-500 text-white hover:bg-gray-700 shadow-lg shadow-gray-400 ring-4 ring-blue-700'
-										// 			: 'relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-slate-900 hover:bg-black focus:outline-none focus:ring-4 focus:ring-offset-5 focus:ring-offset-gray-800 focus:ring-blue-700'
-										// 	)}
-										// 	aria-current={
-										// 		item.current
-										// 			? 'page'
-										// 			: undefined
-										// 	}
-										// >
-										// 	{item.name}
-
-										// </Link>
+										
 
 										<NavLink
 											to={item.href}
@@ -112,24 +75,7 @@ const PublicNavbar = () => {
 										>
 											{item.name}
 										</NavLink>
-										// <NavLink
-										// 	to={item.href}
-										// 	style={({ isActive }) =>
-										// 		isActive
-										// 			? {
-										// 					color: '#fff',
-										// 					background:
-										// 						'#f0f0f0',
-										// 			  }
-										// 			: {
-										// 					color: '#545e6f',
-										// 					background:
-										// 						'#f0f0f0',
-										// 			  }
-										// 	}
-										// >
-										// 	{item.name}
-										// </NavLink>
+										
 									))}
 								</div>
 							</div>
