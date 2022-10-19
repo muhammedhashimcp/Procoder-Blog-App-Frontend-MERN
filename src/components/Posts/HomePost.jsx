@@ -12,6 +12,7 @@ import {
 } from '../../redux/slices/posts/postSlices';
 import DateFormatter from '../../utils/DateFormatter';
 import LoadingComponent from '../../utils/LoadingComponent';
+import {toast} from 'react-toastify'
 import {
 	HeartIcon,
 	EmojiSadIcon,
@@ -29,6 +30,7 @@ import {
 	UsersIcon,
 	ExclamationIcon,
 } from '@heroicons/react/outline';
+toast.success('This is your home page')
 export default function PostsList() {
 	// dispatch
 	const dispatch = useDispatch();

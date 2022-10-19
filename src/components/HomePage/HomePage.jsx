@@ -11,7 +11,7 @@ const HomePage = () => {
 				<div className=" px-auto mx-auto ">
 					<div className="flex  flex-wrap items-center -mx-4 mb-10 2xl:mb-14">
 						<div className="w-full lg:w-1/2 px-4 ">
-							<h4 className=" mt-2  text-3xl 2xl:text-6xl text-zinc  font-heading text-slate-600">
+							<h4 className=" mt-2  text-2xl 2xl:text-4xl text-zinc  font-heading text-slate-600">
 								<span className="text-red-600">
 									Create Blogs
 								</span>
@@ -22,7 +22,7 @@ const HomePage = () => {
 								<span className="text-blue-600">&#123;</span>
 							</h4>
 
-							<h4 className="max-w-2xl mt-2  text-3xl 2xl:text-6xl text-zinc  font-heading text-slate-600">
+							<h4 className="max-w-2xl mt-2  text-2xl 2xl:text-4xl text-zinc  font-heading text-slate-600">
 								Pen down your
 								<span className="text-green-600">
 									{' '}
@@ -30,7 +30,7 @@ const HomePage = () => {
 								</span>{' '}
 								By
 							</h4>
-							<h4 className="max-w-2xl text-3xl 2xl:text-6xl text-zinc  font-heading text-slate-600 ">
+							<h4 className="max-w-2xl text-2xl 2xl:text-4xl text-zinc  font-heading text-slate-600 ">
 								{' '}
 								<span className="text-red-600">
 									Creating{' '}
@@ -44,7 +44,7 @@ const HomePage = () => {
 									){' '}
 								</span>
 							</h4>
-							<h4 className="text-blue-600  max-w-2xl text-3xl 2xl:text-6xl  ">
+							<h4 className="text-blue-600  max-w-2xl text-2xl 2xl:text-4xl  ">
 								&#125;
 							</h4>
 						</div>
