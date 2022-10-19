@@ -5,9 +5,9 @@ import { Link, NavLink } from 'react-router-dom';
 import { MenuIcon, XIcon, LoginIcon } from '@heroicons/react/outline';
 import { PlusIcon } from '@heroicons/react/solid';
 import Procoder from '../../../img/procoder logo.jpg';
-
+console.log(NavLink);
 const navigation = [
-	{ name: 'Blogs', href: '/posts', current: false  },
+	{ name: 'Blogs', href: '/posts', current: true },
 	{ name: 'About Us', href: '/about', current: false },
 ];
 
@@ -16,11 +16,10 @@ function classNames(...classes) {
 }
 
 const PublicNavbar = () => {
-
 	return (
 		<Disclosure
 			as="nav"
-			className="bg-white border drop-shadow sticky top-0  py-3 z-10"
+			className="bg-white border drop-shadow sticky top-0  py-3 z-50"
 		>
 			{({ open }) => (
 				<>
@@ -29,7 +28,7 @@ const PublicNavbar = () => {
 							<div className="flex">
 								<div className="-ml-2 mr-2 flex items-center md:hidden">
 									{/* Mobile menu button */}
-									<Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+									<Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-inset focus:ring-blue-700">
 										<span className="sr-only">
 											Open main menu
 										</span>
@@ -58,29 +57,79 @@ const PublicNavbar = () => {
 										alt="Procoder"
 									/>
 									<span className="logoText">
-										{'     '}Procoder
+										{'  '}Procoder
 									</span>
 								</Link>
 
 								<div className="hidden md:ml-6 md:flex md:items-center md:space-x-4 ">
 									{navigation.map((item) => (
-								
-										<Link
-											key={item.name}
+										// <Link
+
+										// 	key={item.name}
+										// 	to={item.href}
+										// 	className={classNames(
+										// 		item.current
+										// 			? 'bg-gray-500 text-white hover:bg-gray-700 shadow-lg shadow-gray-400 ring-4 ring-blue-700'
+										// 			: 'relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-slate-900 hover:bg-black focus:outline-none focus:ring-4 focus:ring-offset-5 focus:ring-offset-gray-800 focus:ring-blue-700'
+										// 	)}
+										// 	aria-current={
+										// 		item.current
+										// 			? 'page'
+										// 			: undefined
+										// 	}
+										// >
+										// 	{item.name}
+
+										// </Link>
+
+										// <Link
+
+										// 	key={item.name}
+										// 	to={item.href}
+										// 	className={classNames(
+										// 		item.current
+										// 			? 'bg-gray-500 text-white hover:bg-gray-700 shadow-lg shadow-gray-400 ring-4 ring-blue-700'
+										// 			: 'relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-slate-900 hover:bg-black focus:outline-none focus:ring-4 focus:ring-offset-5 focus:ring-offset-gray-800 focus:ring-blue-700'
+										// 	)}
+										// 	aria-current={
+										// 		item.current
+										// 			? 'page'
+										// 			: undefined
+										// 	}
+										// >
+										// 	{item.name}
+
+										// </Link>
+
+										<NavLink
 											to={item.href}
-											className={classNames(
-												item.current
-													? 'bg-gray-500 text-white hover:bg-gray-700 shadow-lg shadow-gray-400'
-													: 'relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-slate-900 hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white'
-											)}
-											aria-current={
-												item.current
-													? 'page'
-													: undefined
+											key={item.name}
+											className={({ isActive }) =>
+												isActive
+													? 'relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-slate-900 hover:bg-black hover:outline-none ring-4 ring-offset-5 ring-offset-gray-800 ring-pink-700'
+													: 'relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-slate-900 hover:bg-black focus:outline-none focus:ring-4 focus:ring-offset-5 focus:ring-offset-gray-800 focus:ring-blue-700'
 											}
 										>
 											{item.name}
-										</Link>
+										</NavLink>
+										// <NavLink
+										// 	to={item.href}
+										// 	style={({ isActive }) =>
+										// 		isActive
+										// 			? {
+										// 					color: '#fff',
+										// 					background:
+										// 						'#f0f0f0',
+										// 			  }
+										// 			: {
+										// 					color: '#545e6f',
+										// 					background:
+										// 						'#f0f0f0',
+										// 			  }
+										// 	}
+										// >
+										// 	{item.name}
+										// </NavLink>
 									))}
 								</div>
 							</div>
@@ -89,7 +138,7 @@ const PublicNavbar = () => {
 									<Link
 										to="/login"
 										type="button"
-										className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-slate-900 hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+										className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-slate-900 hover:bg-black focus:outline-none focus:ring-4 focus:ring-offset-5 focus:ring-offset-gray-800 focus:ring-blue-700"
 									>
 										<LoginIcon
 											className="-ml-1 mr-2 h-5 w-5"
@@ -101,7 +150,7 @@ const PublicNavbar = () => {
 								<div className="hidden md:ml-4 md:flex-shrink-0 md:flex md:items-center">
 									<Link
 										to="/register"
-										className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-slate-900 hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+										className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-slate-900 hover:bg-black focus:outline-none focus:ring-4 focus:ring-offset-5 focus:ring-offset-gray-800 focus:ring-blue-700"
 									>
 										<PlusIcon
 											className="-ml-1 mr-2 h-5 w-5"
