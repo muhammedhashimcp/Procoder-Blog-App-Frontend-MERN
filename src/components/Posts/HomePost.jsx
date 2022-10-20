@@ -13,14 +13,14 @@ import {
 import DateFormatter from '../../utils/DateFormatter';
 import LoadingComponent from '../../utils/LoadingComponent';
 import {
+	DocumentReportIcon,
+	SaveIcon,
+	ShareIcon,
 	HeartIcon,
 	EmojiSadIcon,
 	UploadIcon,
 	UserIcon,
-	SaveIcon,
-	ShareIcon,
 	BookOpenIcon,
-	DocumentReportIcon,
 	BookmarkIcon,
 	UserAddIcon,
 	UserCircleIcon,
@@ -213,15 +213,16 @@ export default function PostsList() {
 											<div className="flex flex-row bottom-3 ml-10 absolute left-1/2 -translate-x-1/2">
 												<SaveIcon className="text-black w-10 h-7" />
 												<BookmarkIcon className="text-black w-10 h-7" />
+												<ShareIcon className="text-black w-10 h-7" />
+												<DocumentReportIcon className="text-black w-10 h-7" />
+												
 												<UserRemoveIcon className="text-black w-10 h-7" />
 												<UserAddIcon className="text-black w-10 h-7" />
 												<UserCircleIcon className="text-black w-10 h-7" />
 												<UserGroupIcon className="text-black w-10 h-7" />
 												<UserIcon className="text-black w-10 h-7" />
 												<UsersIcon className="text-black w-10 h-7" />
-												<ShareIcon className="text-black w-10 h-7" />
 												<BookOpenIcon className="text-black w-10 h-7" />
-												<DocumentReportIcon className="text-black w-10 h-7" />
 											</div>
 										</div>
 									</div>
