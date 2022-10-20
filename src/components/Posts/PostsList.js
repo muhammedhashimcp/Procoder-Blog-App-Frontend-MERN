@@ -1,89 +1,144 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
+import {
+	ThumbUpIcon,
+	ThumbDownIcon,
+	EyeIcon,
+	FlagIcon,
+} from '@heroicons/react/solid';
 
-import { EyeIcon, ThumbDownIcon, ThumbUpIcon } from '@heroicons/react/solid';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { fetchCategoriesAction } from '../../redux/slices/category/categorySlice';
 import { FaRegBookmark, FaBookmark, FaFlag, FaRegFlag } from 'react-icons/fa';
-import * as DOMPurify from 'dompurify';
+// import { toast, Toaster } from 'react-hot-toast';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
+import * as DOMPurify from 'dompurify';
+// import {
+// 	fetchAllPostAction,
+// 	toggleAddDisLikesToPostAction,
+// 	toggleAddLikesToPostAction,
+// 	deleteSavedPostAction,
+// 	savedPostAction,
+// 	fetchSavedPostAction,
+// 	reportPostAction,
+// 	searchPostAction,
+// } from '../../redux/slices/posts/postSlices';
 import {
 	fetchPostsAction,
 	toggleAddLikesToPost,
 	toggleAddDisLikesToPost,
 } from '../../redux/slices/posts/postSlices';
+
 import DateFormatter from '../../utils/DateFormatter';
+// import { fetchAllCategoriesAction } from '../../redux/slices/category/categorySlice';
+import { fetchCategoriesAction } from '../../redux/slices/category/categorySlice';
 import LoadingComponent from '../../utils/LoadingComponent';
-import {
-	HeartIcon,
-	EmojiSadIcon,
-	UploadIcon,
-	UserIcon,
-	SaveIcon,
-	ShareIcon,
-	BookOpenIcon,
-	DocumentReportIcon,
-	BookmarkIcon,
-	UserAddIcon,
-	UserCircleIcon,
-	UserGroupIcon,
-	UserRemoveIcon,
-	UsersIcon,
-	ExclamationIcon,
-} from '@heroicons/react/outline';
-import Sidebar from '../../DynamicSideBar/Sidebar';
 import AnimatedSidebar from '../../DynamicSideBar/AnimatedSidebar';
+// import noPosts from '../../img/noPosts.png';
+// import noPosts1 from '../../img/noPosts1.png';
+// import AdminSidebar from '../Admin/AdminSidebar';
+// import LazyLoad from 'react-lazyload'
+
 export default function PostsList() {
-		const [showSidebar, setShowSidebar] = useState(false);
-	// dispatch
+	// const [search, setSearch] = useState("");
+	const [query, setQuery] = useState(' ');
+	//dispatch
 	const dispatch = useDispatch();
-	const [search, setSearch] = useState('');
-	// fetch all categories
-	useEffect(() => {
-		dispatch(fetchCategoriesAction());
-	}, [dispatch]);
-	// select post from store
-	const post = useSelector((state) => state.post);
-	const { userAuth } = useSelector((state) => state.users);
+	const navigate = useNavigate();
+
+	// Select user from from store
+	const user = useSelector((state) => state?.users);
+	const { userAuth } = user;
+
+	//select post from store
+	const posts = useSelector((state) => state?.post);
 	const {
 		postLists,
 		loading,
 		appErr,
 		serverErr,
 		likes,
-		disLikes,
+		dislikes,
 		pageNumber,
 		savedPost,
 		savedList,
 		saved,
 		deleted,
 		reports,
-	} = post;
-	// select categories from store
-	const category = useSelector((state) => state.category);
+	} = posts;
+	console.log(postLists, 'bbbbbbbbbbbb');
 
-	// fetch all posts
+	// const blogsPerPage = 10;
+	// const pagesVisited = pageNumber * blogsPerPage;
+	// const pageCount = Math.ceil([postLists].length / blogsPerPage);
+	// console.log(pageCount, "ghjkl");
+
+	//select category from store
+	const category = useSelector((state) => state?.category);
+	const {
+		categoryList,
+		loading: catLoading,
+		appErr: catAppErr,
+		serverErr: catServerErr,
+	} = category;
+	console.log(categoryList);
+
+	// fetch post
 	useEffect(() => {
 		dispatch(fetchPostsAction(''));
-	}, [dispatch, likes, disLikes]);
+		// dispatch(fetchSavedPostAction(''));
+		// dispatch(searchPostAction(query));
+		//load all the posts from server
+		// if (userAuth) {
+		//   dispatch(fetchAllPostAction(""));
+		// }
+
+		// else {
+		//   navigate("/login");
+		// }
+	}, [dispatch, likes, dislikes, saved, deleted, savedPost, reports, query]);
+
+	// fetch category
+	useEffect(() => {
+		dispatch(fetchCategoriesAction());
+	}, [dispatch]);
+
+	const tostAlert = (msg) => {
+		toast.success(msg);
+	};
+
+	// const menus = [
+	//   { name: "Home", link: "/", icon: SiHomeassistantcommunitystore },
+	//   { name: "Users", link: "/users", icon: AiOutlineUser },
+	//   { name: "Post", link: "/posts", icon: BsFileEarmarkPostFill },
+	//   { name: "Saved", link: "/saved-list", icon: BsSave, margin: true },
+	//   { name: "Reported", link: "/reported-list", icon: GoReport },
+	//   {
+	//     name: "Create Category",
+	//     link: "/add-category",
+	//     icon: AiOutlineAppstoreAdd,
+	//   },
+	//   { name: "Category List", link: "/category-list", icon: MdOutlineDashboard },
+	//   { name: "Create Post", link: "/create-post", icon: IoIosCreate },
+	// ];
+
+	// const [open, setOpen] = useState(true);
+
 	return (
 		<>
-			<div className=" w-full lg:w-1/4 ">
-				<AnimatedSidebar category={category} />
-			</div>
-			<section className="flex justify-center  bg-gray-200">
-				<div className="py-20 w-full lg:w-3/4 px-7 ml-16 md:ml-6 bg-pink-200 lg:ml-0 shadow-md shadow-gray-500  min-h-screen radius-for-skewed">
-					
-					<div class=" container  mx-auto">
-						<div className="flex justify-center  ">
+			<AnimatedSidebar category={category} />
+			<section>
+				<div className="py-20 bg-gray-200 min-h-screen radius-for-skewed ">
+					<div className="container mx-auto px-4 ">
+						<div className="flex justify-center  mb-3">
 							<div className="flex border border-gray-300 rounded">
 								<input
 									onChange={(event) => {
-										setSearch(event.target.value);
+										setQuery(
+											event.target.value.toLowerCase()
+										);
 									}}
 									type="text"
-									className="block w-96  py-2 text-black-700 bg-white border rounded-md focus:border-gray-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+									className="block w-96 px-4 py-2 text-black-700 bg-white border rounded-md focus:border-gray-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
 									placeholder="Search..."
 								/>
 								<button className="px-4 text-white bg-black hover:bg-gray-500  border-l rounded ">
@@ -91,352 +146,127 @@ export default function PostsList() {
 								</button>
 							</div>
 						</div>
-
-						<div className="mb-20 flex justify-center items-center">
-							<div className="w-full ml-10 lg:w-1/2  ">
-								<span className="text-black-600 font-bold font-serif text-blue-400">
-									Latest Posts from our awesome authors
-								</span>
-								<h2 className="text-4xl text-black-300 lg:text-5xl font-bold font-serif font-heading">
-									Latest Post
-								</h2>
-							</div>
-							<div className=" block text-right w-1/2 p-2">
-								{/* View All */}
-								{/* <button
-									onClick={() =>
-										dispatch(fetchAllPostAction(''))
-									}
-									className=" ml-4 inline-block py-2 px-6 rounded-l-xl rounded-t-xl bg-black hover:bg-gray-700 text-gray-50 font-bold leading-loose transition duration-200"
-								>
-									All Posts
-								</button> */}
-							</div>
-						</div>
-						<div className=" mx-3">
-							{/* Post goes here */}
-
-							{
-								// loading ? (
-								//   <h1>Loading...</h1>
-								// ) :
-								appErr || serverErr ? (
-									<h1 className="text-black text-lg text-center">
-										{catAppErr} {catServerErr}
-									</h1>
-								) : postLists?.length <= 0 ? (
-									<>
-										<div className="">
-											<Link
-												to="/create-post"
-												className="pr-3mr-2 px-4 py-2 border border-transparent shadow-lg shadow-gray-400 text-sm font-medium rounded-md text-white bg-gray-800  hover:bg-gray-700  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-gray-500"
-											>
-												<span>Creat New Post</span>
-											</Link>
-										</div>
-
-										<div className="max-w-screen-lg mx-auto pb-10 flex justify-center  ">
-											<img
-												className="w-full"
-												src={noPosts}
-												alt={noPosts}
-											/>
-										</div>
-									</>
-								) : (
-									postLists
-										?.filter((val) => {
-											if (search === '') {
-												return val;
-											} else if (
-												val.title
-													.toLowerCase()
-													.includes(
-														search.toLocaleLowerCase()
-													)
-											) {
-												return val;
+						{/* Content Div */}
+						<div className="flex ml-10 lg:ml-5 justify-center lg:justify-end">
+							{/* <div className="mb-8 lg:mb-0 w-full lg:w-1/4 px-3">
+								<div className="py-4 px-6 bg-gray-300  shadow-md shadow-gray-500 rounded">
+									<h4 className="mb-4 text-black-500 font-bold font-serif uppercase">
+										Categories
+									</h4>
+									<ul>
+										{catLoading ? (
+											<LoadingComponent />
+										) : catAppErr || catServerErr ? (
+											<h1>
+												{' '}
+												{catAppErr} {catServerErr}
+											</h1>
+										) : categoryList?.length <= 0 ? (
+											<h1 className="text-center">
+												No category found
+											</h1>
+										) : (
+											categoryList?.map((category) => (
+												<li>
+													<p
+														onClick={() =>
+															dispatch(
+																fetchAllPostAction(
+																	category?.title
+																)
+															)
+														}
+														className="block cursor-pointer py-2 px-3 mb-4 rounded shadow-md shadow-gray-500 text-black-500 font-bold font-serif bg-white"
+													>
+														{category?.title}
+													</p>
+												</li>
+											))
+										)}
+									</ul>
+								</div>
+							</div> */}
+							<div className="w-full lg:w-3/4 px-7 shadow-md shadow-gray-500">
+								{/* Post goes here */}
+								<div className="my-10 flex justify-between">
+									<div className="my-auto">
+										<h3 className="text-xl text-black-300 lg:text-4xl font-bold font-serif font-heading">
+											Latest Posts from our awesome
+											authors
+										</h3>
+									</div>
+									<div className=" block text-right p-2">
+										{/* View All */}
+										<button
+											onClick={() =>
+												dispatch(fetchPostsAction(''))
 											}
-										})
-										?.map((post) => (
-											// <div
-											// 	className="flex flex-wrap  bg-pink-300 mx-3 my-2  lg:mb-6 shadow-md shadow-gray-500 "
-											// 	key={post._id}
-											// >
-											// 	<div className="mb-10 w-full h-41 lg:w-1/4 px-8 py-8 p-20">
-											// 		<Link>
-											// 			{/* Post image */}
-											// 			<img
-											// 				className=" mt-4 w-full h-30 object-cover rounded"
-											// 				src={
-											// 					post?.image
-											// 				}
-											// 				alt=""
-											// 			/>
-											// 		</Link>
-											// 		{/* Likes, views dislikes */}
-											// 		<div className="p-4  flex flex-row bg-gray-300 justify-center w-full  items-center ">
-											// 			{/* Likes */}
-											// 			<div className="flex flex-row justify-center items-center ml-4 mr-4 pb-2 pt-1">
-											// 				{/* Toggle like  */}
+											className=" ml-4 inline-block py-2 px-6 rounded-l-xl rounded-t-xl bg-black hover:bg-gray-700 text-gray-50 font-bold leading-loose transition duration-200"
+										>
+											All Posts
+										</button>
+									</div>
+								</div>
+								{
+									// loading ? (
+									//   <h1>Loading...</h1>
+									// ) :
+									appErr || serverErr ? (
+										<h1 className="text-black text-lg text-center">
+											{catAppErr} {catServerErr}
+										</h1>
+									) : postLists?.length <= 0 ? (
+										<div className="">
+											<div className="p-5 justify-center">
+												<Link
+													to="/create-post"
+													className="pr-3mr-2 px-4 py-2 border border-transparent shadow-lg shadow-gray-400 text-sm font-medium rounded-md text-white bg-gray-800  hover:bg-gray-700  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-gray-500"
+												>
+													<span className="">
+														Creat New Post
+													</span>
+												</Link>
+											</div>
 
-											// 				<div className="">
-											// 					{savedList &&
-											// 					savedList[0]?.post?.find(
-											// 						(
-											// 							element
-											// 						) =>
-											// 							element?._id.toString() ===
-											// 							post?._id.toString()
-											// 					) ? (
-											// 						<FaBookmark
-											// 							onClick={() => {
-											// 								tostAlert(
-											// 									`${post?.title} unsaved successfully`
-											// 								);
-											// 								dispatch(
-											// 									deleteSavedPostAction(
-											// 										post?._id
-											// 									)
-											// 								);
-											// 							}}
-											// 							className=" h-4 w-4 text-blue-600 cursor-pointer"
-											// 						/>
-											// 					) : (
-											// 						<FaRegBookmark
-											// 							onClick={() => {
-											// 								tostAlert(
-											// 									`${post?.title} saved successfully`
-											// 								);
-											// 								dispatch(
-											// 									savedPostAction(
-											// 										post?._id
-											// 									)
-											// 								);
-											// 							}}
-											// 							className=" h-4 w-4 text-gray-500 cursor-pointer"
-											// 						/>
-											// 					)}
-											// 				</div>
-
-											// 				{post?.likes.includes(
-											// 					userAuth?._id
-											// 				) ? (
-											// 					<div className="ml-4">
-											// 						<ThumbUpIcon
-											// 							onClick={() =>
-											// 								dispatch(
-											// 									toggleAddLikesToPostAction(
-											// 										post?._id
-											// 									)
-											// 								)
-											// 							}
-											// 							className=" h-5 w-5 text-blue-600 cursor-pointer"
-											// 						/>
-											// 					</div>
-											// 				) : (
-											// 					<div className="ml-4">
-											// 						<ThumbUpIcon
-											// 							onClick={() =>
-											// 								dispatch(
-											// 									toggleAddLikesToPostAction(
-											// 										post?._id
-											// 									)
-											// 								)
-											// 							}
-											// 							className=" h-5 w-5 text-gray-600 cursor-pointer"
-											// 						/>
-											// 					</div>
-											// 				)}
-
-											// 				<div className="text-gray-600 ">
-											// 					{post?.likes
-											// 						?.length
-											// 						? post
-											// 								?.likes
-											// 								?.length
-											// 						: 0}
-											// 				</div>
-											// 			</div>
-											// 			{/* Dislike */}
-											// 			<div className="flex flex-row  justify-center items-center  mr-4 pb-2 pt-1 ">
-											// 				{post?.disLikes.includes(
-											// 					userAuth?._id
-											// 				) ? (
-											// 					<div>
-											// 						<ThumbDownIcon
-											// 							onClick={() =>
-											// 								dispatch(
-											// 									toggleAddDislikesToPostAction(
-											// 										post?._id
-											// 									)
-											// 								)
-											// 							}
-											// 							className="h-5 w-5 cursor-pointer text-red-600"
-											// 						/>
-											// 					</div>
-											// 				) : (
-											// 					<div>
-											// 						<ThumbDownIcon
-											// 							onClick={() =>
-											// 								dispatch(
-											// 									toggleAddDislikesToPostAction(
-											// 										post?._id
-											// 									)
-											// 								)
-											// 							}
-											// 							className="h-5 w-5 cursor-pointer text-gray-600"
-											// 						/>
-											// 					</div>
-											// 				)}
-
-											// 				<div className=" text-gray-600">
-											// 					{post
-											// 						?.disLikes
-											// 						?.length
-											// 						? post
-											// 								?.disLikes
-											// 								?.length
-											// 						: 0}
-											// 				</div>
-											// 			</div>
-											// 			{/* Views */}
-											// 			<div className="flex flex-row justify-center items-center  mr-4 pb-2 pt-1">
-											// 				<div>
-											// 					<EyeIcon className="h-5 w-5  text-gray-400" />
-											// 				</div>
-											// 				<div className=" text-gray-600">
-											// 					{
-											// 						post?.numViews
-											// 					}
-											// 				</div>
-											// 			</div>
-
-											// 			{post?.reports?.includes(
-											// 				userAuth?._id
-											// 			) ? (
-											// 				<div className="">
-											// 					<FaFlag
-
-											// 						className=" h-5 w-5 text-black-600 cursor-pointer"
-											// 					/>
-											// 				</div>
-											// 			) : (
-											// 				<div className="">
-											// 					<FaRegFlag
-											// 						onClick={() =>
-											// 							dispatch(
-											// 								reportPostAction(
-											// 									post?._id
-											// 								)
-											// 							)
-											// 						}
-											// 						className=" h-5 w-5 text-gray-600 cursor-pointer"
-											// 					/>
-											// 				</div>
-											// 			)}
-											// 			<div className="text-gray-600 ">
-											// 				{post?.reports
-											// 					?.length
-											// 					? post
-											// 							?.reports
-											// 							?.length
-											// 					: 0}
-											// 			</div>
-											// 		</div>
-											// 	</div>
-
-											// 	<div className="w-full lg:w-[90vw] px-auto px-3">
-											// 		<Link className="hover:underline">
-											// 			<h3 className="mb-1 pt-12 text-2xl text-black-400 font-bold font-heading">
-											// 				{/* {capitalizeWord(post?.title)} */}
-											// 				{post?.title}
-											// 			</h3>
-											// 		</Link>
-
-											// 		<div
-											// 			className="text-black truncate "
-											// 			dangerouslySetInnerHTML={{
-											// 				__html: DOMPurify.sanitize(
-											// 					post?.description
-											// 				),
-											// 			}}
-											// 		></div>
-
-											// 		{/* Read more */}
-											// 		<div className="mt-5">
-											// 			<Link
-											// 				to={`/posts/${post?._id}`}
-											// 				className=" text-gray-500 hover:underline "
-											// 			>
-											// 				Read More..
-											// 			</Link>
-											// 		</div>
-											// 		{/* User Avatar */}
-											// 		<div className=" flex items-center ">
-											// 			<div className="mt-3 flex-shrink-0 ">
-											// 				<Link>
-											// 					<img
-											// 						className="h-10 w-10 rounded-full"
-											// 						src={
-											// 							post
-											// 								?.user
-											// 								?.profilePhoto
-											// 						}
-											// 						alt=""
-											// 					/>
-											// 				</Link>
-											// 			</div>
-											// 			<div className="ml-3 ">
-											// 				<p className=" text-sm font-medium text-gray-900 mt-4">
-											// 					<Link
-											// 						to={`/profile/${post?.user?._id}`}
-											// 						className="text-black-400 hover:underline "
-											// 					>
-											// 						{
-											// 							post
-											// 								?.user
-											// 								?.firstname
-											// 						}{' '}
-											// 						{
-											// 							post
-											// 								?.user
-											// 								?.lastname
-											// 						}
-											// 					</Link>
-											// 				</p>
-											// 				<div className="flex space-x-1 text-sm text-black-500">
-											// 					<time>
-											// 						<DateFormatter
-											// 							date={
-											// 								post?.createdAt
-											// 							}
-											// 						/>
-											// 					</time>
-											// 					<span aria-hidden="true">
-											// 						&middot;
-											// 					</span>
-											// 				</div>
-											// 			</div>
-											// 		</div>
-
-											// 	</div>
-											// </div>
-											<div class="mt-5 flex flex-wrap bg-gray-300 -mx-3  lg:mb-6 shadow-md shadow-gray-500 ">
-												<div class=" mb-10 w-full h-41 lg:w-1/4 px-8 py-8 p-20">
-													<Link>
-														{/* Post image */}
-														<img
-															className=" mt-4 w-full h-30 object-cover rounded"
-															src={post?.image}
-															alt=""
-														/>
-													</Link>
-													{/* Likes, views dislikes */}
-													<div className="p-4 flex flex-row bg-gray-300 justify-center w-full  items-center ">
-														{/* Likes */}
-														<div className="flex flex-row justify-center items-center ml-4 mr-4 pb-2 pt-1">
-															{/* save option 
+											<div className="max-w-screen-lg mx-auto pb-10 flex justify-center  ">
+												<img
+													className="w-96 h-96"
+													src={noPosts1}
+													alt={noPosts}
+												/>
+											</div>
+										</div>
+									) : (
+										postLists
+											// ?.filter((val) => {
+											//   if (search === "") {
+											//    return val;
+											//   } else if (
+											//     val.title
+											//       .toLowerCase()
+											//       .includes(search.toLocaleLowerCase())
+											//   ) {
+											//     return val;
+											//   }
+											// })
+											?.map((post) => (
+												<div className="mt-5 flex flex-wrap bg-gray-300 -mx-3  lg:mb-6 shadow-md shadow-gray-500 ">
+													<div className=" mb-10 w-full h-41 lg:w-1/4 px-8 py-8 p-20">
+														<Link>
+															{/* Post image */}
+															<img
+																className=" mt-4 w-full h-30 object-cover rounded"
+																src={
+																	post?.image
+																}
+																alt=""
+															/>
+														</Link>
+														{/* Likes, views dislikes */}
+														<div className="p-4 flex flex-row bg-gray-300 justify-center w-full  items-center ">
+															{/* Likes */}
+															<div className="flex flex-row justify-center items-center ml-4 mr-4 pb-2 pt-1">
+																{/* save option 
 
                                 <div className="">
                                   {savedList &&
@@ -469,98 +299,101 @@ export default function PostsList() {
                                   )}
                                 </div> */}
 
-															{post?.likes.includes(
-																userAuth?._id
-															) ? (
-																<div className="ml-4">
-																	<ThumbUpIcon
-																		onClick={() =>
-																			dispatch(
-																				toggleAddLikesToPostAction(
-																					post?._id
+																{post?.likes.includes(
+																	userAuth?._id
+																) ? (
+																	<div className="ml-4">
+																		<ThumbUpIcon
+																			onClick={() =>
+																				dispatch(
+																					toggleAddLikesToPostAction(
+																						post?._id
+																					)
 																				)
-																			)
-																		}
-																		className=" h-5 w-5 text-blue-600 cursor-pointer"
-																	/>
-																</div>
-															) : (
-																<div className="ml-4">
-																	<ThumbUpIcon
-																		onClick={() =>
-																			dispatch(
-																				toggleAddLikesToPostAction(
-																					post?._id
+																			}
+																			className=" h-5 w-5 text-blue-600 cursor-pointer"
+																		/>
+																	</div>
+																) : (
+																	<div className="ml-4">
+																		<ThumbUpIcon
+																			onClick={() =>
+																				dispatch(
+																					toggleAddLikesToPostAction(
+																						post?._id
+																					)
 																				)
-																			)
-																		}
-																		className=" h-5 w-5 text-gray-600 cursor-pointer"
-																	/>
-																</div>
-															)}
+																			}
+																			className=" h-5 w-5 text-gray-600 cursor-pointer"
+																		/>
+																	</div>
+																)}
 
-															<div className="text-gray-600 ">
-																{post?.likes
-																	?.length
-																	? post
-																			?.likes
-																			?.length
-																	: 0}
+																<div className="text-gray-600 ">
+																	{post?.likes
+																		?.length
+																		? post
+																				?.likes
+																				?.length
+																		: 0}
+																</div>
 															</div>
-														</div>
-														{/* Dislike */}
-														<div className="flex flex-row  justify-center items-center  mr-4 pb-2 pt-1 ">
-															{post?.disLikes.includes(
-																userAuth?._id
-															) ? (
+															{/* Dislike */}
+															<div className="flex flex-row  justify-center items-center  mr-4 pb-2 pt-1 ">
+																{post?.disLikes.includes(
+																	userAuth?._id
+																) ? (
+																	<div>
+																		<ThumbDownIcon
+																			onClick={() =>
+																				dispatch(
+																					toggleAddDislikesToPostAction(
+																						post?._id
+																					)
+																				)
+																			}
+																			className="h-5 w-5 cursor-pointer text-red-600"
+																		/>
+																	</div>
+																) : (
+																	<div>
+																		<ThumbDownIcon
+																			onClick={() =>
+																				dispatch(
+																					toggleAddDislikesToPostAction(
+																						post?._id
+																					)
+																				)
+																			}
+																			className="h-5 w-5 cursor-pointer text-gray-600"
+																		/>
+																	</div>
+																)}
+
+																<div className=" text-gray-600">
+																	{post
+																		?.disLikes
+																		?.length
+																		? post
+																				?.disLikes
+																				?.length
+																		: 0}
+																</div>
+															</div>
+															{/* Views */}
+															<div className="flex flex-row justify-center items-center  mr-4 pb-2 pt-1">
 																<div>
-																	<ThumbDownIcon
-																		onClick={() =>
-																			dispatch(
-																				toggleAddDislikesToPostAction(
-																					post?._id
-																				)
-																			)
-																		}
-																		className="h-5 w-5 cursor-pointer text-red-600"
-																	/>
+																	<EyeIcon className="h-5 w-5  text-gray-400" />
 																</div>
-															) : (
-																<div>
-																	<ThumbDownIcon
-																		onClick={() =>
-																			dispatch(
-																				toggleAddDislikesToPostAction(
-																					post?._id
-																				)
-																			)
-																		}
-																		className="h-5 w-5 cursor-pointer text-gray-600"
-																	/>
+																<div className=" text-gray-600">
+																	{
+																		post?.numViews
+																	}
 																</div>
-															)}
+															</div>
+															{/* reports */}
 
-															<div className=" text-gray-600">
-																{post?.disLikes
-																	?.length
-																	? post
-																			?.disLikes
-																			?.length
-																	: 0}
-															</div>
-														</div>
-														{/* Views */}
-														<div className="flex flex-row justify-center items-center  mr-4 pb-2 pt-1">
-															<div>
-																<EyeIcon className="h-5 w-5  text-gray-400" />
-															</div>
-															<div className=" text-gray-600">
-																{post?.numViews}
-															</div>
-														</div>
-														{/* reports */}
-
-														{/* 
+															{/* 
                               {post?.reports?.includes(userAuth?._id) ? (
                                 <div className="">
                                   <FaFlag
@@ -578,100 +411,100 @@ export default function PostsList() {
                                   />
                                 </div>
                               )} */}
-														{/* <div className="text-gray-600 ">
+															{/* <div className="text-gray-600 ">
                                 {post?.reports?.length
                                   ? post?.reports?.length
                                   : 0}
                               </div> */}
+														</div>
 													</div>
-												</div>
 
-												<div className="w-full lg:w-3/4 px-3">
-													<Link className="hover:underline">
-														<h3 className="mb-1 pt-12 text-2xl text-black-400 font-bold font-heading">
-															{/* {capitalizeWord(post?.title)} */}
-															{post?.title}
-														</h3>
-													</Link>
-
-													<div
-														className="text-black truncate "
-														dangerouslySetInnerHTML={{
-															__html: DOMPurify.sanitize(
-																post?.description
-															),
-														}}
-													></div>
-
-													{/* Read more */}
-													<div className="mt-5">
-														<Link
-															to={`/posts/${post?._id}`}
-															className=" text-gray-500 hover:underline "
-														>
-															Read More..
+													<div className="w-full lg:w-3/4 px-3">
+														<Link className="hover:underline">
+															<h3 className="mb-1 pt-12 text-2xl text-black-400 font-bold font-heading">
+																{/* {capitalizeWord(post?.title)} */}
+																{post?.title}
+															</h3>
 														</Link>
-													</div>
-													{/* User Avatar */}
-													<div className=" flex items-center ">
-														<div className="mt-3 flex-shrink-0 ">
-															<Link>
-																<img
-																	className="h-10 w-10 rounded-full"
-																	src={
-																		post
-																			?.user
-																			?.profilePhoto
-																	}
-																	alt=""
-																/>
+
+														<div
+															className="text-black truncate "
+															dangerouslySetInnerHTML={{
+																__html: DOMPurify.sanitize(
+																	post?.description
+																),
+															}}
+														></div>
+
+														{/* Read more */}
+														<div className="mt-5">
+															<Link
+																to={`/posts/${post?._id}`}
+																className=" text-gray-500 hover:underline "
+															>
+																Read More..
 															</Link>
 														</div>
-														<div className="ml-3 ">
-															<p className=" text-sm font-medium text-gray-900 mt-4">
-																<Link
-																	to={`/profile/${post?.user?._id}`}
-																	className="text-black-400 hover:underline "
-																>
-																	{
-																		post
-																			?.user
-																			?.firstname
-																	}{' '}
-																	{
-																		post
-																			?.user
-																			?.lastname
-																	}
-																</Link>
-															</p>
-															<div className="flex space-x-1 text-sm text-black-500">
-																<time>
-																	<DateFormatter
-																		date={
-																			post?.createdAt
+														{/* User Avatar */}
+														<div className=" flex items-center ">
+															<div className="mt-3 flex-shrink-0 ">
+																<Link>
+																	<img
+																		className="h-10 w-10 rounded-full"
+																		src={
+																			post
+																				?.user
+																				?.profilePhoto
 																		}
+																		alt=""
 																	/>
-																</time>
-																<span aria-hidden="true">
-																	&middot;
-																</span>
+																</Link>
+															</div>
+															<div className="ml-3 ">
+																<p className=" text-sm font-medium text-gray-900 mt-4">
+																	<Link
+																		to={`/profile/${post?.user?._id}`}
+																		className="text-black-400 hover:underline "
+																	>
+																		{
+																			post
+																				?.user
+																				?.firstname
+																		}{' '}
+																		{
+																			post
+																				?.user
+																				?.lastname
+																		}
+																	</Link>
+																</p>
+																<div className="flex space-x-1 text-sm text-black-500">
+																	<time>
+																		<DateFormatter
+																			date={
+																				post?.createdAt
+																			}
+																		/>
+																	</time>
+																	<span aria-hidden="true">
+																		&middot;
+																	</span>
+																</div>
 															</div>
 														</div>
-													</div>
-													{/* <p class="text-gray-500">
+														{/* <p className="text-gray-500">
                              Quisque id sagittis turpis. Nulla sollicitudin rutrum
                              eros eu dictum...
                            </p> */}
+													</div>
 												</div>
-											</div>
-										))
-								)
-							}
+											))
+									)
+								}
+							</div>
 						</div>
 					</div>
 				</div>
-
 				{/* <Toaster position="top-center" reverseOrder={false} /> */}
 			</section>
 		</>
