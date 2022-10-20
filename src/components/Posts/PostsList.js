@@ -20,7 +20,6 @@ import * as DOMPurify from 'dompurify';
 // 	savedPostAction,
 // 	fetchSavedPostAction,
 // 	reportPostAction,
-// 	searchPostAction,
 // } from '../../redux/slices/posts/postSlices';
 import {
 	fetchPostsAction,
@@ -35,11 +34,12 @@ import LoadingComponent from '../../utils/LoadingComponent';
 import AnimatedSidebar from '../../DynamicSideBar/AnimatedSidebar';
 // import noPosts from '../../img/noPosts.png';
 // import noPosts1 from '../../img/noPosts1.png';
-// import AdminSidebar from '../Admin/AdminSidebar';
-// import LazyLoad from 'react-lazyload'
 
 export default function PostsList() {
 	// const [search, setSearch] = useState("");
+		const [showSidebar, setShowSidebar] = useState(false);
+	
+
 	const [query, setQuery] = useState(' ');
 	//dispatch
 	const dispatch = useDispatch();
@@ -106,26 +106,14 @@ export default function PostsList() {
 		toast.success(msg);
 	};
 
-	// const menus = [
-	//   { name: "Home", link: "/", icon: SiHomeassistantcommunitystore },
-	//   { name: "Users", link: "/users", icon: AiOutlineUser },
-	//   { name: "Post", link: "/posts", icon: BsFileEarmarkPostFill },
-	//   { name: "Saved", link: "/saved-list", icon: BsSave, margin: true },
-	//   { name: "Reported", link: "/reported-list", icon: GoReport },
-	//   {
-	//     name: "Create Category",
-	//     link: "/add-category",
-	//     icon: AiOutlineAppstoreAdd,
-	//   },
-	//   { name: "Category List", link: "/category-list", icon: MdOutlineDashboard },
-	//   { name: "Create Post", link: "/create-post", icon: IoIosCreate },
-	// ];
-
-	// const [open, setOpen] = useState(true);
 
 	return (
 		<>
-			<AnimatedSidebar category={category} />
+			<AnimatedSidebar
+				category={category}
+				showSidebar={showSidebar}
+				setShowSidebar={setShowSidebar}
+			/>
 			<section>
 				<div className="py-20 bg-gray-200 min-h-screen radius-for-skewed ">
 					<div className="container mx-auto px-4 ">
@@ -147,45 +135,11 @@ export default function PostsList() {
 							</div>
 						</div>
 						{/* Content Div */}
-						<div className="flex ml-10 lg:ml-5 justify-center lg:justify-end">
-							{/* <div className="mb-8 lg:mb-0 w-full lg:w-1/4 px-3">
-								<div className="py-4 px-6 bg-gray-300  shadow-md shadow-gray-500 rounded">
-									<h4 className="mb-4 text-black-500 font-bold font-serif uppercase">
-										Categories
-									</h4>
-									<ul>
-										{catLoading ? (
-											<LoadingComponent />
-										) : catAppErr || catServerErr ? (
-											<h1>
-												{' '}
-												{catAppErr} {catServerErr}
-											</h1>
-										) : categoryList?.length <= 0 ? (
-											<h1 className="text-center">
-												No category found
-											</h1>
-										) : (
-											categoryList?.map((category) => (
-												<li>
-													<p
-														onClick={() =>
-															dispatch(
-																fetchAllPostAction(
-																	category?.title
-																)
-															)
-														}
-														className="block cursor-pointer py-2 px-3 mb-4 rounded shadow-md shadow-gray-500 text-black-500 font-bold font-serif bg-white"
-													>
-														{category?.title}
-													</p>
-												</li>
-											))
-										)}
-									</ul>
-								</div>
-							</div> */}
+						<div
+							className={`flex ml-10 lg:ml-5 ${
+								showSidebar ? 'justify-center' : 'justify-end'
+							}`}
+						>
 							<div className="w-full lg:w-3/4 px-7 shadow-md shadow-gray-500">
 								{/* Post goes here */}
 								<div className="my-10 flex justify-between">
@@ -255,7 +209,7 @@ export default function PostsList() {
 														<Link>
 															{/* Post image */}
 															<img
-																className=" mt-4 w-full h-30 object-cover rounded"
+																className=" mt-4 w-full h-50 object-cover rounded"
 																src={
 																	post?.image
 																}
@@ -298,7 +252,6 @@ export default function PostsList() {
                                     />
                                   )}
                                 </div> */}
-
 																{post?.likes.includes(
 																	userAuth?._id
 																) ? (
@@ -328,7 +281,6 @@ export default function PostsList() {
 																		/>
 																	</div>
 																)}
-
 																<div className="text-gray-600 ">
 																	{post?.likes
 																		?.length
@@ -369,7 +321,6 @@ export default function PostsList() {
 																		/>
 																	</div>
 																)}
-
 																<div className=" text-gray-600">
 																	{post
 																		?.disLikes
@@ -392,7 +343,6 @@ export default function PostsList() {
 																</div>
 															</div>
 															{/* reports */}
-
 															{/* 
                               {post?.reports?.includes(userAuth?._id) ? (
                                 <div className="">
@@ -418,7 +368,6 @@ export default function PostsList() {
                               </div> */}
 														</div>
 													</div>
-
 													<div className="w-full lg:w-3/4 px-3">
 														<Link className="hover:underline">
 															<h3 className="mb-1 pt-12 text-2xl text-black-400 font-bold font-heading">
@@ -426,7 +375,6 @@ export default function PostsList() {
 																{post?.title}
 															</h3>
 														</Link>
-
 														<div
 															className="text-black truncate "
 															dangerouslySetInnerHTML={{
@@ -435,7 +383,6 @@ export default function PostsList() {
 																),
 															}}
 														></div>
-
 														{/* Read more */}
 														<div className="mt-5">
 															<Link
@@ -492,10 +439,7 @@ export default function PostsList() {
 																</div>
 															</div>
 														</div>
-														{/* <p className="text-gray-500">
-                             Quisque id sagittis turpis. Nulla sollicitudin rutrum
-                             eros eu dictum...
-                           </p> */}
+						
 													</div>
 												</div>
 											))

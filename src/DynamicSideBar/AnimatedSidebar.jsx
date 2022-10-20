@@ -3,10 +3,9 @@ import LoadingComponent from '../utils/LoadingComponent';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategoriesAction } from '../redux/slices/category/categorySlice';
 
-const AnimatedSidebar = ({ category }) => {
+const AnimatedSidebar = ({ category, showSidebar, setShowSidebar }) => {
 	// const dispatch = useDispatch();
 
-	const [showSidebar, setShowSidebar] = useState(false);
 	// useEffect(() => {
 	// 	dispatch(fetchCategoriesAction());
 	// }, [dispatch]);
@@ -25,7 +24,7 @@ const AnimatedSidebar = ({ category }) => {
 			<div
 				className={`top-15 left-10 w-[50vw] lg:w-[25vw] bg-gray-300 border border-y-0 border-gray-500 p-10 pl-10 text-white fixed h-full ease-in-out duration-300 ${
 					showSidebar
-						? '-translate-x-full lg:w-1/4'
+						? '-translate-x-full '
 						: '-translate-x-10'
 				}`}
 			>
