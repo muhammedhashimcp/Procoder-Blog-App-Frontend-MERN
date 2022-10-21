@@ -2,3 +2,5 @@ node_modules
 .sync.ffs_db
 .vscode
 .env
+build
+/build
