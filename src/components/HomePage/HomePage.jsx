@@ -3,11 +3,12 @@ import poster from '../../img/bgi.jpg';
 import BlogAppPoster from '../../img/blog-app.jpg';
 import PostsList from '../Posts/PostsList';
 import HomePost from '../Posts/HomePost';
+import Footer from '../Footer/Footer';
 
 const HomePage = () => {
 	return (
 		<>
-			<section className=" min-h-screen  2xl:py-20 pt-5 px-14 bg-white ">
+			<section className=" min-h-screen  2xl:pt-20 pt-5 px-14 bg-white ">
 				<div className=" px-auto mx-auto ">
 					<div className="flex  flex-wrap items-center -mx-4 mb-10 2xl:mb-14">
 						<div className="w-full lg:w-1/2 px-4 ">
@@ -65,16 +66,23 @@ const HomePage = () => {
 					<div className="mx-auto w-full">
 						<HomePost />
 					</div>
+					<div id='about'>
+
+					</div>
 					<div className="bg-slate-200 bg-center">
 						<p className=" text-xl  text-slate-700 text-center font-semibold">
 							Your Posts must be free from Racism and Unhealthy
 							words
 						</p>
+						<div className="bg-slate-900 mt-2  h-20 mt-2 flex items-center justify-center">
+							<p className=" text-xl  text-white text-center ">
+								Thank You For Visiting
+							</p>
+						</div> 
 					</div>
-					<div className="bg-slate-900 mt-2 h-20 -mb-16 flex items-center justify-center">
-						<p className=" text-xl  text-white text-center ">
-						Thank You For Visiting
-						</p>
+
+					<div className=''>
+						<Footer />
 					</div>
 				</div>
 			</section>

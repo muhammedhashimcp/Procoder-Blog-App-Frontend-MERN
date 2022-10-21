@@ -54,6 +54,7 @@ import {
 	DangerIcon,
 } from '@heroicons/react/outline';
 import { ExclamationIcon } from '@heroicons/react/solid';
+import Pagination from '../pagination/Pagination';
 export default function PostsList() {
 	// const [search, setSearch] = useState("");
 	const [showSidebar, setShowSidebar] = useState(false);
@@ -213,7 +214,7 @@ export default function PostsList() {
 											key={index}
 											className="mt-5 flex flex-wrap lg:h-92  bg-gray-300 -mx-3  lg:mb-6 shadow-md shadow-gray-500 "
 										>
-											<div className="h-full bg-pink-300  my-5 w-full  lg:w-1/4 px-4 py-4 p-20">
+											<div className="h-full bg-gray-300  my-5 w-full  lg:w-1/4 px-4 py-4 p-20">
 												<Link>
 													{/* Post image */}
 													<img
@@ -337,7 +338,7 @@ export default function PostsList() {
 														Read More..
 													</Link>
 												</div>
-												<div className="mt-10 flex justify-between">
+												<div className="mt-10 my-5 lg:mb-0 flex justify-between">
 													{/* User Avatar */}
 													<div className=" flex items-center ">
 														<div className="my-3 flex-shrink-0 ">
@@ -540,6 +541,9 @@ export default function PostsList() {
 										</div>
 									))
 								)}
+								<div className="flex justify-end mb-3">
+									<Pagination />
+								</div>
 							</div>
 						</div>
 					</div>

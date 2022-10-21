@@ -44,7 +44,7 @@ const AdminNavbar = ({isLogin}) => {
   return (
 		<Disclosure
 			as="nav"
-			className="bg-white border rounded-b-2xl drop-shadow sticky top-0"
+			className="bg-white border rounded-b-2xl drop-shadow sticky top-0 z-50"
 		>
 			{({ open }) => (
 				<>

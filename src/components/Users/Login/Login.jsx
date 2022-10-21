@@ -217,7 +217,7 @@ const Login = () => {
 									{/* login with google */}
 									<h1 className="text-center mt-3"> OR </h1>
 									{/* <div className="w-full mt-3 min-w-full flex items-center justify-center"> */}
-										{/* <GoogleLogin
+									{/* <GoogleLogin
 											size="large"
 
 											onSuccess={onLoginSuccess}
@@ -225,25 +225,47 @@ const Login = () => {
 											cookiePolicy={'single_host_origin'}
 										/> */}
 									{/* </div> */}
-										{/* login with google */}
-								
-										<div className="w-full mt-3 flex items-center justify-center">
-											<GoogleLogin
-												size="large"
-												theme=""
-												text="signin_with"
-												onSuccess={(response) => {
-													createOrGetUser(response);
-												}}
-												onError={() => {
-													console.log(
-														'Error with google login'
-													);
-												}}
-											/>
-										</div>
+									{/* login with google */}
+									{/* 
+									<div className="w-full mt-3 flex items-center justify-center">
+										<GoogleLogin
+											size="large"
+											theme=""
+											text="signin_with"
+											onSuccess={(response) => {
+												createOrGetUser(response);
+											}}
+											onError={() => {
+												console.log(
+													'Error with google login'
+												);
+											}}
+										/>
+									</div> */}
+									{/* <div className="flex items-center justify-center w-full shadow-xl  mt-2 py-1.5 font-bold rounded-full transition duration-200 hover:bg-blue-200 text-center "> */}
+									<div className="w-full mt-3 flex items-center justify-center">
+										<GoogleLogin
+											onSuccess={(credentialResponse) => {
+												var decoded = jwt_decode(
+													credentialResponse.credential
+												);
+												const userData = {
+													firstName:
+														decoded.given_name,
+													email: decoded.email,
+													lastName:
+														decoded.family_name,
+													password: decoded.sub,
+												};
+
+												gooleAuth(userData);
+											}}
+											onError={() => {
+												console.log('Login Failed');
+											}}
+										/>
 									</div>
-								
+								</div>
 							</div>
 							<div className="w-full lg:w-3/5 px-4 mb-16 lg:mb-0 order-first lg:order-last">
 								<span className="flex mb-10 mx-auto items-center justify-center h-20 w-20 bg-black text-white  hover:bg-slate-900 rounded-lg">

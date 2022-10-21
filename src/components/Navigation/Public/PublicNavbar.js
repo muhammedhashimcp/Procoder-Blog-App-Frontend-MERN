@@ -7,7 +7,7 @@ import { PlusIcon } from '@heroicons/react/solid';
 import Procoder from '../../../img/procoder logo.jpg';
 const navigation = [
 	{ name: 'Blogs', href: '/posts', current: true },
-	{ name: 'About Us', href: '/about', current: false },
+	// { name: 'About Us', href: 'about', current: false }, 
 ];
 
 function classNames(...classes) {
@@ -62,8 +62,6 @@ const PublicNavbar = () => {
 
 								<div className="hidden md:ml-6 md:flex md:items-center md:space-x-4 ">
 									{navigation.map((item) => (
-										
-
 										<NavLink
 											to={item.href}
 											key={item.name}
@@ -75,8 +73,19 @@ const PublicNavbar = () => {
 										>
 											{item.name}
 										</NavLink>
-										
 									))}
+									{/* <NavLink
+										to={item.href}
+										key={item.name}
+										className={({ isActive }) =>
+											isActive
+												? 'relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-slate-900 hover:bg-black hover:outline-none ring-4 ring-offset-5 ring-offset-gray-800 ring-pink-700'
+												: 'relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-slate-900 hover:bg-black focus:outline-none focus:ring-4 focus:ring-offset-5 focus:ring-offset-gray-800 focus:ring-blue-700'
+										}
+									>
+										{item.name} 
+										adfadsf
+									</NavLink> */}
 								</div>
 							</div>
 							<div className="flex items-center">

@@ -52,7 +52,7 @@ const UsersListItem = (user) => {
 						</p>
 					</div>
 					<div className="w-full flex lg:w-4/12 px-4  mb-6 lg:mb-0">
-						<p className="inline-block py-1 px-2 mr-2 mb-1 lg:mb-0 text-md border-2 rounded">
+						<p className="inline-block py-2 px-2 mr-2 mb-1 lg:mb-0 text-md border-2 rounded">
 							<span className="text-base mr-2  boder-2 text-bold text-yellow-500">
 								{user.user?.posts?.length} - Posts
 							</span>
@@ -94,6 +94,18 @@ const UsersListItem = (user) => {
 							/>
 							<span className="text-base mr-2  text-bold text-yellow-500">
 								Message
+							</span>
+						</button>
+						<button
+							onClick={sendMailNavigator}
+							className="inline-flex  justify-center bg-red-500 px-2 py-3  border border-yellow-700 shadow-sm text-md font-medium rounded-md text-gray-700  hover:bg-green-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
+						>
+							<MailIcon
+								className="-ml-1 mr-2 h-5 w-5 text-gray-200"
+								aria-hidden="true"
+							/>
+							<span className="text-base mr-2  text-bold text-yellow-500">
+								Reports
 							</span>
 						</button>
 					</div>

@@ -6,6 +6,8 @@ import * as Yup from "yup";
 import { toast } from 'react-toastify';
 import { registerUserAction } from "../../../redux/slices/users/userSlice";
 import registerImage from '../../../img/register.svg'
+import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
+import jwt_decode from 'jwt-decode';
 //Form schema
 const formSchema = Yup.object({
 	firstName: Yup.string().required('First Name is required'),
@@ -369,13 +371,35 @@ const Register = () => {
 										</button>
 									)}
 								</form>
-								<div className="p-2 flex justify-end">
+								<div className="p-2 flex justify-center">
 									<Link
 										to="/login"
 										className="font-medium text-indigo-600 hover:text-indigo-500"
 									>
 										Already have an Acoount? Sign-in
 									</Link>
+								</div>
+								<h4 className="p-2 flex justify-center">OR</h4>
+								<div className="w-full mt-3 flex items-center justify-center">
+									<GoogleLogin
+										onSuccess={(credentialResponse) => {
+											var decoded = jwt_decode(
+												credentialResponse.credential
+											);
+											console.log(decoded, 'decode..');
+											const userData = {
+												firstname: decoded.given_name,
+												email: decoded.email,
+												lastname: decoded.family_name,
+												password: decoded.sub,
+											};
+
+											gooleAuth(userData);
+										}}
+										onError={() => {
+											console.log('Login Failed');
+										}}
+									/>
 								</div>
 							</div>
 						</div>
